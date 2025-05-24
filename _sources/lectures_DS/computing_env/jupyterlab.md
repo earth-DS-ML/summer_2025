@@ -1,5 +1,6 @@
 # Intro to JupyterLab
 
+## JupyterLab
 [JupyterLab](https://jupyterlab.readthedocs.io) will be our primary method for
 interacting with the computer. JupyterLab contains a complete environment for
 interactive scientific computing which runs in your web browser. Jupyter is an
@@ -19,6 +20,9 @@ here, we point you to their docs. The following pages are particularly relevant:
 You will gain experience and familiarity with JupyterLab over the course of the
 semester as we use it in our weekly lectures and assignments.
 
+## Other development environments
+There are other ways to interact with the computer using python as well. A summary of these can be found [here](https://github.com/yutianwuldeo/GR6901/blob/main/week2_how_to_run_python.md).
+
 ## Markdown
 
 Throughout the course, we will write rich text documents using Markdown.
@@ -31,7 +35,7 @@ Here are some useful references on Markdown syntax.
 ## Our Course JupyterHub
 
 [JupyterHub](https://jupyter.org/hub) is multi-user Jupyter environment designed for companies, classrooms and research labs.
-The Columbia version of this course uses a cloud-based JupyterHub environment
+This course will use a cloud-based JupyterHub environment supported by the [NSF LEAP STC](https://leap.columbia.edu/) and
 managed by [2i2c](https://2i2c.org/infrastructure/):
 
-[![Launch JupyterHub](https://img.shields.io/badge/jupyterhub-us--central1--b.gcp.pangeo.io-orange?style=for-the-badge&logo=jupyter)]([https://pangeo.2i2c.cloud/](https://us-central1-b.gcp.pangeo.io/))
+[![Launch JupyterHub]([https://leap.2i2c.cloud/](https://leap.2i2c.cloud/))
