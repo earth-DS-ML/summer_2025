@@ -7,7 +7,7 @@ Steps to adding content:
 ```
 pip install -U jupyter-book
 ```
-- Add or make changes to content files needed.
+- Add or make changes to content files as needed.
 - build the book `jupyter-book build mybookname/`
 - To publish the changes online we use steps from [here](https://jupyterbook.org/en/stable/start/publish.html#publish-your-book-online-with-github-pages):
     - First install `pip install ghp-import` if you don't have it.
