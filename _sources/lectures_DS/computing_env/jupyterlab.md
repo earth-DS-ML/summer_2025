@@ -21,6 +21,7 @@ You will gain experience and familiarity with JupyterLab over the course of the
 semester as we use it in our weekly lectures and assignments.
 
 ## Other development environments
+
 There are other ways to interact with the computer using python as well. A summary of these can be found [here](https://github.com/yutianwuldeo/GR6901/blob/main/week2_how_to_run_python.md).
 
 ## Markdown
@@ -38,4 +39,4 @@ Here are some useful references on Markdown syntax.
 This course will use a cloud-based JupyterHub environment supported by the [NSF LEAP STC](https://leap.columbia.edu/) and
 managed by [2i2c](https://2i2c.org/infrastructure/):
 
-[![Launch JupyterHub]([https://leap.2i2c.cloud/](https://leap.2i2c.cloud/))
+[![Launch JupyterHub](https://img.shields.io/badge/jupyterhub-leap.2i2c.cloud-orange?style=for-the-badge&logo=jupyter)](https://leap.2i2c.cloud/)
