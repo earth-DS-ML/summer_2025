@@ -1,5 +1,7 @@
 # Intro to Git for Version Control
 
+An introduction to basics of Git.
+
 *The notes below are adapted from our [textbook](https://earth-env-data-science.github.io/lectures/environment/intro_to_git.html#) and [Pythia Foundations](https://foundations.projectpythia.org/foundations/getting-started-github.html).*
 
 ---
