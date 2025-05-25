@@ -60,7 +60,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'lectures_DS/computing_env/jupyterlab';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="prev" title="Earth Science and Data" href="../DS_intro.html" />
+    <link rel="next" title="Intro to Unix" href="intro_to_unix.html" />
+    <link rel="prev" title="Welcome to Earth Data Science and Machine Learning Course Series" href="../../intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -178,13 +179,11 @@
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Value of data science</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../DS_intro.html">Earth Science and Data</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">The Interactive Computing Environment</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">The Interactive Computing Environment</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Intro to JupyterLab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro_to_unix.html">Intro to Unix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assignment1.html">Assignment 1: Files, Git, and Github</a></li>
 </ul>
 
     </div>
@@ -384,6 +383,8 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-development-environments">Other development environments</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#markdown">Markdown</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#our-course-jupyterhub">Our Course JupyterHub</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-git-github-from-remote-jupyterhub">Using Git / GitHub from remote JupyterHub</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-environments">Python Environments</a></li>
 </ul>
             </nav>
         </div>
@@ -437,6 +438,36 @@ A more user-friendly syntax guide.</p></li>
 This course will use a cloud-based JupyterHub environment supported by the <a class="reference external" href="https://leap.columbia.edu/">NSF LEAP STC</a> and
 managed by <a class="reference external" href="https://2i2c.org/infrastructure/">2i2c</a>:</p>
 <p><a class="reference external" href="https://leap.2i2c.cloud/"><img alt="Launch JupyterHub" src="https://img.shields.io/badge/jupyterhub-leap.2i2c.cloud-orange?style=for-the-badge&amp;logo=jupyter" /></a></p>
+<p>A lot of documentation about this hub can be found at <a class="reference external" href="https://leap-stc.github.io/intro.html">https://leap-stc.github.io/intro.html</a></p>
+</section>
+<section id="using-git-github-from-remote-jupyterhub">
+<h2>Using Git / GitHub from remote JupyterHub<a class="headerlink" href="#using-git-github-from-remote-jupyterhub" title="Link to this heading">#</a></h2>
+<p>The recommended way to move code in and out of a remote hub is via git / GitHub.
+You should clone your project repo from the terminal and use git pull / git push to update and push changes.
+In order to push data to GitHub from the hub, you will need to set up GitHub authentication.
+<a class="reference external" href="https://github.com/yuvipanda/gh-scoped-creds/">gh-scoped-creds</a> should be already setup
+on your 2i2c managed JupyterHub, and we shall use that to authenticate to GitHub for
+push / pull access.</p>
+<p>Open a terminal in JupyterHub, run <code class="docutils literal notranslate"><span class="pre">gh-scoped-creds</span></code> and follow the prompts.</p>
+<p>Alternatively, in a notebook, run the following code and follow the prompts:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gh_scoped_creds</span>
+<span class="o">%</span><span class="n">ghscopedcreds</span>
+</pre></div>
+</div>
+<p>You should now be able to push to GitHub from the hub! These credentials will expire after
+8 hours (or whenever your JupyterHub server stops), and you’ll have to repeat these steps
+to fetch a fresh set of credentials. Once you authenticate, you’ll be provided with a link
+to a <a class="reference external" href="https://docs.github.com/en/developers/apps/getting-started-with-apps/about-apps">GitHub App</a>
+that you have to <a class="reference external" href="https://docs.github.com/en/developers/apps/managing-github-apps/installing-github-apps">install</a>
+on the repositories you want to be able to push to from this particular JupyterHub. You only
+need to do this once per JupyterHub, and can revoke access any time. You can always provide
+access to your own personal repositories, but might need approval from admins of GitHub
+organizations if you want to push to repos in that organization.</p>
+</section>
+<section id="python-environments">
+<h2>Python Environments<a class="headerlink" href="#python-environments" title="Link to this heading">#</a></h2>
+<p>On the LEAP hub everyone uses a common environment, which is inherited from these <a class="reference external" href="https://github.com/pangeo-data/pangeo-docker-images/">docker images</a>.</p>
+<p>A thorough description of how to manage your own environment when needed can be found in: <a class="reference external" href="https://earth-env-data-science.github.io/lectures/environment/python_environments.html">https://earth-env-data-science.github.io/lectures/environment/python_environments.html</a></p>
 </section>
 </section>
 
@@ -471,13 +502,22 @@ managed by <a class="reference external" href="https://2i2c.org/infrastructure/"
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../DS_intro.html"
+       href="../../intro.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Earth Science and Data</p>
+        <p class="prev-next-title">Welcome to Earth Data Science and Machine Learning Course Series</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="intro_to_unix.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Intro to Unix</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -499,6 +539,8 @@ managed by <a class="reference external" href="https://2i2c.org/infrastructure/"
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-development-environments">Other development environments</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#markdown">Markdown</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#our-course-jupyterhub">Our Course JupyterHub</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-git-github-from-remote-jupyterhub">Using Git / GitHub from remote JupyterHub</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-environments">Python Environments</a></li>
 </ul>
   </nav></div>
 

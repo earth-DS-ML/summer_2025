@@ -60,7 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'intro';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Earth Science and Data" href="lectures_DS/DS_intro.html" />
+    <link rel="next" title="Intro to JupyterLab" href="lectures_DS/computing_env/jupyterlab.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -180,13 +180,12 @@
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Value of data science</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="lectures_DS/DS_intro.html">Earth Science and Data</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">The Interactive Computing Environment</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">The Interactive Computing Environment</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="lectures_DS/computing_env/jupyterlab.html">Intro to JupyterLab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lectures_DS/computing_env/intro_to_unix.html">Intro to Unix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lectures_DS/computing_env/intro_to_git.html">Intro to Git for Version Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lectures_DS/computing_env/assignment1.html">Assignment 1: Files, Git, and Github</a></li>
 </ul>
 
     </div>
@@ -359,7 +358,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -375,6 +376,17 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#history-and-origins">History and Origins</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation-and-scope">Motivation and Scope</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-goals">Learning Goals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#course-structure">Course structure</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -391,19 +403,52 @@ document.write(`
 <li><p><em>Computing and Research Methods for Climate Data Science</em> (CLMT5405)</p></li>
 <li><p><em>Machine Learning for Climate Science and Environmental Sustainability</em></p></li>
 </ul>
-<p>Most of the content for the past of this series, CLMT5405, derives from pervious versions of this course, which can be found in <a class="reference external" href="https://earth-env-data-science.github.io/">this online book</a> from 2021 by Ryan Abernathey or in this <a class="reference external" href="https://github.com/yutianwuldeo/GR6901">repo</a> from 2024 by Yutian Wu.</p>
-<p>A table of contents for this course can be seen on the left or below:</p>
-<div class="toctree-wrapper compound">
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Value of data science</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="lectures_DS/DS_intro.html">Earth Science and Data</a></li>
+<section id="history-and-origins">
+<h2>History and Origins<a class="headerlink" href="#history-and-origins" title="Link to this heading">#</a></h2>
+<p>Most of the content for CLMT5405, derives from pervious versions of this course, which can be found in <a class="reference external" href="https://earth-env-data-science.github.io/">this online book</a> from 2021 by Ryan Abernathey. A more recent update can be found in <a class="reference external" href="https://github.com/yutianwuldeo/GR6901">repo</a> from 2024 by Yutian Wu.</p>
+</section>
+<section id="motivation-and-scope">
+<h2>Motivation and Scope<a class="headerlink" href="#motivation-and-scope" title="Link to this heading">#</a></h2>
+<p>Computing has become an indispensable tool for nearly all Earth and Environmental Scientists, but it doesn’t often appear in our curriculums.
+This material focuses on <em>data analysis</em>, a subset of computing in which the data already exist, e.g.from observations or from the output of a simulation, but have to be transformed into understanding.
+There are many different ways to gain understanding, but most workflows often boil down to:</p>
+<ul class="simple">
+<li><p>read data files</p></li>
+<li><p>perform some analysis operations, from very simple (e.g. take the mean) to very complex (e.g. train a deep neural network)</p></li>
+<li><p>visualize the output in a plot</p></li>
 </ul>
-</div>
-<div class="toctree-wrapper compound">
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">The Interactive Computing Environment</span></p>
+<p>CLMT5405 doesn’t attempt to teach deep learning; its goal is to teach the basic foundations of Earth and Environmental Data Science which are often overlooked.
+The material is designed to be accessible for Earth Science graduate students in any discipline, with little to no prerequisites.</p>
+<p>This material is intended to introduce new graduate students to modern computing software, programming tools and best practices that are broadly applicable to the analysis and visualization of Earth and Environmental data.
+This includes an introduction to Unix, version control, and basic programming in the open-source Python language.
+The bulk of the content is devoted to in-depth exploration of the numerical analysis and visualization packages which comprise the modern Scientific Python ecosystem, including Numpy, Scipy, Matplotlib, Pandas, Xarray, using real Earth and Environmental datasets.</p>
+</section>
+<section id="learning-goals">
+<h2>Learning Goals<a class="headerlink" href="#learning-goals" title="Link to this heading">#</a></h2>
+<p>After completing all of the material, students should have the ability to:</p>
+<ul class="simple">
+<li><p>Use unix commands to work with files and directories</p></li>
+<li><p>Navigate the JupyterHub Environment effectively</p></li>
+<li><p>Identify common geoscience data formats and the python packages which can load them</p></li>
+<li><p>Perform basic exploratory data analysis on Earth and Environmental data, distinguishing between</p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="lectures_DS/computing_env/jupyterlab.html">Intro to JupyterLab</a></li>
+<li><p><em>Tabular data</em>: rows and columns</p></li>
+<li><p><em>Gridded data</em>: multidimensional numerical arrays</p></li>
 </ul>
+</li>
+<li><p>Use visualization to enhance interpretation of data, including maps and interactive visualizations</p></li>
+<li><p>Construct complete, well-structured programs in Python</p></li>
+<li><p>Practice reproducible research through version control and binder</p></li>
+</ul>
+</section>
+<section id="course-structure">
+<h2>Course structure<a class="headerlink" href="#course-structure" title="Link to this heading">#</a></h2>
+<p>For most weeks the general idea would be to complete one lecture and one homework assignment per week.
+Generally, one of the weekly meetings would consist of a lecture in which the instructor presents the week’s lecture, with students typing along.
+The other should be used as “collaborative time,” during which the students work on their assignments, ask questions, and interact with their peers.
+A final project is an important capstone experience for a semester-long course.</p>
+</section>
+<div class="toctree-wrapper compound">
 </div>
 </section>
 
@@ -438,11 +483,11 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="right-next"
-       href="lectures_DS/DS_intro.html"
+       href="lectures_DS/computing_env/jupyterlab.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Earth Science and Data</p>
+        <p class="prev-next-title">Intro to JupyterLab</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -452,6 +497,24 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#history-and-origins">History and Origins</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation-and-scope">Motivation and Scope</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-goals">Learning Goals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#course-structure">Course structure</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
