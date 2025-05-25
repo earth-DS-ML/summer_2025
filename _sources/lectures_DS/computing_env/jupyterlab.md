@@ -25,6 +25,8 @@ semester as we use it in our weekly lectures and assignments.
 
 There are other ways to interact with the computer using python as well. A summary of these can be found [here](https://github.com/yutianwuldeo/GR6901/blob/main/week2_how_to_run_python.md).
 
+A popular one is [Google Colab](https://colab.research.google.com/)
+
 ## Markdown
 
 Throughout the course, we will write rich text documents using Markdown.
