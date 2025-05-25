@@ -295,7 +295,7 @@ $ cd /home/jovyan/examples
 
 Run `pwd` and `ls -F` to ensure that we're in the directory we expect.  
 
-#### Two More Shortcuts
+### Two More Shortcuts
 
 The shell interprets the character `~` (tilde) at the start of a path to
 mean "the current user's home directory". For example, if your home
@@ -310,7 +310,7 @@ and forth between directories. The difference between `cd ..` and `cd -` is
 that the former brings you *up*, while the latter brings you *back*. You can
 think of it as the *Last Channel* button on a TV remote.
 
-#### Tab Completion
+### Tab Completion
 
 Typing the full path to directories and files can be slow and annoying.
 Fortunately, we have "tab completion" to help us. Try typing `cd ex` and then
@@ -319,7 +319,7 @@ Pressing tab twice brings up a list of all the files, and so on.
 This is called **tab completion**,
 and we will see it in many other tools as we go on.
 
-#### Key Points:
+### Key Points:
 - "The file system is responsible for managing information on the disk."
 - "Information is stored in files, which are stored in directories (folders)."
 - "Directories can also store other directories, which forms a directory tree."
@@ -459,7 +459,7 @@ $ ls
 ~~~
 
 
-#### Deleting Is Forever
+### Deleting Is Forever
 
 The Unix shell doesn't have a trash bin that we can recover deleted
 files from (though most graphical interfaces to Unix do).  Instead,
@@ -501,7 +501,7 @@ $ rm -r thesis
 ~~~
 
 
-#### With Great Power Comes Great Responsibility
+### With Great Power Comes Great Responsibility
 
  Removing the files in a directory recursively can be very dangerous
  operation. If we're concerned about what we might be deleting we can
