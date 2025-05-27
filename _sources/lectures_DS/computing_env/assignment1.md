@@ -47,5 +47,5 @@ Now that you know how to create a git repository, you should create your assignm
 - Add the file and make your first commit
 - Create a new **private** repository on GitHub called `rces-assignments`. (Call it exactly like that. Do not vary the spelling, capitalization, or punctuation.)
 - Push your `rces-assignments` repository to GitHub
-- On GitHub, go to "settings" -> "collaborators" and add `dhruvbalwada` and `CD`.
+- On GitHub, go to "settings" -> "collaborators" and add `dhruvbalwada` and `ChhaviDixit`.
 - Push new commits to this repository whenever you are ready to hand in your assignments
