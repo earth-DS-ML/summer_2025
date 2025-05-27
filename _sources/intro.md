@@ -7,6 +7,7 @@ This is the online home for the first of the two summer 2025 courses:
 ## History and Origins of the course
 Most of the content for CLMT5405, derives from pervious versions of this course, which can be found in [this online book](https://earth-env-data-science.github.io/) from 2021 by Ryan Abernathey. A more recent update can be found in [repo](https://github.com/yutianwuldeo/GR6901) from 2024 by Yutian Wu.
 
+Another excellent resource is available through [Project Pythia](https://foundations.projectpythia.org/landing-page.html).
 
 ## Motivation and Scope
 
@@ -37,7 +38,7 @@ After completing all of the material, students should have the ability to:
   - _Gridded data_: multidimensional numerical arrays
 - Use visualization to enhance interpretation of data, including maps and interactive visualizations
 - Construct complete, well-structured programs in Python
-- Practice reproducible research through version control and binder
+- Practice reproducible research through version control
 
 ## Course structure
 

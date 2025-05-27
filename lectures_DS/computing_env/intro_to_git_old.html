@@ -1,0 +1,979 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Intro to Git for Version Control &#8212; Earth Data Science and Machine Learning</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lectures_DS/computing_env/intro_to_git_old';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo_class.png" class="logo__image only-light" alt="Earth Data Science and Machine Learning - Home"/>
+    <script>document.write(`<img src="../../_static/logo_class.png" class="logo__image only-dark" alt="Earth Data Science and Machine Learning - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Welcome to Earth Data Science and Machine Learning Course Series
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">The Interactive Computing Environment</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="jupyterlab.html">Intro to JupyterLab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro_to_unix.html">Intro to Unix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro_to_git.html">Intro to Git for Version Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assignment1.html">Assignment 1: Files, Git, and Github</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../data/data.html">All About Data</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/earth-DS-ML/summer_2025" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/earth-DS-ML/summer_2025/issues/new?title=Issue%20on%20page%20%2Flectures_DS/computing_env/intro_to_git_old.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/lectures_DS/computing_env/intro_to_git_old.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Intro to Git for Version Control</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#github">GitHub</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">GitHub</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#github-repositories">GitHub Repositories</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#github-workflows">GitHub Workflows</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#forking-workflow">Forking Workflow</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fork-the-official-upstream-remote-repository">Fork the official upstream remote repository</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clone-the-personal-remote-repository">Clone the personal remote repository</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#start-with-the-main-branch">Start with the main branch</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-new-branch">Create a new branch</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#make-changes-and-commit">Make changes and commit</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#staging">Staging</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#committing">Committing</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#going-back-in-time">Going back in time</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#push-the-feature-branch-to-the-personal-remote-repository">Push the feature branch to the personal remote repository</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#make-a-pull-request">Make a Pull Request</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="intro-to-git-for-version-control">
+<h1>Intro to Git for Version Control<a class="headerlink" href="#intro-to-git-for-version-control" title="Link to this heading">#</a></h1>
+<p>An introduction to basics of Git.</p>
+<p><em>The notes below are adapted from our <a class="reference external" href="https://earth-env-data-science.github.io/lectures/environment/intro_to_git.html#">textbook</a> and <a class="reference external" href="https://foundations.projectpythia.org/foundations/getting-started-github.html">Pythia Foundations</a>.</em></p>
+<hr class="docutils" />
+<section id="overview">
+<h2>Overview:<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Version_control">Version control</a> is a powerful way to organize, back up, and share with collaborators your research computing code.
+A Verson control system keeps track of a set of files and saves snapshots (i.e. <em>versions</em>, <em>commits</em>) of the files at any point in time.
+Using version control allows you to confidently make changes to your code (any any other files), with the ability to roll back to any previous state. This help avoid filling our directories up with files that look like this:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>my_code.py
+my_code_version2.py
+my_code_version2B-RPA-edit.py
+my_code_FINAL_VERSION.py
+my_code_THIS_IS_ACTUALLY_THE FINAL VERSION.py
+</pre></div>
+</div>
+<p>Version control also allows you to share code with collaborators, make simultaneous edits, and merge your changes in a systematic, controlled way.</p>
+<p>Version control has been used for a long time in software development.
+More recently, it has become an essential part of modern data and computational science.
+Our strong recommendation is that <em>all of your research code be stored in a version control system</em>.</p>
+<p>The tool we will be using for version control is called <a class="reference external" href="https://git-scm.com">Git</a>.
+Git is incredibly powerful–it also has a somewhat steep learning curve.
+Fortunately, in this class, we will only be using a small subset of what git can do, avoiding the more complex aspects.</p>
+<p>For a full-length tutorial, we recommend the article <a class="reference external" href="http://swcarpentry.github.io/git-novice/">Version Control with Git</a> on Software Carpentry website.
+Here we simply enumerate the most common git commands.</p>
+</section>
+<section id="github">
+<h2>GitHub<a class="headerlink" href="#github" title="Link to this heading">#</a></h2>
+<section id="id1">
+<h3>GitHub<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://github.com">GitHub</a> is a web-based platform for the dissemination of free and open-source software.</p>
+<p>GitHub provides the following:</p>
+<ol class="arabic simple">
+<li><p><em>Version control</em> for free and open-source software and other digital assets</p></li>
+<li><p>Project <em>discussion forums</em></p></li>
+<li><p><em>DevOps</em> to facilitate building and testing software</p></li>
+<li><p><em>Bug</em> reporting, patching, and tracking</p></li>
+<li><p><em>Documentation</em> hosting</p></li>
+<li><p>An environment that fosters <em>collaboration</em></p></li>
+</ol>
+<p>Although GitHub can host any digital asset, the most common use case for GitHub is for individuals or organizations to house <em>repositories</em> of <em>free</em> and <em>open-source software</em>.</p>
+<p>You can set up a free user account on GitHub.</p>
+</section>
+<section id="github-repositories">
+<h3>GitHub Repositories<a class="headerlink" href="#github-repositories" title="Link to this heading">#</a></h3>
+<p>GitHub gives the following explanation of a <a class="reference external" href="https://docs.github.com/en/get-started/quickstart/hello-world">repository</a>:</p>
+<blockquote>
+<div><p>A repository is usually used to organize a single project. Repositories can contain folders and files, images, videos, spreadsheets, and data sets – anything your project needs. Often, repositories include a <code class="docutils literal notranslate"><span class="pre">README</span></code> file, a file with information about your project. GitHub makes it easy to add one at the same time you create your new repository. It also offers other common options such as a license file.</p>
+</div></blockquote>
+<p>In short, it is a <em>collection of files</em>. Each GitHub repository has an <em>owner</em>, which could be an individual or an organization. Repositories can also be set to <em>public</em> or <em>private</em>, determining who can see and interact with it. While a repository can simply store files, GitHub is designed with <strong>collaboration</strong> in mind. Three key collaborative tools in GitHub are:</p>
+<ol class="arabic simple">
+<li><p><strong>Issues</strong>: report a bug, plan improvements, or provide feedback to others working on the repository.</p></li>
+<li><p><strong>Discussions</strong>: post ideas or other conversations that are not as specific or actionable as an <strong>Issue</strong>.</p></li>
+<li><p><strong>Pull requests</strong>: We will go into the specifics later, but a <strong>Pull request</strong> allows a user to <em>propose a change</em> to any of the files within a repository.</p></li>
+</ol>
+<p>All of the Python packages covered (e.g. <a class="reference external" href="https://github.com/numpy/numpy">Numpy</a> and <a class="reference external" href="https://github.com/pydata/xarray">Xarray</a>) have associated GitHub repositories, as well as <a class="reference external" href="https://github.com/python/cpython">Python itself</a>.</p>
+<p>As you can see by the recent timestamps, these repositories are actively changing; this reflects the adaptability of the <a class="reference external" href="https://opensource.org/osd">open-source software</a> ecosystem surrounding Python.</p>
+<p>Finally, we introduce an important concept that is vital to your
+understanding when working with GitHub. It is the source of GitHub’s power, as well
+as much of its complexity. GitHub repositories
+are <em>distributed</em>; in the general case, there is more than one
+repository for any project. In fact, repositories can come and go
+at any time, created and deleted as need dictates. Creating new
+repositories from existing ones, synchronizing them, and managing them
+are the topics of later sections. For now, it is only important to
+understand that for a GitHub-managed project, there is typically one
+“official” repository, often called the “upstream” repository, and it lives on <a class="reference external" href="http://GitHub.com">GitHub.com</a>. There may be any
+number of copies of the “official” repository, known as <em>forks</em> (or <em>origins</em>,
+if it is owned by you),
+that also reside on <a class="reference external" href="http://GitHub.com">GitHub.com</a>. Repos that are hosted on <a class="reference external" href="http://GitHub.com">GitHub.com</a>
+are referred to as <em>remotes</em>. In addition to the remotes, there may
+be one or more copies of the remotes on your desktop or laptop
+computer that are referred to as <em>locals</em>. A conceptual diagram of
+the various repos is shown in the image below.</p>
+<p><img alt="GitHub repositories" src="../../_images/github-repos.png" /></p>
+</section>
+</section>
+<section id="github-workflows">
+<h2>GitHub Workflows<a class="headerlink" href="#github-workflows" title="Link to this heading">#</a></h2>
+<p>GitHub, together with Git, are powerful tools for managing and
+collaborating on all kinds of digital assets, such as software,
+documentation, and even manuscripts for research papers. Like other
+complex software environments, often these tools can be employed
+in many different ways to accomplish the same goal. In order to
+effectively and consistently use Git and GitHub, over the years a
+variety of best practices have evolved for supporting different
+modes of collaboration. Collectively these different models, or
+recipes, are referred to as <em>workflows</em>.</p>
+<p>A typical sequence of workflow steps consists of the following:</p>
+<ol class="arabic simple">
+<li><p>A contributor clones a personal remote repository, creating a local copy</p></li>
+<li><p>The contributor creates a new branch in their local repository</p></li>
+<li><p>The contributor makes changes to the branch and commits them to
+their local repository</p></li>
+<li><p>The contributor pushes the branch to a remote repository</p></li>
+<li><p>The contributor submits a Pull Request via GitHub</p></li>
+</ol>
+<p>The sequence of steps
+outlined above provides a general framework for submitting a PR.
+But the precise set of steps is highly dependent on the choice of
+workflow for a given project. Typically there are two commonly used workflows: The <strong>Git Feature Branch
+Workflow</strong> and the <strong>Forking Workflow</strong>. The former is simpler and often
+used by teams when everyone on the team is an authorized contributor
+to the destination repository. I.e. all of the contributors have
+write access to the remote repository hosted by GitHub. The latter
+is typically what is needed to contribute to external projects for
+which the contributor is not authorized (i.e. does not have write
+access) to make changes to the destination repository.</p>
+<p>There are many similarities in the two workflows. We describe the <strong>Forking Workflow</strong> as an example and include the steps necessary to
+make a PR.</p>
+</section>
+<section id="forking-workflow">
+<h2>Forking Workflow<a class="headerlink" href="#forking-workflow" title="Link to this heading">#</a></h2>
+<p>The key idea behind both workflows (i.e. <strong>Git Feature Branch Workflow</strong> and <strong>Forking Workflow</strong>) is that all development (all changes) should take place on a dedicated Git <em>feature</em> branch, not the <em>main</em> (historically referred to as <em>master</em>) branch. The motivation behind this is that one or more developers can iterate over a feature branch without disturbing the contents of the main branch. Avoiding making edits directly on the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch is considered best practice for most workflows and projects!</p>
+<p>Git <strong>branches</strong> allow for non-linear or differing revision histories of a repository. At a point in time, you can split your repository into multiple development paths (branches) where you can make different commits in each, typically with the ultimate intention of merging these branches and development changes together at a later time. Some reasons for wanting to split your repository into multiple branches is to experiment with different methods of solving a problem (before deciding which method will ultimately be merged) and to work on different problems within the same codebase (without confusing which code changes are relevant to which problem).</p>
+<p>First of all, set up your username and email:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="k">global</span> <span class="n">user</span><span class="o">.</span><span class="n">name</span> <span class="s2">&quot;Yutian Wu&quot;</span>
+<span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="k">global</span> <span class="n">user</span><span class="o">.</span><span class="n">email</span> <span class="s2">&quot;yutianwu@ldeo.columbia.edu&quot;</span>
+</pre></div>
+</div>
+<section id="fork-the-official-upstream-remote-repository">
+<h3>Fork the official upstream remote repository<a class="headerlink" href="#fork-the-official-upstream-remote-repository" title="Link to this heading">#</a></h3>
+<p>In a fork, you create a copy of an existing repository, but store it in your own personal GitHub organization (recall that when you create a GitHub account, the <em>organization</em> name is your GitHub user ID).</p>
+<p>As an example, we intend to make some changes to the <a class="reference external" href="https://github.com/ProjectPythia/github-sandbox">Project Pythia Sandbox</a> repo, that ultimately we’ll submit to the original repository as a <em>Pull request</em>.</p>
+<p>Notice at the top right of the repo, there is a <em>Fork</em> button.</p>
+<p>Click on it and create a new fork in your personal GitHub organization.</p>
+<p>You now have a copy (essentially a clone) of the forked repository, which is now owned by you.</p>
+<p>You could, at this point, select one of the files in the repository and use GitHub’s built-in editor to make changes to these text-based files. However, the typical use case that leverages the collaborative power of GitHub and its command-line cousin, <em>git</em>, involves <em>cloning</em> your <em>forked</em> copy of the repo to your local computer, where you can then perform your edits, and (in the case of software) test them on your system.</p>
+</section>
+<section id="clone-the-personal-remote-repository">
+<h3>Clone the personal remote repository<a class="headerlink" href="#clone-the-personal-remote-repository" title="Link to this heading">#</a></h3>
+<p>Cloning a remote repository can be done with the <code class="docutils literal notranslate"><span class="pre">git</span></code> command line
+tools and the general form of the command looks like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">repository</span><span class="o">-</span><span class="n">url</span> <span class="n">local</span><span class="o">-</span><span class="n">directory</span><span class="o">-</span><span class="n">name</span>
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">repository-url</span></code> is the URL for the GitHub repo that you want
+to clone, and <code class="docutils literal notranslate"><span class="pre">local-directory-name</span></code> is the directory path on your
+local machine into which you want to create the clone. The local
+directory need not already exist. The clone command will create the
+local directory for you. If you don’t know the URL for your
+repository, navigate your web browser to your GitHub repository,
+and click on the <code class="docutils literal notranslate"><span class="pre">Code</span></code> button. The URL will be displayed.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">yutianwuldeo</span><span class="o">/</span><span class="n">github</span><span class="o">-</span><span class="n">sandbox</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+<p>Replace with your GitHub username.</p>
+<p>Note, we did not specify a <code class="docutils literal notranslate"><span class="pre">local-directory_name</span></code> here, so git will
+use the <code class="docutils literal notranslate"><span class="pre">base</span> <span class="pre">name</span></code> of the <code class="docutils literal notranslate"><span class="pre">repository_url</span></code>, “github-sandbox” as
+the local directory.</p>
+</section>
+<section id="start-with-the-main-branch">
+<h3>Start with the main branch<a class="headerlink" href="#start-with-the-main-branch" title="Link to this heading">#</a></h3>
+<p>Continuing with our example above, make sure you are on the main
+branch and that it is up to date with the remote repository main:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">github</span><span class="o">-</span><span class="n">sandbox</span>
+<span class="n">git</span> <span class="n">checkout</span> <span class="n">main</span>
+<span class="n">git</span> <span class="n">pull</span>
+</pre></div>
+</div>
+<p>You should see output that looks like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Already</span> <span class="n">on</span> <span class="s1">&#39;main&#39;</span>
+<span class="n">Already</span> <span class="n">up</span> <span class="n">to</span> <span class="n">date</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>You can verify the branch by:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">branch</span>
+</pre></div>
+</div>
+<p>Now inspect this repository with</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">status</span>
+</pre></div>
+</div>
+<p>which will always give you information about the current git repo. Try it!</p>
+</section>
+<section id="create-a-new-branch">
+<h3>Create a new branch<a class="headerlink" href="#create-a-new-branch" title="Link to this heading">#</a></h3>
+<p>You may have noticed that the file <code class="docutils literal notranslate"><span class="pre">sample.txt</span></code> in the <code class="docutils literal notranslate"><span class="pre">github-sandbox</span></code> repository contains a typo. Here we’re going to fix the error and save it locally.</p>
+<p>Before we start editing files, the first thing to do is to <em>create a new branch</em> where we can safely make any changes we want. While there’s nothing stopping us from making changes directly to the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch, it’s often best to avoid this! The reason is that it makes collaboration trickier.</p>
+<p>Let’s create and checkout a new branch in one line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">fix</span><span class="o">-</span><span class="n">typo</span>
+</pre></div>
+</div>
+<p>You can verify the branch by:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">branch</span>
+</pre></div>
+</div>
+<p>Now try your new best friend again:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">status</span>
+</pre></div>
+</div>
+<p>You should see something like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">On</span> <span class="n">branch</span> <span class="n">fix</span><span class="o">-</span><span class="n">typo</span>
+<span class="n">nothing</span> <span class="n">to</span> <span class="n">commit</span><span class="p">,</span> <span class="n">working</span> <span class="n">tree</span> <span class="n">clean</span>
+</pre></div>
+</div>
+<p>This tells us that we have switched over to a new branch called <code class="docutils literal notranslate"><span class="pre">fix-typo</span></code>, but there are not (yet) any changes to the files in the repo.</p>
+</section>
+<section id="make-changes-and-commit">
+<h3>Make changes and commit<a class="headerlink" href="#make-changes-and-commit" title="Link to this heading">#</a></h3>
+<p>Now do the following:</p>
+<ul class="simple">
+<li><p>Using your favorite text editor, open the file <code class="docutils literal notranslate"><span class="pre">github-sandbox/sample.txt</span></code>.</p></li>
+<li><p>Replace the word <code class="docutils literal notranslate"><span class="pre">Fxing</span></code> with the much more satisfying <code class="docutils literal notranslate"><span class="pre">Fixing</span></code>.</p></li>
+<li><p>Save the changes.</p></li>
+<li><p>Revisit your new best friend <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span></code>. It should now show something like this:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">On</span> <span class="n">branch</span> <span class="n">fix</span><span class="o">-</span><span class="n">typo</span>
+<span class="n">Changes</span> <span class="ow">not</span> <span class="n">staged</span> <span class="k">for</span> <span class="n">commit</span><span class="p">:</span>
+  <span class="p">(</span><span class="n">use</span> <span class="s2">&quot;git add &lt;file&gt;...&quot;</span> <span class="n">to</span> <span class="n">update</span> <span class="n">what</span> <span class="n">will</span> <span class="n">be</span> <span class="n">committed</span><span class="p">)</span>
+  <span class="p">(</span><span class="n">use</span> <span class="s2">&quot;git restore &lt;file&gt;...&quot;</span> <span class="n">to</span> <span class="n">discard</span> <span class="n">changes</span> <span class="ow">in</span> <span class="n">working</span> <span class="n">directory</span><span class="p">)</span>
+	<span class="n">modified</span><span class="p">:</span>   <span class="n">sample</span><span class="o">.</span><span class="n">txt</span>
+
+<span class="n">no</span> <span class="n">changes</span> <span class="n">added</span> <span class="n">to</span> <span class="n">commit</span> <span class="p">(</span><span class="n">use</span> <span class="s2">&quot;git add&quot;</span> <span class="ow">and</span><span class="o">/</span><span class="ow">or</span> <span class="s2">&quot;git commit -a&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here <code class="docutils literal notranslate"><span class="pre">git</span></code> is telling us that the file <code class="docutils literal notranslate"><span class="pre">sample.txt</span></code> does <em>not</em> match what’s in the repository.</p>
+<p>Of course we know what changed in that file because we just finished editing it. But here’s a quick and easy way to see the changes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">diff</span>
+</pre></div>
+</div>
+<p>which, by default, compares files between current version and last commit, and should show you something like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>diff --git a/sample.txt b/sample.txt
+index 4bc074c..edc31c0 100644
+--- a/sample.txt
++++ b/sample.txt
+@@ -4,6 +4,6 @@ We can use it to demonstrate making pull requests or raising issues in a GitHub
+
+ One good way to contribute to a project is to make additions and/or edits to documentation!
+
+-Fxing something as simple as a typo is a great way to get started as a contributor!
++Fixing something as simple as a typo is a great way to get started as a contributor!
+
+ Or, consider adding some more content to this file.
+</pre></div>
+</div>
+<p>We can see here that <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">diff</span></code> finds the line(s) where our current file differs from what’s in the repo, along with a few lines before and after for context.</p>
+<p>The next step is to add our changes to the “official” history of our repo. This is a two-step process (staging and committing).</p>
+<p><img alt="GitHub repositories" src="../../_images/git_image.png" /></p>
+<section id="staging">
+<h4>Staging<a class="headerlink" href="#staging" title="Link to this heading">#</a></h4>
+<p>Before we make a commit, we must first stage our changes. Think of staging simply as “getting ready to commit”. The two-step process can help avoid accidentally committing something that wasn’t ready.</p>
+<p>To stage our changes, we use <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span></code> like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">add</span> <span class="n">sample</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>and now our new best friend tells us</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">On</span> <span class="n">branch</span> <span class="n">fix</span><span class="o">-</span><span class="n">typo</span>
+<span class="n">Changes</span> <span class="n">to</span> <span class="n">be</span> <span class="n">committed</span><span class="p">:</span>
+  <span class="p">(</span><span class="n">use</span> <span class="s2">&quot;git restore --staged &lt;file&gt;...&quot;</span> <span class="n">to</span> <span class="n">unstage</span><span class="p">)</span>
+	<span class="n">modified</span><span class="p">:</span>   <span class="n">sample</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>Now we see that all-important line <code class="docutils literal notranslate"><span class="pre">Changes</span> <span class="pre">to</span> <span class="pre">be</span> <span class="pre">committed</span></code>, telling us the contents of our staging area.</p>
+<p>If you made a mistake (e.g., staged the wrong file), you can always unstage using <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">restore</span></code> as shown in the <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span></code> output. Nothing is permanent until we commit!</p>
+<p>(And if you accidentally commit the wrong thing? Don’t worry, you can always “go back in time” to previous commits – see below!)</p>
+</section>
+<section id="committing">
+<h4>Committing<a class="headerlink" href="#committing" title="Link to this heading">#</a></h4>
+<p>It’s time to make a commitment. We can now permanently add our edit to the history of our <code class="docutils literal notranslate"><span class="pre">fix-typo</span></code> branch by doing this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s1">&#39;Fix the typo&#39;</span>
+</pre></div>
+</div>
+<p>Every commit should have a “message” that explains briefly what the commit is for. Here we set the commit message with the <code class="docutils literal notranslate"><span class="pre">-m</span></code> flag and chose some descriptive text. Note, it’s critical to have those quotes around <code class="docutils literal notranslate"><span class="pre">'Fix</span> <span class="pre">the</span> <span class="pre">typo'</span></code>. Otherwise the command shell will misinterpret what you are trying to do.</p>
+<p>Now when we do <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span></code> we see</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">On</span> <span class="n">branch</span> <span class="n">fix</span><span class="o">-</span><span class="n">typo</span>
+<span class="n">nothing</span> <span class="n">to</span> <span class="n">commit</span><span class="p">,</span> <span class="n">working</span> <span class="n">tree</span> <span class="n">clean</span>
+</pre></div>
+</div>
+<p>And we’re back to a clean state! We have now added a new permanent change to the history of our repo (or more specifically, to this <em>branch</em> of the repo).</p>
+</section>
+<section id="going-back-in-time">
+<h4>Going back in time<a class="headerlink" href="#going-back-in-time" title="Link to this heading">#</a></h4>
+<p>Each commit is essentially a snapshot in time of the state of the repo. So how can we look back on that history, or revert back to a previous version of a file?</p>
+<p>A simple way to see this history of the current branch is this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">log</span>
+</pre></div>
+</div>
+<p>You’ll see something like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">commit</span> <span class="n">b880aadaf75fca8adc7c6a858c3dfeefa23a1351</span> <span class="p">(</span><span class="n">HEAD</span> <span class="o">-&gt;</span> <span class="n">fix</span><span class="o">-</span><span class="n">typo</span><span class="p">)</span>
+<span class="n">Author</span><span class="p">:</span> <span class="n">Yutian</span> <span class="n">Wu</span> <span class="o">&lt;</span><span class="n">yutianwu</span><span class="nd">@ldeo</span><span class="o">.</span><span class="n">columbia</span><span class="o">.</span><span class="n">edu</span><span class="o">&gt;</span>
+<span class="n">Date</span><span class="p">:</span>   <span class="n">Thu</span> <span class="n">Sep</span> <span class="mi">12</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">29</span> <span class="mi">2024</span> <span class="o">+</span><span class="mi">0000</span>
+
+    <span class="n">Fix</span> <span class="n">the</span> <span class="n">typo</span>
+
+<span class="n">commit</span> <span class="mi">79656</span><span class="n">ab5dc79305816404265ac870734096adbb9</span> <span class="p">(</span><span class="n">origin</span><span class="o">/</span><span class="n">main</span><span class="p">,</span> <span class="n">origin</span><span class="o">/</span><span class="n">HEAD</span><span class="p">,</span> <span class="n">main</span><span class="p">)</span>
+<span class="n">Merge</span><span class="p">:</span> <span class="n">ce9b18a</span> <span class="mi">86003</span><span class="n">b3</span>
+<span class="n">Author</span><span class="p">:</span> <span class="n">Julia</span> <span class="n">Kent</span> <span class="o">&lt;</span><span class="mi">46687291</span><span class="o">+</span><span class="n">jukent</span><span class="nd">@users</span><span class="o">.</span><span class="n">noreply</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">&gt;</span>
+<span class="n">Date</span><span class="p">:</span>   <span class="n">Fri</span> <span class="n">Jul</span> <span class="mi">28</span> <span class="mi">14</span><span class="p">:</span><span class="mi">55</span><span class="p">:</span><span class="mi">53</span> <span class="mi">2023</span> <span class="o">-</span><span class="mi">0600</span>
+
+    <span class="n">Merge</span> <span class="n">pull</span> <span class="n">request</span> <span class="c1">#13 from jukent/jukent-patch-1</span>
+    
+    <span class="n">Add</span> <span class="n">actions</span> <span class="n">to</span> <span class="n">sandbox</span> <span class="k">for</span> <span class="n">warning</span> <span class="ow">and</span> <span class="n">closing</span> <span class="n">stale</span> <span class="n">issues</span><span class="o">.</span>
+
+<span class="n">commit</span> <span class="mi">86003</span><span class="n">b3686f90e0a944d3d1382606470a529014f</span>
+<span class="n">Author</span><span class="p">:</span> <span class="n">Julia</span> <span class="n">Kent</span> <span class="o">&lt;</span><span class="mi">46687291</span><span class="o">+</span><span class="n">jukent</span><span class="nd">@users</span><span class="o">.</span><span class="n">noreply</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">&gt;</span>
+<span class="n">Date</span><span class="p">:</span>   <span class="n">Thu</span> <span class="n">Jul</span> <span class="mi">27</span> <span class="mi">14</span><span class="p">:</span><span class="mi">37</span><span class="p">:</span><span class="mi">25</span> <span class="mi">2023</span> <span class="o">-</span><span class="mi">0600</span>
+
+    <span class="n">Update</span> <span class="o">.</span><span class="n">github</span><span class="o">/</span><span class="n">workflows</span><span class="o">/</span><span class="n">stale</span><span class="o">.</span><span class="n">yml</span>
+    
+    <span class="n">Co</span><span class="o">-</span><span class="n">authored</span><span class="o">-</span><span class="n">by</span><span class="p">:</span> <span class="n">Brian</span> <span class="n">Rose</span> <span class="o">&lt;</span><span class="n">brose</span><span class="nd">@albany</span><span class="o">.</span><span class="n">edu</span><span class="o">&gt;</span>
+
+<span class="n">commit</span> <span class="mi">16</span><span class="n">f11bdabc497e075efac0ba1f929f9fd164fd2d</span>
+<span class="n">Author</span><span class="p">:</span> <span class="n">Julia</span> <span class="n">Kent</span> <span class="o">&lt;</span><span class="mi">46687291</span><span class="o">+</span><span class="n">jukent</span><span class="nd">@users</span><span class="o">.</span><span class="n">noreply</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">&gt;</span>
+<span class="n">Date</span><span class="p">:</span>   <span class="n">Thu</span> <span class="n">Jul</span> <span class="mi">27</span> <span class="mi">14</span><span class="p">:</span><span class="mi">07</span><span class="p">:</span><span class="mi">47</span> <span class="mi">2023</span> <span class="o">-</span><span class="mi">0600</span>
+
+    <span class="n">Update</span> <span class="n">stale</span><span class="o">.</span><span class="n">yml</span> <span class="n">to</span> <span class="n">rm</span> <span class="n">tag</span>
+
+<span class="n">commit</span> <span class="n">c4d6a5055604ad669d18dc6d624e1dbfd4929f6a</span>
+<span class="n">Author</span><span class="p">:</span> <span class="n">Julia</span> <span class="n">Kent</span> <span class="o">&lt;</span><span class="mi">46687291</span><span class="o">+</span><span class="n">jukent</span><span class="nd">@users</span><span class="o">.</span><span class="n">noreply</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">&gt;</span>
+<span class="n">Date</span><span class="p">:</span>   <span class="n">Thu</span> <span class="n">Jul</span> <span class="mi">27</span> <span class="mi">14</span><span class="p">:</span><span class="mi">07</span><span class="p">:</span><span class="mi">06</span> <span class="mi">2023</span> <span class="o">-</span><span class="mi">0600</span>
+
+    <span class="n">rm</span> <span class="n">tag</span> <span class="kn">from</span><span class="w"> </span><span class="nn">comment.yml</span>
+
+<span class="n">commit</span> <span class="mi">330</span><span class="n">a26049ec403774726bd47ea70c50a2efa8d4b</span>
+<span class="n">Author</span><span class="p">:</span> <span class="n">Julia</span> <span class="n">Kent</span> <span class="o">&lt;</span><span class="mi">46687291</span><span class="o">+</span><span class="n">jukent</span><span class="nd">@users</span><span class="o">.</span><span class="n">noreply</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">&gt;</span>
+<span class="p">:</span>
+</pre></div>
+</div>
+<p>which shows the last few commits on this branch, including the commit number, author, timestamp, and commit message. You can page down to see the rest of the history or just press <code class="docutils literal notranslate"><span class="pre">Q</span></code> to exit <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">log</span></code>!</p>
+<p>Every commit has a unique hexadecimal checksum code like <code class="docutils literal notranslate"><span class="pre">7dca0292467e4bbd73643556f83fd1c52b5c113c</span></code>. Your history will look a little different from the above!</p>
+<p>Let’s say you want to retrieve the file <code class="docutils literal notranslate"><span class="pre">sample.txt</span></code> from the previous commit. Two possible reasons why:</p>
+<ol class="arabic simple">
+<li><p>You just want to take a quick look at something in the previous commit, but then go back to the current version. That’s what we’ll do here.</p></li>
+<li><p>Maybe you don’t like the most recent commit and want to do some new edits <em>starting from the previous commit</em> – in effect, undoing the most recent commit and going back in time. The simplest way to do this is to <em>create a new branch</em> starting from the previous commit. We’ll cover branches more fully in the next lesson.</p></li>
+</ol>
+<p>To retrieve the previous commit, just use <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span></code> and the unique number code which you can just copy and paste from the <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">log</span></code> output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="mi">35</span><span class="n">fcbd991f911e170df550db58f74a082ba18b50</span>
+</pre></div>
+</div>
+<p>You may see output that looks like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Note</span><span class="p">:</span> <span class="n">switching</span> <span class="n">to</span> <span class="s1">&#39;35fcbd991f911e170df550db58f74a082ba18b50&#39;</span><span class="o">.</span>
+
+<span class="n">You</span> <span class="n">are</span> <span class="ow">in</span> <span class="s1">&#39;detached HEAD&#39;</span> <span class="n">state</span><span class="o">.</span> <span class="n">You</span> <span class="n">can</span> <span class="n">look</span> <span class="n">around</span><span class="p">,</span> <span class="n">make</span> <span class="n">experimental</span>
+<span class="n">changes</span> <span class="ow">and</span> <span class="n">commit</span> <span class="n">them</span><span class="p">,</span> <span class="ow">and</span> <span class="n">you</span> <span class="n">can</span> <span class="n">discard</span> <span class="nb">any</span> <span class="n">commits</span> <span class="n">you</span> <span class="n">make</span> <span class="ow">in</span> <span class="n">this</span>
+<span class="n">state</span> <span class="n">without</span> <span class="n">impacting</span> <span class="nb">any</span> <span class="n">branches</span> <span class="n">by</span> <span class="n">switching</span> <span class="n">back</span> <span class="n">to</span> <span class="n">a</span> <span class="n">branch</span><span class="o">.</span>
+
+<span class="n">If</span> <span class="n">you</span> <span class="n">want</span> <span class="n">to</span> <span class="n">create</span> <span class="n">a</span> <span class="n">new</span> <span class="n">branch</span> <span class="n">to</span> <span class="n">retain</span> <span class="n">commits</span> <span class="n">you</span> <span class="n">create</span><span class="p">,</span> <span class="n">you</span> <span class="n">may</span>
+<span class="n">do</span> <span class="n">so</span> <span class="p">(</span><span class="n">now</span> <span class="ow">or</span> <span class="n">later</span><span class="p">)</span> <span class="n">by</span> <span class="n">using</span> <span class="o">-</span><span class="n">c</span> <span class="k">with</span> <span class="n">the</span> <span class="n">switch</span> <span class="n">command</span><span class="o">.</span> <span class="n">Example</span><span class="p">:</span>
+
+  <span class="n">git</span> <span class="n">switch</span> <span class="o">-</span><span class="n">c</span> <span class="o">&lt;</span><span class="n">new</span><span class="o">-</span><span class="n">branch</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span>
+
+<span class="n">Or</span> <span class="n">undo</span> <span class="n">this</span> <span class="n">operation</span> <span class="k">with</span><span class="p">:</span>
+
+  <span class="n">git</span> <span class="n">switch</span> <span class="o">-</span>
+
+<span class="n">Turn</span> <span class="n">off</span> <span class="n">this</span> <span class="n">advice</span> <span class="n">by</span> <span class="n">setting</span> <span class="n">config</span> <span class="n">variable</span> <span class="n">advice</span><span class="o">.</span><span class="n">detachedHead</span> <span class="n">to</span> <span class="n">false</span>
+
+<span class="n">HEAD</span> <span class="ow">is</span> <span class="n">now</span> <span class="n">at</span> <span class="mi">35</span><span class="n">fcbd9</span> <span class="n">Close</span> <span class="n">docstring</span> <span class="n">quote</span> <span class="n">on</span> <span class="n">sample</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>(the details may vary depending on what version of git you are running).</p>
+<p>By <code class="docutils literal notranslate"><span class="pre">detached</span> <span class="pre">HEAD</span></code>, git is telling us that we are NOT on the most recent commit in this branch.</p>
+<p>If you inspect <code class="docutils literal notranslate"><span class="pre">sample.txt</span></code> in your editor, you will see that the typo <code class="docutils literal notranslate"><span class="pre">Fxing</span></code> is back!</p>
+<p>As the git message above is reminding us, it’s possible to create an entirely new branch with changes that we make from this point in the history using <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">switch</span> <span class="pre">-c</span></code>. But for now, let’s just go back to the most recent commit on our <code class="docutils literal notranslate"><span class="pre">fix-typo</span></code> branch:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="n">fix</span><span class="o">-</span><span class="n">typo</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="push-the-feature-branch-to-the-personal-remote-repository">
+<h3>Push the feature branch to the personal remote repository<a class="headerlink" href="#push-the-feature-branch-to-the-personal-remote-repository" title="Link to this heading">#</a></h3>
+<p>After running <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span></code> your changes have been captured in your
+local repository. But most likely only you can see them, and if
+your local file system fails your changes may be lost. To make your
+changes visible to others, and safely stored on your remote GitHub
+repository, you need to push them by using <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span> <span class="pre">origin</span> <span class="pre">&lt;branch-name&gt;</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span> <span class="pre">origin</span> <span class="pre">&lt;branch-name&gt;</span></code> command transfers commits from your local repository to a remote repository.</p>
+<p>In Git, <code class="docutils literal notranslate"><span class="pre">origin</span></code> is the default name given to the remote repository from which your local repository was cloned. You can verify <code class="docutils literal notranslate"><span class="pre">origin</span></code> by:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">remote</span> <span class="n">show</span> <span class="n">origin</span>
+</pre></div>
+</div>
+<p>Now you can push the <code class="docutils literal notranslate"><span class="pre">fix-typo</span></code> branch to <code class="docutils literal notranslate"><span class="pre">origin</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">fix</span><span class="o">-</span><span class="n">typo</span>
+</pre></div>
+</div>
+<p>In the remote repo, you can see a notification like the following -</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fix</span><span class="o">-</span><span class="n">typo</span> <span class="n">had</span> <span class="n">recent</span> <span class="n">pushes</span> <span class="mi">23</span> <span class="n">seconds</span> <span class="n">ago</span>
+</pre></div>
+</div>
+<p><em>In order to push data to GitHub from the hub, you will need to set up GitHub authentication.
+<a class="reference external" href="https://github.com/yuvipanda/gh-scoped-creds/">gh-scoped-creds</a> should be already setup
+on your 2i2c managed JupyterHub, and we shall use that to authenticate to GitHub for
+push / pull access.</em></p>
+<p>To do that, open a terminal in JupyterHub, run <code class="docutils literal notranslate"><span class="pre">gh-scoped-creds</span></code> and follow the prompts.</p>
+<p>Alternatively, in a notebook, run the following code and follow the prompts:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gh_scoped_creds</span>
+<span class="o">%</span><span class="n">ghscopedcreds</span>
+</pre></div>
+</div>
+<p>You should now be able to push to GitHub from the hub! These credentials will expire after
+8 hours (or whenever your JupyterHub server stops), and you’ll have to repeat these steps
+to fetch a fresh set of credentials. Once you authenticate, you’ll be provided with a link
+to a <a class="reference external" href="https://docs.github.com/en/developers/apps/getting-started-with-apps/about-apps">GitHub App</a>
+that you have to <a class="reference external" href="https://docs.github.com/en/developers/apps/managing-github-apps/installing-github-apps">install</a>
+on the repositories you want to be able to push to from this particular JupyterHub. You only
+need to do this once per JupyterHub, and can revoke access any time. You can always provide
+access to your own personal repositories, but might need approval from admins of GitHub
+organizations if you want to push to repos in that organization.</p>
+</section>
+<section id="make-a-pull-request">
+<h3>Make a Pull Request<a class="headerlink" href="#make-a-pull-request" title="Link to this heading">#</a></h3>
+<p>Once the new feature branch has been pushed to the contributor’s
+personal repository, a Pull Request can be created that asks the maintainers
+of the upstream repository to merge the contents of the feature
+branch on the contributor’s repository into the main branch on the
+upstream repository. Specifically, the steps are the following, performed on the upstream remote:</p>
+<ol class="arabic simple">
+<li><p>Click on “Pull Requests” in the top navigation bar</p></li>
+<li><p>Click on “New Pull Request”</p></li>
+<li><p>Under “Compare changes”, make sure that <code class="docutils literal notranslate"><span class="pre">base</span></code> is set to <code class="docutils literal notranslate"><span class="pre">main</span></code>, and <code class="docutils literal notranslate"><span class="pre">compare</span></code> is set to the name of your feature branch, <code class="docutils literal notranslate"><span class="pre">fix-typo</span></code></p></li>
+<li><p>Click on “Create Pull Request”</p></li>
+<li><p>A Pull Request window should open up. Provide a descriptive title, and any helpful comments that you want to communicate with the reviewers</p></li>
+<li><p>Click on “Create Pull Request” in the Pull Request window.</p></li>
+</ol>
+</section>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Version control is an important tool for working with code files (or anything that is saved as plain text).</p></li>
+<li><p>git is the most common version control software in use today.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">init</span></code>: initiate a new repo</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span></code>: see what branch we’re on and what state our repo is in</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">log</span></code>: see the commit history of our branch</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">file</span></code>: stage a file for a commit</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-m</span> <span class="pre">'message/comment'</span></code>: create a new commit with the staged files</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span></code>: switch between branches (use the <code class="docutils literal notranslate"><span class="pre">-b</span></code> flag to create a new branch and check it out)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">diff</span> <span class="pre">commit-one</span> <span class="pre">commit-two</span></code> and <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">diff</span> <span class="pre">branch-one..branch-two</span></code>: compare files between current version and last commit (default), between two commits, or between two branches.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code> and <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span></code>: export or input changes between your local branch and a remote repository (e.g. hosted on GitHub)</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./lectures_DS/computing_env"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#github">GitHub</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">GitHub</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#github-repositories">GitHub Repositories</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#github-workflows">GitHub Workflows</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#forking-workflow">Forking Workflow</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fork-the-official-upstream-remote-repository">Fork the official upstream remote repository</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clone-the-personal-remote-repository">Clone the personal remote repository</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#start-with-the-main-branch">Start with the main branch</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-new-branch">Create a new branch</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#make-changes-and-commit">Make changes and commit</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#staging">Staging</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#committing">Committing</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#going-back-in-time">Going back in time</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#push-the-feature-branch-to-the-personal-remote-repository">Push the feature branch to the personal remote repository</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#make-a-pull-request">Make a Pull Request</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dhruv Balwada & Kara Lamb
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
