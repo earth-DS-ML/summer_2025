@@ -60,7 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'lectures_DS/core_python/functions_classes';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Assignment 2: Basic Python" href="../../assignments/assignment_2.html" />
+    <link rel="next" title="Organization and Packaging of Python Projects" href="organization_and_packaging.html" />
     <link rel="prev" title="Python Fundamentals" href="python_fundamentals.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -194,6 +194,7 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="python_fundamentals.html">Python Fundamentals</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Python Functions and Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="organization_and_packaging.html">Organization and Packaging of Python Projects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../assignments/assignment_2.html">Assignment 2: Basic Python</a></li>
 </ul>
 
@@ -530,7 +531,8 @@ say_hello<span class="o">?</span>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># redefine the function</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">say_hello_to</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a greeting to `name`&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a greeting to</span>
+<span class="sd">    `name`&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="s1">&#39;Hello &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -739,7 +741,7 @@ Ryan
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;__main__.Hurricane at 0x108680940&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;__main__.Hurricane at 0x7f394445a750&gt;
 </pre></div>
 </div>
 </div>
@@ -782,7 +784,7 @@ Ryan
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;__main__.Hurricane at 0x1086966a0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;__main__.Hurricane at 0x7f394445a900&gt;
 </pre></div>
 </div>
 </div>
@@ -808,15 +810,14 @@ Ryan
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-28-88629bebad1a&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">28</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">h</span> <span class="o">=</span> <span class="n">Hurricane</span><span class="p">(</span><span class="s1">&#39;ryan&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
 
-<span class="nn">&lt;ipython-input-25-24766bacf597&gt;</span> in <span class="ni">__init__</span><span class="nt">(self, name, category, lon)</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> 
-<span class="g g-Whitespace">      </span><span class="mi">7</span>         <span class="k">if</span> <span class="n">lon</span> <span class="o">&gt;</span> <span class="mi">180</span> <span class="ow">or</span> <span class="n">lon</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">180</span><span class="p">:</span>
-<span class="ne">----&gt; </span><span class="mi">8</span>             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Invalid lon </span><span class="si">{</span><span class="n">lon</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span>         <span class="bp">self</span><span class="o">.</span><span class="n">lon</span> <span class="o">=</span> <span class="n">lon</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span> 
+<span class="nn">Cell In[25], line 8,</span> in <span class="ni">Hurricane.__init__</span><span class="nt">(self, name, category, lon)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="bp">self</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">category</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="k">if</span> <span class="n">lon</span> <span class="o">&gt;</span> <span class="mi">180</span> <span class="ow">or</span> <span class="n">lon</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">180</span><span class="p">:</span>
+<span class="ne">----&gt; </span><span class="mi">8</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Invalid lon </span><span class="si">{</span><span class="n">lon</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="bp">self</span><span class="o">.</span><span class="n">lon</span> <span class="o">=</span> <span class="n">lon</span>
 
 <span class="ne">ValueError</span>: Invalid lon 300
 </pre></div>
@@ -937,11 +938,11 @@ Ryan
       </div>
     </a>
     <a class="right-next"
-       href="../../assignments/assignment_2.html"
+       href="organization_and_packaging.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Assignment 2: Basic Python</p>
+        <p class="prev-next-title">Organization and Packaging of Python Projects</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

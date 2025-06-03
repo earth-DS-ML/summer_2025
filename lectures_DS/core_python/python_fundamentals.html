@@ -194,6 +194,7 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Python Fundamentals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="functions_classes.html">Python Functions and Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="organization_and_packaging.html">Organization and Packaging of Python Projects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../assignments/assignment_2.html">Assignment 2: Basic Python</a></li>
 </ul>
 
@@ -714,12 +715,26 @@ False
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
+1
+2
+3
+4
+</pre></div>
+</div>
+</div>
 </div>
 <p><strong>Important point</strong>: in Python, we always count from 0!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># what is range?</span>
 <span class="nb">type</span><span class="p">(</span><span class="nb">range</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>type
 </pre></div>
 </div>
 </div>
@@ -730,12 +745,35 @@ False
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Red">Init signature:</span> range<span class=" -Color -Color-Blue">(</span>self<span class=" -Color -Color-Blue">,</span> <span class=" -Color -Color-Blue">/,</span> <span class=" -Color -Color-Blue">*</span>args<span class=" -Color -Color-Blue">,</span> <span class=" -Color -Color-Blue">**</span>kwargs<span class=" -Color -Color-Blue">)</span>
+<span class=" -Color -Color-Red">Docstring:</span>     
+range(stop) -&gt; range object
+range(start, stop[, step]) -&gt; range object
+
+Return an object that produces a sequence of integers from start (inclusive)
+to stop (exclusive) by step.  range(i, j) produces i, i+1, i+2, ..., j-1.
+start defaults to 0, and stop is omitted!  range(4) produces 0, 1, 2, 3.
+These are exactly the valid indices for a list of 4 elements.
+When step is given, it specifies the increment (or decrement).
+<span class=" -Color -Color-Red">Type:</span>           type
+<span class=" -Color -Color-Red">Subclasses:</span>     
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># iterate over a list we make up</span>
 <span class="k">for</span> <span class="n">pet</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;dog&#39;</span><span class="p">,</span> <span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="s1">&#39;fish&#39;</span><span class="p">]:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">pet</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">pet</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dog 3
+cat 3
+fish 4
 </pre></div>
 </div>
 </div>
@@ -751,12 +789,22 @@ False
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>list
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># list have lots of methods</span>
 <span class="n">l</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
 <span class="n">l</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;cat&#39;, &#39;dog&#39;, &#39;fish&#39;]
 </pre></div>
 </div>
 </div>
@@ -769,6 +817,11 @@ False
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0, 1, 2, 3, 4]
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -776,6 +829,20 @@ False
     <span class="n">p</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;p:&#39;</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;r:&#39;</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>p: 4
+r: [0, 1, 2, 3]
+p: 3
+r: [0, 1, 2]
+p: 2
+r: [0, 1]
+p: 1
+r: [0]
+p: 0
+r: []
 </pre></div>
 </div>
 </div>
@@ -804,6 +871,11 @@ Extend the list by appending all the items in the given list. Equivalent to a[le
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0, 1, 2, 3, 4, 10, 11, 12, 13, 14]
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -813,6 +885,15 @@ Extend the list by appending all the items in the given list. Equivalent to a[le
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;first 3&#39;</span><span class="p">,</span> <span class="n">z</span><span class="p">[:</span><span class="mi">3</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;last 3&#39;</span><span class="p">,</span> <span class="n">z</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:])</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;middle, skipping every other item&#39;</span><span class="p">,</span> <span class="n">z</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>first 0
+last 14
+first 3 [0, 1, 2]
+last 3 [12, 13, 14]
+middle, skipping every other item [10, 12, 14]
 </pre></div>
 </div>
 </div>
@@ -827,12 +908,29 @@ Extend the list by appending all the items in the given list. Equivalent to a[le
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">IndexError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">25</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># that means we get an error from the following</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">z</span><span class="p">[</span><span class="n">N</span><span class="p">]</span>
+
+<span class="ne">IndexError</span>: list index out of range
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># this index notation also applies to strings</span>
 <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Ryan Abernathey&#39;</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">[:</span><span class="mi">4</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ryan
 </pre></div>
 </div>
 </div>
@@ -844,12 +942,22 @@ Extend the list by appending all the items in the given list. Equivalent to a[le
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
 </div>
 <p>Lists are not meant for math! They don’t have a datatype.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">z</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;fish&#39;</span>
 <span class="n">z</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0, 1, 2, 3, &#39;fish&#39;, 10, 11, 12, 13, 14]
 </pre></div>
 </div>
 </div>
@@ -863,12 +971,26 @@ Extend the list by appending all the items in the given list. Equivalent to a[le
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0, 1, 4, 9, 16]
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># iterate over two lists together uzing zip</span>
 <span class="k">for</span> <span class="n">item1</span><span class="p">,</span> <span class="n">item2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;first:&#39;</span><span class="p">,</span> <span class="n">item1</span><span class="p">,</span> <span class="s1">&#39;second:&#39;</span><span class="p">,</span> <span class="n">item2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>first: 0 second: 10
+first: 1 second: 11
+first: 2 second: 12
+first: 3 second: 13
+first: 4 second: 14
 </pre></div>
 </div>
 </div>
@@ -891,11 +1013,21 @@ Extend the list by appending all the items in the given list. Equivalent to a[le
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tuple
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># can be indexed like arrays</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># not the first element!</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>33
 </pre></div>
 </div>
 </div>
@@ -922,11 +1054,21 @@ Extend the list by appending all the items in the given list. Equivalent to a[le
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;name&#39;: &#39;Takaya&#39;, &#39;age&#39;: 25}
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># access a value</span>
 <span class="n">d</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Ryan&#39;
 </pre></div>
 </div>
 </div>
@@ -940,11 +1082,28 @@ Extend the list by appending all the items in the given list. Equivalent to a[le
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+False
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># try to access a non-existant key</span>
 <span class="n">d</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">37</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># try to access a non-existant key</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">]</span>
+
+<span class="ne">KeyError</span>: &#39;height&#39;
 </pre></div>
 </div>
 </div>
@@ -957,12 +1116,22 @@ Extend the list by appending all the items in the given list. Equivalent to a[le
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;name&#39;: &#39;Ryan&#39;, &#39;age&#39;: 33, &#39;height&#39;: (5, 11)}
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># keys don&#39;t have to be strings</span>
 <span class="n">d</span><span class="p">[</span><span class="mi">99</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;ninety nine&#39;</span>
 <span class="n">d</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;name&#39;: &#39;Ryan&#39;, &#39;age&#39;: 33, &#39;height&#39;: (5, 11), 99: &#39;ninety nine&#39;}
 </pre></div>
 </div>
 </div>
@@ -975,6 +1144,14 @@ Extend the list by appending all the items in the given list. Equivalent to a[le
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>name Ryan
+age 33
+height (5, 11)
+99 ninety nine
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -983,6 +1160,14 @@ Extend the list by appending all the items in the given list. Equivalent to a[le
 <span class="c1">### for key, val in d.iteritems()</span>
 <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>name Ryan
+age 33
+height (5, 11)
+99 ninety nine
 </pre></div>
 </div>
 </div>
