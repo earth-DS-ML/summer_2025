@@ -13,7 +13,7 @@ parts:
   - caption: Data
     chapters:
     - file: lectures_DS/data/data
-  - caption: The core python language
+  - caption: The Core Python Language
     chapters:
     - file: lectures_DS/core_python/python_fundamentals
     - file: lectures_DS/core_python/functions_classes
