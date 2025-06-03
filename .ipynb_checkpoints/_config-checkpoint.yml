@@ -2,7 +2,7 @@
 # Learn more at https://jupyterbook.org/customize/config.html
 
 title: Earth Data Science and Machine Learning
-author: Dhruv Balwada 
+author: Dhruv Balwada & Kara Lamb
 logo: logo_class.png
 
 # Force re-execution of notebooks on each build.
