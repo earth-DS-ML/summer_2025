@@ -17,6 +17,7 @@ parts:
     chapters:
     - file: lectures_DS/core_python/python_fundamentals
     - file: lectures_DS/core_python/functions_classes
+    - file: lectures_DS/core_python/organization_and_packaging
     - file: assignments/assignment_2
 
 

@@ -17,6 +17,11 @@ parts:
     chapters:
     - file: lectures_DS/core_python/python_fundamentals
     - file: lectures_DS/core_python/functions_classes
+    - file: lectures_DS/core_python/organization_and_packaging
     - file: assignments/assignment_2
+  - caption: Scientific Python Fundamentals
+    chapters:
+    - file: lectures_DS/sci_python/numpy_and_matplotlib
+    - file: lectures_DS/sci_python/more_matplotlib
 
 
