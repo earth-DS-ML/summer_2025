@@ -23,5 +23,7 @@ parts:
     chapters:
     - file: lectures_DS/sci_python/numpy_and_matplotlib
     - file: lectures_DS/sci_python/more_matplotlib
+    - file: assignments/numpy_matplotlib
+    - file: assignments/more_matplotlib
 
 
