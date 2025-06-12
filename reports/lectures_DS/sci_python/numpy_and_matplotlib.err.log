@@ -31,7 +31,7 @@ g = np.reshape(f, (8,9))
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mValueError[0m                                Traceback (most recent call last)
-Cell [0;32mIn[28], line 1[0m
+Cell [0;32mIn[31], line 1[0m
 [0;32m----> 1[0m g [38;5;241m=[39m [43mnp[49m[38;5;241;43m.[39;49m[43mreshape[49m[43m([49m[43mf[49m[43m,[49m[43m [49m[43m([49m[38;5;241;43m8[39;49m[43m,[49m[38;5;241;43m9[39;49m[43m)[49m[43m)[49m
 
 File [0;32m/srv/conda/envs/notebook/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:324[0m, in [0;36mreshape[0;34m(a, shape, order, newshape, copy)[0m

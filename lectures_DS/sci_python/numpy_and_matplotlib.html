@@ -408,7 +408,10 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#manipulating-array-dimensions">Manipulating array dimensions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#broadcasting">Broadcasting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#broadcasting">Broadcasting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reduction-operations">Reduction Operations</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-files">Data Files</a></li>
 </ul>
@@ -1201,18 +1204,20 @@ Most everything else is built on top of them.</p>
 </div>
 </div>
 <p>Numpy also has some utilities for helping us generate multi-dimensional arrays.
-<code class="docutils literal notranslate"><span class="pre">meshgrid</span></code> creates 2D arrays out of a combination of 1D arrays.</p>
+<code class="docutils literal notranslate"><span class="pre">meshgrid</span></code> creates 2D arrays out of a combination of 1D arrays. Meshgrid essentially tiles 1D arrays to a shape that is combined shape of the input arrays.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
 <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="n">xx</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">yy</span><span class="o">.</span><span class="n">shape</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">yy</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>((50, 100), (50, 100))
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(100,) (50,)
+(50, 100) (50, 100)
 </pre></div>
 </div>
 </div>
@@ -1221,6 +1226,21 @@ Most everything else is built on top of them.</p>
 <section id="indexing">
 <h2>Indexing<a class="headerlink" href="#indexing" title="Link to this heading">#</a></h2>
 <p>Basic indexing is similar to lists</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get some individual elements of y</span>
+<span class="n">y</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(np.float64(-1.8593099378388573),
+ array([-3.01336438, -2.88513611, -2.75690784, -2.62867957]),
+ np.float64(2.628679567289418))
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get some individual elements of xx</span>
@@ -1310,7 +1330,7 @@ We will now bring in Matplotib to start visualizating these arrays.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x781e94518500&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7e6701838e00&gt;]
 </pre></div>
 </div>
 <img alt="../../_images/603f1bf3f1ae45fc73f091eed1d8fd5379d18a2c2049271fdba4407abf436374.png" src="../../_images/603f1bf3f1ae45fc73f091eed1d8fd5379d18a2c2049271fdba4407abf436374.png" />
@@ -1325,7 +1345,7 @@ He we use <code class="docutils literal notranslate"><span class="pre">pcolormes
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x781eb415f230&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7e6702f33950&gt;
 </pre></div>
 </div>
 <img alt="../../_images/aee5e6ad0abf6c8531d407defa42e9534904af34d1b17628e4d4db5fbfdeeff6.png" src="../../_images/aee5e6ad0abf6c8531d407defa42e9534904af34d1b17628e4d4db5fbfdeeff6.png" />
@@ -1338,7 +1358,7 @@ He we use <code class="docutils literal notranslate"><span class="pre">pcolormes
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x781e075d6570&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7e67019192b0&gt;
 </pre></div>
 </div>
 <img alt="../../_images/687758ce4d9b814fbb3ee73767310e7d25a1314f8215395e457ac3ef919fa15b.png" src="../../_images/687758ce4d9b814fbb3ee73767310e7d25a1314f8215395e457ac3ef919fa15b.png" />
@@ -1352,22 +1372,46 @@ He we use <code class="docutils literal notranslate"><span class="pre">pcolormes
 <h3>Basic Math<a class="headerlink" href="#basic-math" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">xx</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="n">yy</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># y = f(x)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x781e07470230&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7e6701791640&gt;]
 </pre></div>
 </div>
-<img alt="../../_images/398feb5c8be4b594acce40d17421ac3535a7842f2e7923f47debb595e46e4103.png" src="../../_images/398feb5c8be4b594acce40d17421ac3535a7842f2e7923f47debb595e46e4103.png" />
+<img alt="../../_images/e231bdee97fec8d0a3261b94696c016c9598ffcf0ecb321bb5c9b73296c90dc7.png" src="../../_images/e231bdee97fec8d0a3261b94696c016c9598ffcf0ecb321bb5c9b73296c90dc7.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># z = f(x,y), where z is a 2D surface defined a grid in the x and y directions.</span>
+<span class="c1"># Here we use the 2D version of x and y, </span>
+<span class="c1"># so that we know the values of x and y at all grid points.</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">xx</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="n">yy</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span><span class="n">yy</span><span class="p">,</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7e6701758cb0&gt;
+</pre></div>
+</div>
+<img alt="../../_images/a59eab6f899beced9be60114504ebca682eedc05ebbf6afa7d2b6448e3e8d7bc.png" src="../../_images/a59eab6f899beced9be60114504ebca682eedc05ebbf6afa7d2b6448e3e8d7bc.png" />
 </div>
 </div>
 </section>
@@ -1383,7 +1427,7 @@ He we use <code class="docutils literal notranslate"><span class="pre">pcolormes
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x781e0758d670&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7e6701890290&gt;
 </pre></div>
 </div>
 <img alt="../../_images/fb2430822223cb60c72d454db888532dd7fc888396cbff89113e017fbc8c13ff.png" src="../../_images/fb2430822223cb60c72d454db888532dd7fc888396cbff89113e017fbc8c13ff.png" />
@@ -1399,7 +1443,7 @@ He we use <code class="docutils literal notranslate"><span class="pre">pcolormes
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">28</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">31</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
 
 <span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:324,</span> in <span class="ni">reshape</span><span class="nt">(a, shape, order, newshape, copy)</span>
@@ -1434,7 +1478,7 @@ You can accidentally lose the structure of the data.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7c642c9081d0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7a393e168350&gt;
 </pre></div>
 </div>
 <img alt="../../_images/48b818563042a3bb9177ebab898f7fb78c95a6121f5e41e37d6d968d44158839.png" src="../../_images/48b818563042a3bb9177ebab898f7fb78c95a6121f5e41e37d6d968d44158839.png" />
@@ -1449,7 +1493,7 @@ You can accidentally lose the structure of the data.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7c642c936f30&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7a39eded09b0&gt;
 </pre></div>
 </div>
 <img alt="../../_images/e3be160088a48aacb62b62f6f59cc09e2fab6e45ac2813df7f0785b69cc81d3f.png" src="../../_images/e3be160088a48aacb62b62f6f59cc09e2fab6e45ac2813df7f0785b69cc81d3f.png" />
@@ -1504,7 +1548,8 @@ These can be confusing but are worth learning if you plan to work with Numpy dat
 <p>The core concept of broadcasting is telling Numpy which dimensions are supposed to line up with each other.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s1">&#39;http://scipy-lectures.github.io/_images/numpy_broadcasting.png&#39;</span><span class="p">,</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+<span class="n">Image</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s1">&#39;http://scipy-lectures.github.io/_images/numpy_broadcasting.png&#39;</span><span class="p">,</span>
      <span class="n">width</span><span class="o">=</span><span class="mi">720</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1512,8 +1557,13 @@ These can be confusing but are worth learning if you plan to work with Numpy dat
 <div class="cell_output docutils container">
 <div class="output text_html"><img src="http://scipy-lectures.github.io/_images/numpy_broadcasting.png" width="720"/></div></div>
 </div>
-<p>Dimensions are automatically aligned <em>starting with the last dimension</em>.
-If the last two dimensions have the same length, then the two arrays can be broadcast.</p>
+<p>General Broadcasting Rules:
+When performing operations on two arrays, NumPy compares their shapes element-wise starting from the trailing dimensions (right to left). It follows these rules:</p>
+<ul class="simple">
+<li><p>If the dimensions are equal, they’re compatible.</p></li>
+<li><p>If one of the dimensions is 1, it’s “stretched” to match the other.</p></li>
+<li><p>If the dimensions are unequal and neither is 1, the arrays are not broadcastable.</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
@@ -1536,7 +1586,7 @@ If the last two dimensions have the same length, then the two arrays can be broa
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7c642c908080&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7a3935ee5640&gt;
 </pre></div>
 </div>
 <img alt="../../_images/1c8644f869a8f096c95db31624dfcb5ca39d50db1ca99e7a5bc5035ddb3d26bc.png" src="../../_images/1c8644f869a8f096c95db31624dfcb5ca39d50db1ca99e7a5bc5035ddb3d26bc.png" />
@@ -1591,12 +1641,16 @@ Then the length-50 dimensions will line up.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7c642c9fd070&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7a3935e87290&gt;
 </pre></div>
 </div>
 <img alt="../../_images/da9a8c4510b2bc3c6f24efa42f9e72b39bbe028cf60e5f0561b5fbe088c9d944.png" src="../../_images/da9a8c4510b2bc3c6f24efa42f9e72b39bbe028cf60e5f0561b5fbe088c9d944.png" />
 </div>
 </div>
+<section id="exercise">
+<h3>Exercise<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h3>
+<p>Can you create and plot the <code class="docutils literal notranslate"><span class="pre">f</span> <span class="pre">=</span> <span class="pre">np.sin(xx)</span> <span class="pre">*</span> <span class="pre">np.cos(0.5*yy)</span></code> from before, but using the 1-D x and y and broadcasting?</p>
+</section>
 </section>
 <section id="reduction-operations">
 <h2>Reduction Operations<a class="headerlink" href="#reduction-operations" title="Link to this heading">#</a></h2>
@@ -1780,7 +1834,10 @@ Later we will learn about NetCDF, the recommended way to store earth and environ
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#manipulating-array-dimensions">Manipulating array dimensions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#broadcasting">Broadcasting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#broadcasting">Broadcasting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reduction-operations">Reduction Operations</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-files">Data Files</a></li>
 </ul>
