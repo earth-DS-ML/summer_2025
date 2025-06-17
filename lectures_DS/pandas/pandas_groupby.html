@@ -1,0 +1,2630 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Pandas: Groupby &#8212; Earth Data Science and Machine Learning</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lectures_DS/pandas/pandas_groupby';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo_class.png" class="logo__image only-light" alt="Earth Data Science and Machine Learning - Home"/>
+    <script>document.write(`<img src="../../_static/logo_class.png" class="logo__image only-dark" alt="Earth Data Science and Machine Learning - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Welcome to Earth Data Science and Machine Learning Course Series
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">The Interactive Computing Environment</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../computing_env/jupyterlab.html">Intro to JupyterLab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computing_env/intro_to_unix.html">Intro to Unix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computing_env/intro_to_git.html">Intro to Git for Version Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computing_env/assignment1.html">Assignment 1: Files, Git, and Github</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../data/data.html">All About Data</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">The Core Python Language</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../core_python/python_fundamentals.html">Python Fundamentals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core_python/functions_classes.html">Python Functions and Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core_python/organization_and_packaging.html">Organization and Packaging of Python Projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../assignments/assignment_2.html">Assignment 2: Basic Python</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Scientific Python Fundamentals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../sci_python/numpy_and_matplotlib.html">Numpy and Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sci_python/more_matplotlib.html">More Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../assignments/numpy_matplotlib.html">Assignment 3a: Numpy and Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../assignments/more_matplotlib.html">Assignment 3b: More Matplotlib</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="pandas_intro.html">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_pandas.html">Pandas Fundamentals</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/earth-DS-ML/summer_2025" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/earth-DS-ML/summer_2025/issues/new?title=Issue%20on%20page%20%2Flectures_DS/pandas/pandas_groupby.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/lectures_DS/pandas/pandas_groupby.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Pandas: Groupby</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example">An Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-happened">What Happened?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-groupby-method">The <code class="docutils literal notranslate"><span class="pre">groupby</span></code> method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-groubby-object">The <code class="docutils literal notranslate"><span class="pre">GroubBy</span></code> object</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iterating-and-selecting-groups">Iterating and selecting groups</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregation">Aggregation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformation">Transformation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-grouping">Time Grouping</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-anomalies">Calculating anomalies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resampling">Resampling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rolling-operations">Rolling Operations</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="pandas-groupby">
+<h1>Pandas: Groupby<a class="headerlink" href="#pandas-groupby" title="Link to this heading">#</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">groupby</span></code> is an amazingly powerful function in pandas. But it is also complicated to use and understand.
+The point of this lesson is to make you feel confident in using <code class="docutils literal notranslate"><span class="pre">groupby</span></code> and its cousins, <code class="docutils literal notranslate"><span class="pre">resample</span></code> and <code class="docutils literal notranslate"><span class="pre">rolling</span></code>.</p>
+<p>These notes are loosely based on the <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/groupby.html">Pandas GroupBy Documentation</a>.</p>
+<p>The “split/apply/combine” concept was first introduced in a paper by Hadley Wickham: <a class="reference external" href="https://www.jstatsoft.org/article/view/v040i01">https://www.jstatsoft.org/article/view/v040i01</a>.</p>
+<p>Imports:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">7</span><span class="p">)</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>First we read the Earthquake data from our previous assignment:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;http://www.ldeo.columbia.edu/~rpa/usgs_earthquakes_2014.csv&#39;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">],</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">place</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">df_small</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">mag</span><span class="o">&lt;</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">mag</span><span class="o">&gt;</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">HTTPError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;http://www.ldeo.columbia.edu/~rpa/usgs_earthquakes_2014.csv&#39;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">],</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">place</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">df_small</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">mag</span><span class="o">&lt;</span><span class="mi">4</span><span class="p">]</span>
+
+<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/io/parsers/readers.py:1026,</span> in <span class="ni">read_csv</span><span class="nt">(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, date_format, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, encoding_errors, dialect, on_bad_lines, delim_whitespace, low_memory, memory_map, float_precision, storage_options, dtype_backend)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1013</span> <span class="n">kwds_defaults</span> <span class="o">=</span> <span class="n">_refine_defaults_read</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1014</span>     <span class="n">dialect</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1015</span>     <span class="n">delimiter</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1022</span>     <span class="n">dtype_backend</span><span class="o">=</span><span class="n">dtype_backend</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1023</span> <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1024</span> <span class="n">kwds</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwds_defaults</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1026</span> <span class="k">return</span> <span class="n">_read</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="n">kwds</span><span class="p">)</span>
+
+<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/io/parsers/readers.py:620,</span> in <span class="ni">_read</span><span class="nt">(filepath_or_buffer, kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">617</span> <span class="n">_validate_names</span><span class="p">(</span><span class="n">kwds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;names&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">619</span> <span class="c1"># Create the parser.</span>
+<span class="ne">--&gt; </span><span class="mi">620</span> <span class="n">parser</span> <span class="o">=</span> <span class="n">TextFileReader</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">622</span> <span class="k">if</span> <span class="n">chunksize</span> <span class="ow">or</span> <span class="n">iterator</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">623</span>     <span class="k">return</span> <span class="n">parser</span>
+
+<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/io/parsers/readers.py:1620,</span> in <span class="ni">TextFileReader.__init__</span><span class="nt">(self, f, engine, **kwds)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1617</span>     <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s2">&quot;has_index_names&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwds</span><span class="p">[</span><span class="s2">&quot;has_index_names&quot;</span><span class="p">]</span>
+<span class="g g-Whitespace">   </span><span class="mi">1619</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span><span class="p">:</span> <span class="n">IOHandles</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="ne">-&gt; </span><span class="mi">1620</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_engine</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
+
+<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/io/parsers/readers.py:1880,</span> in <span class="ni">TextFileReader._make_engine</span><span class="nt">(self, f, engine)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1878</span>     <span class="k">if</span> <span class="s2">&quot;b&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">mode</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1879</span>         <span class="n">mode</span> <span class="o">+=</span> <span class="s2">&quot;b&quot;</span>
+<span class="ne">-&gt; </span><span class="mi">1880</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span> <span class="o">=</span> <span class="n">get_handle</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1881</span>     <span class="n">f</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1882</span>     <span class="n">mode</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1883</span>     <span class="n">encoding</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;encoding&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1884</span>     <span class="n">compression</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;compression&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1885</span>     <span class="n">memory_map</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;memory_map&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1886</span>     <span class="n">is_text</span><span class="o">=</span><span class="n">is_text</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1887</span>     <span class="n">errors</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;encoding_errors&quot;</span><span class="p">,</span> <span class="s2">&quot;strict&quot;</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1888</span>     <span class="n">storage_options</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;storage_options&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1889</span> <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1890</span> <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+<span class="g g-Whitespace">   </span><span class="mi">1891</span> <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span><span class="o">.</span><span class="n">handle</span>
+
+<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/io/common.py:728,</span> in <span class="ni">get_handle</span><span class="nt">(path_or_buf, mode, encoding, compression, memory_map, is_text, errors, storage_options)</span>
+<span class="g g-Whitespace">    </span><span class="mi">725</span>     <span class="n">codecs</span><span class="o">.</span><span class="n">lookup_error</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">727</span> <span class="c1"># open URLs</span>
+<span class="ne">--&gt; </span><span class="mi">728</span> <span class="n">ioargs</span> <span class="o">=</span> <span class="n">_get_filepath_or_buffer</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">729</span>     <span class="n">path_or_buf</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">730</span>     <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">731</span>     <span class="n">compression</span><span class="o">=</span><span class="n">compression</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">732</span>     <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">733</span>     <span class="n">storage_options</span><span class="o">=</span><span class="n">storage_options</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">734</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">736</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">ioargs</span><span class="o">.</span><span class="n">filepath_or_buffer</span>
+<span class="g g-Whitespace">    </span><span class="mi">737</span> <span class="n">handles</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">BaseBuffer</span><span class="p">]</span>
+
+<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/io/common.py:384,</span> in <span class="ni">_get_filepath_or_buffer</span><span class="nt">(filepath_or_buffer, encoding, compression, mode, storage_options)</span>
+<span class="g g-Whitespace">    </span><span class="mi">382</span> <span class="c1"># assuming storage_options is to be interpreted as headers</span>
+<span class="g g-Whitespace">    </span><span class="mi">383</span> <span class="n">req_info</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">storage_options</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">384</span> <span class="k">with</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">req_info</span><span class="p">)</span> <span class="k">as</span> <span class="n">req</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">385</span>     <span class="n">content_encoding</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Content-Encoding&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">386</span>     <span class="k">if</span> <span class="n">content_encoding</span> <span class="o">==</span> <span class="s2">&quot;gzip&quot;</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">387</span>         <span class="c1"># Override compression based on Content-Encoding header</span>
+
+<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/io/common.py:289,</span> in <span class="ni">urlopen</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">283</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">284</span><span class="sd"> Lazy-import wrapper for stdlib urlopen, as that imports a big chunk of</span>
+<span class="g g-Whitespace">    </span><span class="mi">285</span><span class="sd"> the stdlib.</span>
+<span class="g g-Whitespace">    </span><span class="mi">286</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">287</span> <span class="kn">import</span><span class="w"> </span><span class="nn">urllib.request</span>
+<span class="ne">--&gt; </span><span class="mi">289</span> <span class="k">return</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/urllib/request.py:215,</span> in <span class="ni">urlopen</span><span class="nt">(url, data, timeout, cafile, capath, cadefault, context)</span>
+<span class="g g-Whitespace">    </span><span class="mi">213</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">214</span>     <span class="n">opener</span> <span class="o">=</span> <span class="n">_opener</span>
+<span class="ne">--&gt; </span><span class="mi">215</span> <span class="k">return</span> <span class="n">opener</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+
+<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/urllib/request.py:521,</span> in <span class="ni">OpenerDirector.open</span><span class="nt">(self, fullurl, data, timeout)</span>
+<span class="g g-Whitespace">    </span><span class="mi">519</span> <span class="k">for</span> <span class="n">processor</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">protocol</span><span class="p">,</span> <span class="p">[]):</span>
+<span class="g g-Whitespace">    </span><span class="mi">520</span>     <span class="n">meth</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">processor</span><span class="p">,</span> <span class="n">meth_name</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">521</span>     <span class="n">response</span> <span class="o">=</span> <span class="n">meth</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">523</span> <span class="k">return</span> <span class="n">response</span>
+
+<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/urllib/request.py:630,</span> in <span class="ni">HTTPErrorProcessor.http_response</span><span class="nt">(self, request, response)</span>
+<span class="g g-Whitespace">    </span><span class="mi">627</span> <span class="c1"># According to RFC 2616, &quot;2xx&quot; code indicates that the client&#39;s</span>
+<span class="g g-Whitespace">    </span><span class="mi">628</span> <span class="c1"># request was successfully received, understood, and accepted.</span>
+<span class="g g-Whitespace">    </span><span class="mi">629</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">200</span> <span class="o">&lt;=</span> <span class="n">code</span> <span class="o">&lt;</span> <span class="mi">300</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">630</span>     <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">631</span>         <span class="s1">&#39;http&#39;</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">hdrs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">633</span> <span class="k">return</span> <span class="n">response</span>
+
+<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/urllib/request.py:553,</span> in <span class="ni">OpenerDirector.error</span><span class="nt">(self, proto, *args)</span>
+<span class="g g-Whitespace">    </span><span class="mi">551</span>     <span class="n">http_err</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="g g-Whitespace">    </span><span class="mi">552</span> <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="nb">dict</span><span class="p">,</span> <span class="n">proto</span><span class="p">,</span> <span class="n">meth_name</span><span class="p">)</span> <span class="o">+</span> <span class="n">args</span>
+<span class="ne">--&gt; </span><span class="mi">553</span> <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call_chain</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">554</span> <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">555</span>     <span class="k">return</span> <span class="n">result</span>
+
+<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/urllib/request.py:492,</span> in <span class="ni">OpenerDirector._call_chain</span><span class="nt">(self, chain, kind, meth_name, *args)</span>
+<span class="g g-Whitespace">    </span><span class="mi">490</span> <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="n">handlers</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">491</span>     <span class="n">func</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="n">meth_name</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">492</span>     <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">493</span>     <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">494</span>         <span class="k">return</span> <span class="n">result</span>
+
+<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/urllib/request.py:745,</span> in <span class="ni">HTTPRedirectHandler.http_error_302</span><span class="nt">(self, req, fp, code, msg, headers)</span>
+<span class="g g-Whitespace">    </span><span class="mi">742</span> <span class="n">fp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">743</span> <span class="n">fp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="ne">--&gt; </span><span class="mi">745</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">new</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">req</span><span class="o">.</span><span class="n">timeout</span><span class="p">)</span>
+
+<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/urllib/request.py:521,</span> in <span class="ni">OpenerDirector.open</span><span class="nt">(self, fullurl, data, timeout)</span>
+<span class="g g-Whitespace">    </span><span class="mi">519</span> <span class="k">for</span> <span class="n">processor</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">protocol</span><span class="p">,</span> <span class="p">[]):</span>
+<span class="g g-Whitespace">    </span><span class="mi">520</span>     <span class="n">meth</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">processor</span><span class="p">,</span> <span class="n">meth_name</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">521</span>     <span class="n">response</span> <span class="o">=</span> <span class="n">meth</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">523</span> <span class="k">return</span> <span class="n">response</span>
+
+<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/urllib/request.py:630,</span> in <span class="ni">HTTPErrorProcessor.http_response</span><span class="nt">(self, request, response)</span>
+<span class="g g-Whitespace">    </span><span class="mi">627</span> <span class="c1"># According to RFC 2616, &quot;2xx&quot; code indicates that the client&#39;s</span>
+<span class="g g-Whitespace">    </span><span class="mi">628</span> <span class="c1"># request was successfully received, understood, and accepted.</span>
+<span class="g g-Whitespace">    </span><span class="mi">629</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">200</span> <span class="o">&lt;=</span> <span class="n">code</span> <span class="o">&lt;</span> <span class="mi">300</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">630</span>     <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">631</span>         <span class="s1">&#39;http&#39;</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">hdrs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">633</span> <span class="k">return</span> <span class="n">response</span>
+
+<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/urllib/request.py:559,</span> in <span class="ni">OpenerDirector.error</span><span class="nt">(self, proto, *args)</span>
+<span class="g g-Whitespace">    </span><span class="mi">557</span> <span class="k">if</span> <span class="n">http_err</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">558</span>     <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="nb">dict</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="s1">&#39;http_error_default&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">orig_args</span>
+<span class="ne">--&gt; </span><span class="mi">559</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call_chain</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+
+<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/urllib/request.py:492,</span> in <span class="ni">OpenerDirector._call_chain</span><span class="nt">(self, chain, kind, meth_name, *args)</span>
+<span class="g g-Whitespace">    </span><span class="mi">490</span> <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="n">handlers</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">491</span>     <span class="n">func</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="n">meth_name</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">492</span>     <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">493</span>     <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">494</span>         <span class="k">return</span> <span class="n">result</span>
+
+<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/urllib/request.py:639,</span> in <span class="ni">HTTPDefaultErrorHandler.http_error_default</span><span class="nt">(self, req, fp, code, msg, hdrs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">638</span> <span class="k">def</span><span class="w"> </span><span class="nf">http_error_default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">req</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">hdrs</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">639</span>     <span class="k">raise</span> <span class="n">HTTPError</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">full_url</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">hdrs</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span>
+
+<span class="ne">HTTPError</span>: HTTP Error 403: Forbidden
+</pre></div>
+</div>
+</div>
+</div>
+<section id="an-example">
+<h2>An Example<a class="headerlink" href="#an-example" title="Link to this heading">#</a></h2>
+<p>This is an example of a “one-liner” that you can accomplish with groupby.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mag</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x112e20780&gt;
+</pre></div>
+</div>
+<img alt="../../_images/7da6a28d692e98b9aecf240bd42367452e12ab1f97f1aa871a6ba9f6c39d5dc1.png" src="../../_images/7da6a28d692e98b9aecf240bd42367452e12ab1f97f1aa871a6ba9f6c39d5dc1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_small</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mag</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x112b42d68&gt;
+</pre></div>
+</div>
+<img alt="../../_images/bac8ade12926e4e173b63ca2f613624323acb6138376e48233ac3339bd0e01ba.png" src="../../_images/bac8ade12926e4e173b63ca2f613624323acb6138376e48233ac3339bd0e01ba.png" />
+</div>
+</div>
+</section>
+<section id="what-happened">
+<h2>What Happened?<a class="headerlink" href="#what-happened" title="Link to this heading">#</a></h2>
+<p>Let’s break apart this operation a bit. The workflow with <code class="docutils literal notranslate"><span class="pre">groubpy</span></code> can be divided into three general steps:</p>
+<ol class="arabic simple">
+<li><p><strong>Split</strong>: Partition the data into different groups based on some criterion.</p></li>
+<li><p><strong>Apply</strong>: Do some caclulation within each group. Different types of “apply” steps might be</p></li>
+<li><p><em>Aggregation</em>: Get the mean or max within the group.</p></li>
+<li><p><em>Transformation</em>: Normalize all the values within a group</p></li>
+<li><p><em>Filtration</em>: Eliminate some groups based on a criterion.</p></li>
+<li><p><strong>Combine</strong>: Put the results back together into a single object.</p></li>
+</ol>
+<p><img alt="split-apply-combine" src="https://miro.medium.com/max/1840/1*JbF6nhrQsn4f-TaSF6IR9g.png" /></p>
+<section id="the-groupby-method">
+<h3>The <code class="docutils literal notranslate"><span class="pre">groupby</span></code> method<a class="headerlink" href="#the-groupby-method" title="Link to this heading">#</a></h3>
+<p>Both <code class="docutils literal notranslate"><span class="pre">Series</span></code> and <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> objects have a groupby method. It accepts a variety of arguments, but the simplest way to think about it is that you pass another series, whose unique values are used to split the original object into different groups.</p>
+<p>via <a class="reference external" href="https://medium.com/analytics-vidhya/split-apply-combine-strategy-for-data-mining-4fd6e2a0cc99">https://medium.com/analytics-vidhya/split-apply-combine-strategy-for-data-mining-4fd6e2a0cc99</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">country</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.DataFrameGroupBy object at 0x10626f358&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>There is a shortcut for doing this with dataframes: you just pass the column name:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.DataFrameGroupBy object at 0x10626f208&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-groubby-object">
+<h3>The <code class="docutils literal notranslate"><span class="pre">GroubBy</span></code> object<a class="headerlink" href="#the-groubby-object" title="Link to this heading">#</a></h3>
+<p>When we call, <code class="docutils literal notranslate"><span class="pre">groupby</span></code> we get back a <code class="docutils literal notranslate"><span class="pre">GroupBy</span></code> object:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gb</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">)</span>
+<span class="n">gb</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.DataFrameGroupBy object at 0x1131bcf60&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>The length tells us how many groups were found:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">gb</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>262
+</pre></div>
+</div>
+</div>
+</div>
+<p>All of the groups are available as a dictionary via the <code class="docutils literal notranslate"><span class="pre">.groups</span></code> attribute:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">groups</span> <span class="o">=</span> <span class="n">gb</span><span class="o">.</span><span class="n">groups</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">groups</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>262
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">groups</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;&#39;,
+ &#39;Afghanistan&#39;,
+ &#39;Alaska&#39;,
+ &#39;Albania&#39;,
+ &#39;Algeria&#39;,
+ &#39;American Samoa&#39;,
+ &#39;Angola&#39;,
+ &#39;Anguilla&#39;,
+ &#39;Antarctica&#39;,
+ &#39;Argentina&#39;,
+ &#39;Arizona&#39;,
+ &#39;Aruba&#39;,
+ &#39;Ascension Island region&#39;,
+ &#39;Australia&#39;,
+ &#39;Azerbaijan&#39;,
+ &#39;Azores Islands region&#39;,
+ &#39;Azores-Cape St. Vincent Ridge&#39;,
+ &#39;Balleny Islands region&#39;,
+ &#39;Banda Sea&#39;,
+ &#39;Bangladesh&#39;,
+ &#39;Barbados&#39;,
+ &#39;Barbuda&#39;,
+ &#39;Bay of Bengal&#39;,
+ &#39;Bermuda&#39;,
+ &#39;Bhutan&#39;,
+ &#39;Bolivia&#39;,
+ &#39;Bosnia and Herzegovina&#39;,
+ &#39;Bouvet Island&#39;,
+ &#39;Bouvet Island region&#39;,
+ &#39;Brazil&#39;,
+ &#39;British Indian Ocean Territory&#39;,
+ &#39;British Virgin Islands&#39;,
+ &#39;Burma&#39;,
+ &#39;Burundi&#39;,
+ &#39;California&#39;,
+ &#39;Canada&#39;,
+ &#39;Cape Verde&#39;,
+ &#39;Carlsberg Ridge&#39;,
+ &#39;Cayman Islands&#39;,
+ &#39;Celebes Sea&#39;,
+ &#39;Central East Pacific Rise&#39;,
+ &#39;Central Mid-Atlantic Ridge&#39;,
+ &#39;Chagos Archipelago region&#39;,
+ &#39;Chile&#39;,
+ &#39;China&#39;,
+ &#39;Christmas Island&#39;,
+ &#39;Colombia&#39;,
+ &#39;Comoros&#39;,
+ &#39;Cook Islands&#39;,
+ &#39;Costa Rica&#39;,
+ &#39;Crozet Islands region&#39;,
+ &#39;Cuba&#39;,
+ &#39;Cyprus&#39;,
+ &#39;Davis Strait&#39;,
+ &#39;Democratic Republic of the Congo&#39;,
+ &#39;Djibouti&#39;,
+ &#39;Dominica&#39;,
+ &#39;Dominican Republic&#39;,
+ &#39;Drake Passage&#39;,
+ &#39;East Timor&#39;,
+ &#39;East of Severnaya Zemlya&#39;,
+ &#39;East of the Kuril Islands&#39;,
+ &#39;East of the North Island of New Zealand&#39;,
+ &#39;East of the Philippine Islands&#39;,
+ &#39;East of the South Sandwich Islands&#39;,
+ &#39;Easter Island region&#39;,
+ &#39;Eastern Greenland&#39;,
+ &#39;Ecuador&#39;,
+ &#39;Ecuador region&#39;,
+ &#39;Egypt&#39;,
+ &#39;El Salvador&#39;,
+ &#39;Eritrea&#39;,
+ &#39;Ethiopia&#39;,
+ &#39;Falkland Islands region&#39;,
+ &#39;Federated States of Micronesia region&#39;,
+ &#39;Fiji&#39;,
+ &#39;Fiji region&#39;,
+ &#39;France&#39;,
+ &#39;French Polynesia&#39;,
+ &#39;French Southern Territories&#39;,
+ &#39;Galapagos Triple Junction region&#39;,
+ &#39;Georgia&#39;,
+ &#39;Greece&#39;,
+ &#39;Greenland&#39;,
+ &#39;Greenland Sea&#39;,
+ &#39;Guadeloupe&#39;,
+ &#39;Guam&#39;,
+ &#39;Guatemala&#39;,
+ &#39;Gulf of Alaska&#39;,
+ &#39;Haiti&#39;,
+ &#39;Hawaii&#39;,
+ &#39;Honduras&#39;,
+ &#39;Iceland&#39;,
+ &#39;Idaho&#39;,
+ &#39;India&#39;,
+ &#39;India region&#39;,
+ &#39;Indian Ocean Triple Junction&#39;,
+ &#39;Indonesia&#39;,
+ &#39;Iran&#39;,
+ &#39;Iraq&#39;,
+ &#39;Italy&#39;,
+ &#39;Japan&#39;,
+ &#39;Japan region&#39;,
+ &#39;Jordan&#39;,
+ &#39;Kansas&#39;,
+ &#39;Kazakhstan&#39;,
+ &#39;Kermadec Islands region&#39;,
+ &#39;Kosovo&#39;,
+ &#39;Kuril Islands&#39;,
+ &#39;Kyrgyzstan&#39;,
+ &#39;Labrador Sea&#39;,
+ &#39;Laptev Sea&#39;,
+ &#39;Macedonia&#39;,
+ &#39;Macquarie Island region&#39;,
+ &#39;Malawi&#39;,
+ &#39;Malaysia&#39;,
+ &#39;Mariana Islands region&#39;,
+ &#39;Martinique&#39;,
+ &#39;Mauritania&#39;,
+ &#39;Mauritius&#39;,
+ &#39;Mauritius - Reunion region&#39;,
+ &#39;Mexico&#39;,
+ &#39;Micronesia&#39;,
+ &#39;Mid-Indian Ridge&#39;,
+ &#39;Molucca Sea&#39;,
+ &#39;Mongolia&#39;,
+ &#39;Montana&#39;,
+ &#39;Montenegro&#39;,
+ &#39;Morocco&#39;,
+ &#39;Mozambique&#39;,
+ &#39;Mozambique Channel&#39;,
+ &#39;Nepal&#39;,
+ &#39;New Caledonia&#39;,
+ &#39;New Mexico&#39;,
+ &#39;New Zealand&#39;,
+ &#39;Nicaragua&#39;,
+ &#39;Niue&#39;,
+ &#39;North Atlantic Ocean&#39;,
+ &#39;North Indian Ocean&#39;,
+ &#39;North Korea&#39;,
+ &#39;North of Ascension Island&#39;,
+ &#39;North of Franz Josef Land&#39;,
+ &#39;North of New Zealand&#39;,
+ &#39;North of Severnaya Zemlya&#39;,
+ &#39;North of Svalbard&#39;,
+ &#39;Northern East Pacific Rise&#39;,
+ &#39;Northern Mariana Islands&#39;,
+ &#39;Northern Mid-Atlantic Ridge&#39;,
+ &#39;Northwest of Australia&#39;,
+ &#39;Norway&#39;,
+ &#39;Norwegian Sea&#39;,
+ &#39;Off the coast of Central America&#39;,
+ &#39;Off the coast of Ecuador&#39;,
+ &#39;Off the coast of Oregon&#39;,
+ &#39;Off the east coast of the North Island of New Zealand&#39;,
+ &#39;Off the south coast of Australia&#39;,
+ &#39;Off the west coast of northern Sumatra&#39;,
+ &#39;Oklahoma&#39;,
+ &#39;Oman&#39;,
+ &#39;Oregon&#39;,
+ &#39;Owen Fracture Zone region&#39;,
+ &#39;Pacific-Antarctic Ridge&#39;,
+ &#39;Pakistan&#39;,
+ &#39;Palau&#39;,
+ &#39;Palau region&#39;,
+ &#39;Panama&#39;,
+ &#39;Papua New Guinea&#39;,
+ &#39;Peru&#39;,
+ &#39;Peru-Ecuador border region&#39;,
+ &#39;Philippine Islands region&#39;,
+ &#39;Philippines&#39;,
+ &#39;Poland&#39;,
+ &#39;Portugal&#39;,
+ &#39;Portugal region&#39;,
+ &#39;Prince Edward Islands&#39;,
+ &#39;Prince Edward Islands region&#39;,
+ &#39;Puerto Rico&#39;,
+ &#39;Republic of the Congo&#39;,
+ &#39;Reykjanes Ridge&#39;,
+ &#39;Romania&#39;,
+ &#39;Russia&#39;,
+ &#39;Russia region&#39;,
+ &#39;Saint Helena&#39;,
+ &#39;Saint Lucia&#39;,
+ &#39;Saint Vincent and the Grenadines&#39;,
+ &#39;Samoa&#39;,
+ &#39;Santa Cruz Islands region&#39;,
+ &#39;Saudi Arabia&#39;,
+ &#39;Scotia Sea&#39;,
+ &#39;Sea of Okhotsk&#39;,
+ &#39;Serbia&#39;,
+ &#39;Slovenia&#39;,
+ &#39;Socotra region&#39;,
+ &#39;Solomon Islands&#39;,
+ &#39;Somalia&#39;,
+ &#39;South Africa&#39;,
+ &#39;South Atlantic Ocean&#39;,
+ &#39;South Carolina&#39;,
+ &#39;South Georgia Island region&#39;,
+ &#39;South Georgia and the South Sandwich Islands&#39;,
+ &#39;South Indian Ocean&#39;,
+ &#39;South Napa Earthquake&#39;,
+ &#39;South Sandwich Islands&#39;,
+ &#39;South Sandwich Islands region&#39;,
+ &#39;South Shetland Islands&#39;,
+ &#39;South Sudan&#39;,
+ &#39;South of Africa&#39;,
+ &#39;South of Australia&#39;,
+ &#39;South of Panama&#39;,
+ &#39;South of Tasmania&#39;,
+ &#39;South of Tonga&#39;,
+ &#39;South of the Fiji Islands&#39;,
+ &#39;South of the Kermadec Islands&#39;,
+ &#39;South of the Mariana Islands&#39;,
+ &#39;Southeast Indian Ridge&#39;,
+ &#39;Southeast central Pacific Ocean&#39;,
+ &#39;Southeast of Easter Island&#39;,
+ &#39;Southern East Pacific Rise&#39;,
+ &#39;Southern Mid-Atlantic Ridge&#39;,
+ &#39;Southern Pacific Ocean&#39;,
+ &#39;Southwest Indian Ridge&#39;,
+ &#39;Southwest of Africa&#39;,
+ &#39;Southwest of Australia&#39;,
+ &#39;Southwestern Atlantic Ocean&#39;,
+ &#39;Spain&#39;,
+ &#39;Sudan&#39;,
+ &#39;Svalbard and Jan Mayen&#39;,
+ &#39;Sweden&#39;,
+ &#39;Syria&#39;,
+ &#39;Taiwan&#39;,
+ &#39;Tajikistan&#39;,
+ &#39;Tanzania&#39;,
+ &#39;Thailand&#39;,
+ &#39;Tonga&#39;,
+ &#39;Tonga region&#39;,
+ &#39;Trinidad and Tobago&#39;,
+ &#39;Tristan da Cunha region&#39;,
+ &#39;Turkey&#39;,
+ &#39;Turkmenistan&#39;,
+ &#39;Uganda&#39;,
+ &#39;Ukraine&#39;,
+ &#39;United Kingdom&#39;,
+ &#39;Utah&#39;,
+ &#39;Uzbekistan&#39;,
+ &#39;Vanuatu&#39;,
+ &#39;Vanuatu region&#39;,
+ &#39;Venezuela&#39;,
+ &#39;Vietnam&#39;,
+ &#39;Wallis and Futuna&#39;,
+ &#39;West Chile Rise&#39;,
+ &#39;West of Australia&#39;,
+ &#39;West of Macquarie Island&#39;,
+ &#39;West of Vancouver Island&#39;,
+ &#39;West of the Galapagos Islands&#39;,
+ &#39;Western Australia&#39;,
+ &#39;Western Indian-Antarctic Ridge&#39;,
+ &#39;Yemen&#39;,
+ &#39;Zambia&#39;,
+ &#39;north of Ascension Island&#39;,
+ &#39;northern Mid-Atlantic Ridge&#39;,
+ &#39;south of Panama&#39;,
+ &#39;western Xizang&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="iterating-and-selecting-groups">
+<h3>Iterating and selecting groups<a class="headerlink" href="#iterating-and-selecting-groups" title="Link to this heading">#</a></h3>
+<p>You can loop through the groups if you want.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">gb</span><span class="p">:</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">group</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The key is &quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+    <span class="k">break</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>time</th>
+      <th>latitude</th>
+      <th>longitude</th>
+      <th>depth</th>
+      <th>mag</th>
+      <th>magType</th>
+      <th>nst</th>
+      <th>gap</th>
+      <th>dmin</th>
+      <th>rms</th>
+      <th>net</th>
+      <th>updated</th>
+      <th>place</th>
+      <th>type</th>
+      <th>country</th>
+    </tr>
+    <tr>
+      <th>id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>usc000mkc8</th>
+      <td>2014-01-25 16:10:38.760</td>
+      <td>-55.2925</td>
+      <td>-27.0527</td>
+      <td>10.00</td>
+      <td>4.1</td>
+      <td>mb</td>
+      <td>NaN</td>
+      <td>97.0</td>
+      <td>5.553</td>
+      <td>0.35</td>
+      <td>us</td>
+      <td>2014-03-27T18:15:40.000Z</td>
+      <td>156km N of Visokoi Island,</td>
+      <td>earthquake</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>usc000mkc7</th>
+      <td>2014-01-25 09:43:23.230</td>
+      <td>-55.9434</td>
+      <td>-27.6772</td>
+      <td>103.48</td>
+      <td>4.3</td>
+      <td>mb</td>
+      <td>NaN</td>
+      <td>87.0</td>
+      <td>5.324</td>
+      <td>0.62</td>
+      <td>us</td>
+      <td>2014-03-27T18:15:40.000Z</td>
+      <td>89km NNW of Visokoi Island,</td>
+      <td>earthquake</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>usc000mh0c</th>
+      <td>2014-01-19 15:42:45.510</td>
+      <td>-56.9656</td>
+      <td>-26.7803</td>
+      <td>120.25</td>
+      <td>4.6</td>
+      <td>mb</td>
+      <td>NaN</td>
+      <td>151.0</td>
+      <td>6.120</td>
+      <td>0.39</td>
+      <td>us</td>
+      <td>2014-03-22T00:05:23.000Z</td>
+      <td>39km SE of Visokoi Island,</td>
+      <td>earthquake</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>usb000m7f2</th>
+      <td>2014-01-10 13:50:38.730</td>
+      <td>-56.0110</td>
+      <td>-26.1186</td>
+      <td>10.00</td>
+      <td>4.2</td>
+      <td>mb</td>
+      <td>NaN</td>
+      <td>106.0</td>
+      <td>6.192</td>
+      <td>0.71</td>
+      <td>us</td>
+      <td>2014-03-15T03:38:58.000Z</td>
+      <td>101km NE of Visokoi Island,</td>
+      <td>earthquake</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>usb000m78v</th>
+      <td>2014-01-07 06:51:09.160</td>
+      <td>-56.9651</td>
+      <td>-26.6696</td>
+      <td>124.37</td>
+      <td>4.3</td>
+      <td>mb</td>
+      <td>NaN</td>
+      <td>109.0</td>
+      <td>6.176</td>
+      <td>0.59</td>
+      <td>us</td>
+      <td>2014-03-07T00:26:01.000Z</td>
+      <td>43km SE of Visokoi Island,</td>
+      <td>earthquake</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The key is &quot;&quot;
+</pre></div>
+</div>
+</div>
+</div>
+<p>And you can get a specific group by key.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gb</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s1">&#39;Chile&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>time</th>
+      <th>latitude</th>
+      <th>longitude</th>
+      <th>depth</th>
+      <th>mag</th>
+      <th>magType</th>
+      <th>nst</th>
+      <th>gap</th>
+      <th>dmin</th>
+      <th>rms</th>
+      <th>net</th>
+      <th>updated</th>
+      <th>place</th>
+      <th>type</th>
+      <th>country</th>
+    </tr>
+    <tr>
+      <th>id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>usc000mqlq</th>
+      <td>2014-01-31 20:00:16.000</td>
+      <td>-33.6550</td>
+      <td>-71.9810</td>
+      <td>25.10</td>
+      <td>4.5</td>
+      <td>mb</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.63</td>
+      <td>us</td>
+      <td>2014-04-08T01:43:19.000Z</td>
+      <td>34km WSW of San Antonio, Chile</td>
+      <td>earthquake</td>
+      <td>Chile</td>
+    </tr>
+    <tr>
+      <th>usc000mql6</th>
+      <td>2014-01-31 13:48:23.000</td>
+      <td>-18.0690</td>
+      <td>-69.6630</td>
+      <td>149.10</td>
+      <td>4.3</td>
+      <td>mb</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.77</td>
+      <td>us</td>
+      <td>2014-04-08T01:43:18.000Z</td>
+      <td>17km NW of Putre, Chile</td>
+      <td>earthquake</td>
+      <td>Chile</td>
+    </tr>
+    <tr>
+      <th>usc000mqk8</th>
+      <td>2014-01-30 14:20:56.560</td>
+      <td>-19.6118</td>
+      <td>-70.9487</td>
+      <td>15.16</td>
+      <td>4.1</td>
+      <td>mb</td>
+      <td>NaN</td>
+      <td>159.0</td>
+      <td>1.227</td>
+      <td>1.34</td>
+      <td>us</td>
+      <td>2014-04-08T01:43:17.000Z</td>
+      <td>107km NW of Iquique, Chile</td>
+      <td>earthquake</td>
+      <td>Chile</td>
+    </tr>
+    <tr>
+      <th>usc000mdi2</th>
+      <td>2014-01-30 10:02:14.000</td>
+      <td>-32.1180</td>
+      <td>-71.7860</td>
+      <td>25.70</td>
+      <td>4.5</td>
+      <td>mwr</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.10</td>
+      <td>us</td>
+      <td>2015-01-30T21:28:21.955Z</td>
+      <td>64km NW of La Ligua, Chile</td>
+      <td>earthquake</td>
+      <td>Chile</td>
+    </tr>
+    <tr>
+      <th>usc000mqeh</th>
+      <td>2014-01-29 18:58:23.000</td>
+      <td>-18.6610</td>
+      <td>-69.6440</td>
+      <td>123.10</td>
+      <td>4.8</td>
+      <td>mb</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.52</td>
+      <td>us</td>
+      <td>2014-04-08T01:43:16.000Z</td>
+      <td>51km S of Putre, Chile</td>
+      <td>earthquake</td>
+      <td>Chile</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="aggregation">
+<h2>Aggregation<a class="headerlink" href="#aggregation" title="Link to this heading">#</a></h2>
+<p>Now that we know how to create a <code class="docutils literal notranslate"><span class="pre">GroupBy</span></code> object, let’s learn how to do aggregation on it.</p>
+<p>One way us to use the <code class="docutils literal notranslate"><span class="pre">.aggregate</span></code> method, which accepts another function as its argument. The result is automatically combined into a new dataframe with the group key as the index.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gb</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>time</th>
+      <th>latitude</th>
+      <th>longitude</th>
+      <th>depth</th>
+      <th>mag</th>
+      <th>magType</th>
+      <th>nst</th>
+      <th>gap</th>
+      <th>dmin</th>
+      <th>rms</th>
+      <th>net</th>
+      <th>updated</th>
+      <th>place</th>
+      <th>type</th>
+    </tr>
+    <tr>
+      <th>country</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th></th>
+      <td>2014-12-31 14:49:19.200</td>
+      <td>-37.5219</td>
+      <td>78.9418</td>
+      <td>248.18</td>
+      <td>6.9</td>
+      <td>mww</td>
+      <td>NaN</td>
+      <td>195.0</td>
+      <td>28.762</td>
+      <td>1.47</td>
+      <td>us</td>
+      <td>2015-03-17T02:38:27.040Z</td>
+      <td>99km NW of Visokoi Island,</td>
+      <td>earthquake</td>
+    </tr>
+    <tr>
+      <th>Afghanistan</th>
+      <td>2014-12-27 06:37:50.010</td>
+      <td>37.0112</td>
+      <td>71.6062</td>
+      <td>248.39</td>
+      <td>5.6</td>
+      <td>mww</td>
+      <td>NaN</td>
+      <td>172.0</td>
+      <td>3.505</td>
+      <td>1.55</td>
+      <td>us</td>
+      <td>2015-06-22T20:12:10.712Z</td>
+      <td>8km SE of Ashkasham, Afghanistan</td>
+      <td>earthquake</td>
+    </tr>
+    <tr>
+      <th>Alaska</th>
+      <td>2014-12-30 21:22:21.580</td>
+      <td>67.9858</td>
+      <td>179.9288</td>
+      <td>266.61</td>
+      <td>7.9</td>
+      <td>mww</td>
+      <td>152.0</td>
+      <td>338.0</td>
+      <td>7.712</td>
+      <td>2.15</td>
+      <td>us</td>
+      <td>2015-05-30T05:34:08.822Z</td>
+      <td>9km WSW of Little Sitkin Island, Alaska</td>
+      <td>earthquake</td>
+    </tr>
+    <tr>
+      <th>Albania</th>
+      <td>2014-05-20 04:43:25.500</td>
+      <td>41.5297</td>
+      <td>20.2804</td>
+      <td>28.26</td>
+      <td>5.0</td>
+      <td>mwr</td>
+      <td>NaN</td>
+      <td>69.0</td>
+      <td>1.299</td>
+      <td>1.34</td>
+      <td>us</td>
+      <td>2015-01-30T15:28:03.533Z</td>
+      <td>6km NE of Durres, Albania</td>
+      <td>earthquake</td>
+    </tr>
+    <tr>
+      <th>Algeria</th>
+      <td>2014-12-26 17:55:18.140</td>
+      <td>36.9391</td>
+      <td>5.6063</td>
+      <td>21.40</td>
+      <td>5.5</td>
+      <td>mww</td>
+      <td>NaN</td>
+      <td>174.0</td>
+      <td>3.250</td>
+      <td>1.45</td>
+      <td>us</td>
+      <td>2015-03-17T02:37:18.040Z</td>
+      <td>5km SSW of Bougara, Algeria</td>
+      <td>earthquake</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>By default, the operation is applied to every column. That’s usually not what we want. We can use both <code class="docutils literal notranslate"><span class="pre">.</span></code> or <code class="docutils literal notranslate"><span class="pre">[]</span></code> syntax to select a specific column to operate on. Then we get back a series.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gb</span><span class="o">.</span><span class="n">mag</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>country
+               6.9
+Afghanistan    5.6
+Alaska         7.9
+Albania        5.0
+Algeria        5.5
+Name: mag, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gb</span><span class="o">.</span><span class="n">mag</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">)</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>country
+Chile                         8.2
+Alaska                        7.9
+Solomon Islands               7.6
+Papua New Guinea              7.5
+El Salvador                   7.3
+Mexico                        7.2
+Fiji                          7.1
+Indonesia                     7.1
+Southern East Pacific Rise    7.0
+                              6.9
+Name: mag, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>There are shortcuts for common aggregation functions:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gb</span><span class="o">.</span><span class="n">mag</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>country
+Chile                         8.2
+Alaska                        7.9
+Solomon Islands               7.6
+Papua New Guinea              7.5
+El Salvador                   7.3
+Mexico                        7.2
+Fiji                          7.1
+Indonesia                     7.1
+Southern East Pacific Rise    7.0
+                              6.9
+Name: mag, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gb</span><span class="o">.</span><span class="n">mag</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">nsmallest</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>country
+Mexico         4.01
+Oregon         4.02
+California     4.04
+               4.10
+Afghanistan    4.10
+Alaska         4.10
+Albania        4.10
+Algeria        4.10
+Angola         4.10
+Antarctica     4.10
+Name: mag, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gb</span><span class="o">.</span><span class="n">mag</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>country
+South Napa Earthquake          6.020000
+Bouvet Island region           5.750000
+South Georgia Island region    5.450000
+Barbados                       5.400000
+New Mexico                     5.300000
+Easter Island region           5.162500
+Malawi                         5.100000
+Drake Passage                  5.033333
+North Korea                    5.000000
+Saint Lucia                    5.000000
+Name: mag, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gb</span><span class="o">.</span><span class="n">mag</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>country
+Barbados                              1.555635
+Bouvet Island region                  1.484924
+Puerto Rico                           0.957601
+Off the coast of Ecuador              0.848528
+Palau region                          0.777817
+East of the South Sandwich Islands    0.606495
+Southern East Pacific Rise            0.604508
+South Indian Ocean                    0.602194
+Prince Edward Islands region          0.595259
+Panama                                0.591322
+Name: mag, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can also apply multiple functions at once:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gb</span><span class="o">.</span><span class="n">mag</span><span class="o">.</span><span class="n">aggregate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">])</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>amin</th>
+      <th>amax</th>
+      <th>mean</th>
+    </tr>
+    <tr>
+      <th>country</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th></th>
+      <td>4.1</td>
+      <td>6.9</td>
+      <td>4.582544</td>
+    </tr>
+    <tr>
+      <th>Afghanistan</th>
+      <td>4.1</td>
+      <td>5.6</td>
+      <td>4.410656</td>
+    </tr>
+    <tr>
+      <th>Alaska</th>
+      <td>4.1</td>
+      <td>7.9</td>
+      <td>4.515025</td>
+    </tr>
+    <tr>
+      <th>Albania</th>
+      <td>4.1</td>
+      <td>5.0</td>
+      <td>4.391667</td>
+    </tr>
+    <tr>
+      <th>Algeria</th>
+      <td>4.1</td>
+      <td>5.5</td>
+      <td>4.583333</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gb</span><span class="o">.</span><span class="n">mag</span><span class="o">.</span><span class="n">aggregate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">])</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x112a09e80&gt;
+</pre></div>
+</div>
+<img alt="../../_images/52596f2ce6603202abc3ccccfb131177545531f5a10f0ee91add3798b6ddfdbd.png" src="../../_images/52596f2ce6603202abc3ccccfb131177545531f5a10f0ee91add3798b6ddfdbd.png" />
+</div>
+</div>
+</section>
+<section id="transformation">
+<h2>Transformation<a class="headerlink" href="#transformation" title="Link to this heading">#</a></h2>
+<p>The key difference between aggregation and transformation is that aggregation returns a <em>smaller</em> object than the original, indexed by the group keys, while <em>transformation</em> returns an object with the same index (and same size) as the original object. Groupby + transformation is used when applying an operation that requires information about the whole group.</p>
+<p>In this example, we standardize the earthquakes in each country so that the distribution has zero mean and unit variance. We do this by first defining a function called <code class="docutils literal notranslate"><span class="pre">standardize</span></code> and then passing it to the <code class="docutils literal notranslate"><span class="pre">transform</span></code> method.</p>
+<p>I admit that I don’t know why you would want to do this. <code class="docutils literal notranslate"><span class="pre">transform</span></code> makes more sense to me in the context of time grouping operation. See below for another example.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">standardize</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">/</span><span class="n">x</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+
+<span class="n">mag_standardized_by_country</span> <span class="o">=</span> <span class="n">gb</span><span class="o">.</span><span class="n">mag</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">standardize</span><span class="p">)</span>
+<span class="n">mag_standardized_by_country</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>id
+usc000mqlp   -0.915774
+usc000mqln   -0.675696
+usc000mqls   -0.282385
+usc000mf1x   -0.684915
+usc000mqlm   -0.666807
+Name: mag, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="time-grouping">
+<h2>Time Grouping<a class="headerlink" href="#time-grouping" title="Link to this heading">#</a></h2>
+<p>We already saw how pandas has a strong built-in understanding of time. This capability is even more powerful in the context of <code class="docutils literal notranslate"><span class="pre">groupby</span></code>. With datasets indexed by a pandas <code class="docutils literal notranslate"><span class="pre">DateTimeIndex</span></code>, we can easily group and resample the data using common time units.</p>
+<p>To get started, let’s load the timeseries data we already explored in past lessons.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">urllib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">header_url</span> <span class="o">=</span> <span class="s1">&#39;ftp://ftp.ncdc.noaa.gov/pub/data/uscrn/products/daily01/HEADERS.txt&#39;</span>
+<span class="k">with</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">header_url</span><span class="p">)</span> <span class="k">as</span> <span class="n">response</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+<span class="n">lines</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+
+<span class="n">ftp_base</span> <span class="o">=</span> <span class="s1">&#39;ftp://ftp.ncdc.noaa.gov/pub/data/uscrn/products/daily01/&#39;</span>
+<span class="n">dframes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">2019</span><span class="p">):</span>
+    <span class="n">data_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">/CRND0103-</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">-NY_Millbrook_3_W.txt&#39;</span>               
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">ftp_base</span> <span class="o">+</span> <span class="n">data_url</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                     <span class="n">names</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;\s+&#39;</span><span class="p">,</span>
+                     <span class="n">na_values</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">9999.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">99.0</span><span class="p">])</span>
+    <span class="n">dframes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">dframes</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;LST_DATE&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>WBANNO</th>
+      <th>CRX_VN</th>
+      <th>LONGITUDE</th>
+      <th>LATITUDE</th>
+      <th>T_DAILY_MAX</th>
+      <th>T_DAILY_MIN</th>
+      <th>T_DAILY_MEAN</th>
+      <th>T_DAILY_AVG</th>
+      <th>P_DAILY_CALC</th>
+      <th>SOLARAD_DAILY</th>
+      <th>...</th>
+      <th>SOIL_MOISTURE_10_DAILY</th>
+      <th>SOIL_MOISTURE_20_DAILY</th>
+      <th>SOIL_MOISTURE_50_DAILY</th>
+      <th>SOIL_MOISTURE_100_DAILY</th>
+      <th>SOIL_TEMP_5_DAILY</th>
+      <th>SOIL_TEMP_10_DAILY</th>
+      <th>SOIL_TEMP_20_DAILY</th>
+      <th>SOIL_TEMP_50_DAILY</th>
+      <th>SOIL_TEMP_100_DAILY</th>
+      <th></th>
+    </tr>
+    <tr>
+      <th>LST_DATE</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2016-01-01</th>
+      <td>64756</td>
+      <td>2.422</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>3.4</td>
+      <td>-0.5</td>
+      <td>1.5</td>
+      <td>1.3</td>
+      <td>0.0</td>
+      <td>1.69</td>
+      <td>...</td>
+      <td>0.233</td>
+      <td>0.204</td>
+      <td>0.155</td>
+      <td>0.147</td>
+      <td>4.2</td>
+      <td>4.4</td>
+      <td>5.1</td>
+      <td>6.0</td>
+      <td>7.6</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2016-01-02</th>
+      <td>64756</td>
+      <td>2.422</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>2.9</td>
+      <td>-3.6</td>
+      <td>-0.4</td>
+      <td>-0.3</td>
+      <td>0.0</td>
+      <td>6.25</td>
+      <td>...</td>
+      <td>0.227</td>
+      <td>0.199</td>
+      <td>0.152</td>
+      <td>0.144</td>
+      <td>2.8</td>
+      <td>3.1</td>
+      <td>4.2</td>
+      <td>5.7</td>
+      <td>7.4</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2016-01-03</th>
+      <td>64756</td>
+      <td>2.422</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>5.1</td>
+      <td>-1.8</td>
+      <td>1.6</td>
+      <td>1.1</td>
+      <td>0.0</td>
+      <td>5.69</td>
+      <td>...</td>
+      <td>0.223</td>
+      <td>0.196</td>
+      <td>0.151</td>
+      <td>0.141</td>
+      <td>2.6</td>
+      <td>2.8</td>
+      <td>3.8</td>
+      <td>5.2</td>
+      <td>7.2</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2016-01-04</th>
+      <td>64756</td>
+      <td>2.422</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>0.5</td>
+      <td>-14.4</td>
+      <td>-6.9</td>
+      <td>-7.5</td>
+      <td>0.0</td>
+      <td>9.17</td>
+      <td>...</td>
+      <td>0.220</td>
+      <td>0.194</td>
+      <td>0.148</td>
+      <td>0.139</td>
+      <td>1.7</td>
+      <td>2.1</td>
+      <td>3.4</td>
+      <td>4.9</td>
+      <td>6.9</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2016-01-05</th>
+      <td>64756</td>
+      <td>2.422</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>-5.2</td>
+      <td>-15.5</td>
+      <td>-10.3</td>
+      <td>-11.7</td>
+      <td>0.0</td>
+      <td>9.34</td>
+      <td>...</td>
+      <td>0.213</td>
+      <td>0.191</td>
+      <td>0.148</td>
+      <td>0.138</td>
+      <td>0.4</td>
+      <td>0.9</td>
+      <td>2.4</td>
+      <td>4.3</td>
+      <td>6.6</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 28 columns</p>
+</div></div></div>
+</div>
+<p>This timeseries has daily resolution, and the daily plots are somewhat noisy.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">T_DAILY_MEAN</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x112f05b00&gt;
+</pre></div>
+</div>
+<img alt="../../_images/56928381d06c1450f6e764744cc85dc02f53af41df19bb67a4a9204817928f68.png" src="../../_images/56928381d06c1450f6e764744cc85dc02f53af41df19bb67a4a9204817928f68.png" />
+</div>
+</div>
+<p>A common way to analyze such data in climate science is to create a “climatology,” which contains the average values in each month or day of the year. We can do this easily with groupby. Recall that <code class="docutils literal notranslate"><span class="pre">df.index</span></code> is a pandas <code class="docutils literal notranslate"><span class="pre">DateTimeIndex</span></code> object.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">monthly_climatology</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">monthly_climatology</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>WBANNO</th>
+      <th>CRX_VN</th>
+      <th>LONGITUDE</th>
+      <th>LATITUDE</th>
+      <th>T_DAILY_MAX</th>
+      <th>T_DAILY_MIN</th>
+      <th>T_DAILY_MEAN</th>
+      <th>T_DAILY_AVG</th>
+      <th>P_DAILY_CALC</th>
+      <th>SOLARAD_DAILY</th>
+      <th>...</th>
+      <th>SOIL_MOISTURE_10_DAILY</th>
+      <th>SOIL_MOISTURE_20_DAILY</th>
+      <th>SOIL_MOISTURE_50_DAILY</th>
+      <th>SOIL_MOISTURE_100_DAILY</th>
+      <th>SOIL_TEMP_5_DAILY</th>
+      <th>SOIL_TEMP_10_DAILY</th>
+      <th>SOIL_TEMP_20_DAILY</th>
+      <th>SOIL_TEMP_50_DAILY</th>
+      <th>SOIL_TEMP_100_DAILY</th>
+      <th></th>
+    </tr>
+    <tr>
+      <th>LST_DATE</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>64756</td>
+      <td>2.488667</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>2.924731</td>
+      <td>-7.120430</td>
+      <td>-2.100000</td>
+      <td>-1.905376</td>
+      <td>2.480645</td>
+      <td>5.811613</td>
+      <td>...</td>
+      <td>0.240292</td>
+      <td>0.199547</td>
+      <td>0.150376</td>
+      <td>0.162533</td>
+      <td>0.168817</td>
+      <td>0.232258</td>
+      <td>0.788172</td>
+      <td>1.749462</td>
+      <td>3.394624</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>64756</td>
+      <td>2.487882</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>6.431765</td>
+      <td>-5.015294</td>
+      <td>0.712941</td>
+      <td>1.022353</td>
+      <td>4.080000</td>
+      <td>8.495176</td>
+      <td>...</td>
+      <td>0.244286</td>
+      <td>0.203089</td>
+      <td>0.154306</td>
+      <td>0.165506</td>
+      <td>1.217647</td>
+      <td>1.183529</td>
+      <td>1.280000</td>
+      <td>1.602353</td>
+      <td>2.460000</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>64756</td>
+      <td>2.488667</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>7.953763</td>
+      <td>-3.035484</td>
+      <td>2.455914</td>
+      <td>2.643011</td>
+      <td>2.786022</td>
+      <td>13.210645</td>
+      <td>...</td>
+      <td>0.224202</td>
+      <td>0.190742</td>
+      <td>0.153140</td>
+      <td>0.161763</td>
+      <td>3.469892</td>
+      <td>3.407527</td>
+      <td>3.379570</td>
+      <td>3.472043</td>
+      <td>3.792473</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>64756</td>
+      <td>2.488667</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>14.793333</td>
+      <td>1.816667</td>
+      <td>8.302222</td>
+      <td>8.574444</td>
+      <td>2.400000</td>
+      <td>15.295222</td>
+      <td>...</td>
+      <td>0.208600</td>
+      <td>0.183911</td>
+      <td>0.150022</td>
+      <td>0.159989</td>
+      <td>9.402222</td>
+      <td>9.138889</td>
+      <td>8.438889</td>
+      <td>7.600000</td>
+      <td>6.633333</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>64756</td>
+      <td>2.488667</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>21.235484</td>
+      <td>8.460215</td>
+      <td>14.850538</td>
+      <td>15.121505</td>
+      <td>3.016129</td>
+      <td>17.287849</td>
+      <td>...</td>
+      <td>0.198925</td>
+      <td>0.175452</td>
+      <td>0.146032</td>
+      <td>0.157710</td>
+      <td>16.889247</td>
+      <td>16.691398</td>
+      <td>15.569892</td>
+      <td>14.193548</td>
+      <td>12.344086</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>64756</td>
+      <td>2.488667</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>25.627778</td>
+      <td>11.837778</td>
+      <td>18.733333</td>
+      <td>19.026667</td>
+      <td>3.053333</td>
+      <td>21.912111</td>
+      <td>...</td>
+      <td>0.132856</td>
+      <td>0.127044</td>
+      <td>0.128311</td>
+      <td>0.154978</td>
+      <td>22.372222</td>
+      <td>22.198889</td>
+      <td>20.916667</td>
+      <td>19.417778</td>
+      <td>17.452222</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>64756</td>
+      <td>2.488667</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>28.568817</td>
+      <td>15.536559</td>
+      <td>22.054839</td>
+      <td>22.012903</td>
+      <td>3.867742</td>
+      <td>21.569140</td>
+      <td>...</td>
+      <td>0.100871</td>
+      <td>0.084957</td>
+      <td>0.112538</td>
+      <td>0.153278</td>
+      <td>25.453763</td>
+      <td>25.408602</td>
+      <td>24.141935</td>
+      <td>22.725806</td>
+      <td>20.994624</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>64756</td>
+      <td>2.488667</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>27.473118</td>
+      <td>15.351613</td>
+      <td>21.410753</td>
+      <td>21.378495</td>
+      <td>4.476344</td>
+      <td>18.492688</td>
+      <td>...</td>
+      <td>0.150946</td>
+      <td>0.121290</td>
+      <td>0.125409</td>
+      <td>0.162650</td>
+      <td>24.784946</td>
+      <td>24.897849</td>
+      <td>24.117204</td>
+      <td>23.311828</td>
+      <td>22.278495</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>64756</td>
+      <td>2.488667</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>24.084444</td>
+      <td>12.032222</td>
+      <td>18.057778</td>
+      <td>17.866667</td>
+      <td>3.728889</td>
+      <td>13.625000</td>
+      <td>...</td>
+      <td>0.131144</td>
+      <td>0.113678</td>
+      <td>0.117722</td>
+      <td>0.156965</td>
+      <td>21.060000</td>
+      <td>21.218889</td>
+      <td>20.947778</td>
+      <td>20.823333</td>
+      <td>20.717778</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>64756</td>
+      <td>2.533688</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>19.548000</td>
+      <td>6.704000</td>
+      <td>13.124000</td>
+      <td>13.149333</td>
+      <td>3.408000</td>
+      <td>9.659733</td>
+      <td>...</td>
+      <td>0.127653</td>
+      <td>0.087333</td>
+      <td>0.103053</td>
+      <td>0.141000</td>
+      <td>15.598667</td>
+      <td>15.749333</td>
+      <td>15.986667</td>
+      <td>16.608000</td>
+      <td>17.434667</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>64756</td>
+      <td>2.522000</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>10.986667</td>
+      <td>-1.536667</td>
+      <td>4.721667</td>
+      <td>4.858333</td>
+      <td>2.481667</td>
+      <td>6.991500</td>
+      <td>...</td>
+      <td>0.197867</td>
+      <td>0.159883</td>
+      <td>0.140783</td>
+      <td>0.150367</td>
+      <td>7.018333</td>
+      <td>7.100000</td>
+      <td>7.860000</td>
+      <td>9.181667</td>
+      <td>11.268333</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>64756</td>
+      <td>2.522000</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>2.845161</td>
+      <td>-6.472581</td>
+      <td>-1.819355</td>
+      <td>-1.677419</td>
+      <td>2.454839</td>
+      <td>4.752903</td>
+      <td>...</td>
+      <td>0.225093</td>
+      <td>0.186726</td>
+      <td>0.154403</td>
+      <td>0.171903</td>
+      <td>1.732258</td>
+      <td>1.845161</td>
+      <td>2.622581</td>
+      <td>3.914516</td>
+      <td>6.038710</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>12 rows × 27 columns</p>
+</div></div></div>
+</div>
+<p>Each row in this new dataframe respresents the average values for the months (1=January, 2=February, etc.)</p>
+<p>We can apply more customized aggregations, as with any groupby operation. Below we keep the mean of the mean, max of the max, and min of the min for the temperature measurements.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">monthly_T_climatology</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span><span class="p">)</span><span class="o">.</span><span class="n">aggregate</span><span class="p">({</span><span class="s1">&#39;T_DAILY_MEAN&#39;</span><span class="p">:</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span>
+                                                              <span class="s1">&#39;T_DAILY_MAX&#39;</span><span class="p">:</span> <span class="s1">&#39;max&#39;</span><span class="p">,</span>
+                                                              <span class="s1">&#39;T_DAILY_MIN&#39;</span><span class="p">:</span> <span class="s1">&#39;min&#39;</span><span class="p">})</span>
+<span class="n">monthly_T_climatology</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>T_DAILY_MEAN</th>
+      <th>T_DAILY_MAX</th>
+      <th>T_DAILY_MIN</th>
+    </tr>
+    <tr>
+      <th>LST_DATE</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>-2.100000</td>
+      <td>16.9</td>
+      <td>-26.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.712941</td>
+      <td>24.9</td>
+      <td>-24.7</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2.455914</td>
+      <td>26.8</td>
+      <td>-16.5</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>8.302222</td>
+      <td>30.6</td>
+      <td>-11.3</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>14.850538</td>
+      <td>33.4</td>
+      <td>-1.6</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">monthly_T_climatology</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x10f0577b8&gt;
+</pre></div>
+</div>
+<img alt="../../_images/efe26a4d68264fa5383a2bcf335614bc6d04936731a98f48b50451fab360f072.png" src="../../_images/efe26a4d68264fa5383a2bcf335614bc6d04936731a98f48b50451fab360f072.png" />
+</div>
+</div>
+<p>If we want to do it on a finer scale, we can group by day of year.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">daily_T_climatology</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">dayofyear</span><span class="p">)</span><span class="o">.</span><span class="n">aggregate</span><span class="p">({</span><span class="s1">&#39;T_DAILY_MEAN&#39;</span><span class="p">:</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span>
+                                                            <span class="s1">&#39;T_DAILY_MAX&#39;</span><span class="p">:</span> <span class="s1">&#39;max&#39;</span><span class="p">,</span>
+                                                            <span class="s1">&#39;T_DAILY_MIN&#39;</span><span class="p">:</span> <span class="s1">&#39;min&#39;</span><span class="p">})</span>
+<span class="n">daily_T_climatology</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x1129e5c88&gt;
+</pre></div>
+</div>
+<img alt="../../_images/c1eaaca74dec760fb25af7ff7f16746a1d2567bee53cd4fe307923f713283968.png" src="../../_images/c1eaaca74dec760fb25af7ff7f16746a1d2567bee53cd4fe307923f713283968.png" />
+</div>
+</div>
+<section id="calculating-anomalies">
+<h3>Calculating anomalies<a class="headerlink" href="#calculating-anomalies" title="Link to this heading">#</a></h3>
+<p>A common mode of analysis in climate science is to remove the climatology from a signal to focus only on the “anomaly” values. This can be accomplished with transformation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">standardize</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">/</span><span class="n">x</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+
+<span class="n">anomaly</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">standardize</span><span class="p">)</span>
+<span class="n">anomaly</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;T_DAILY_MEAN&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/rpa/miniconda3/envs/geo_scipy/lib/python3.6/site-packages/pandas/core/ops.py:692: RuntimeWarning: invalid value encountered in double_scalars
+  lambda x: op(x, rvalues))
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x10ef63828&gt;
+</pre></div>
+</div>
+<img alt="../../_images/b971545457193b5ec90a9ecd3fa636b2d6c08981aa59a53ea2a88a2fe786f0a0.png" src="../../_images/b971545457193b5ec90a9ecd3fa636b2d6c08981aa59a53ea2a88a2fe786f0a0.png" />
+</div>
+</div>
+</section>
+<section id="resampling">
+<h3>Resampling<a class="headerlink" href="#resampling" title="Link to this heading">#</a></h3>
+<p>Another common operation is to change the resolution of a dataset by resampling in time. Pandas exposes this through the <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/timeseries.html#resampling">resample</a> function. The resample periods are specified using pandas <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/timeseries.html#offset-aliases">offset index</a> syntax.</p>
+<p>Below we resample the dataset by taking the mean over each month.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;T_DAILY_MEAN&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x1126a5278&gt;
+</pre></div>
+</div>
+<img alt="../../_images/7a12d9af78bd0c0743d05a8de00ff80d23747e2f6608260949e62d421ae858ff.png" src="../../_images/7a12d9af78bd0c0743d05a8de00ff80d23747e2f6608260949e62d421ae858ff.png" />
+</div>
+</div>
+<p>Just like with <code class="docutils literal notranslate"><span class="pre">groupby</span></code>, we can apply any aggregation function to our <code class="docutils literal notranslate"><span class="pre">resample</span></code> operation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;T_DAILY_MAX&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x10efc6160&gt;
+</pre></div>
+</div>
+<img alt="../../_images/fa0d4a28974be76fc6f4723f0e02955f60afa89556c489a5e0e3ce1f433bc249.png" src="../../_images/fa0d4a28974be76fc6f4723f0e02955f60afa89556c489a5e0e3ce1f433bc249.png" />
+</div>
+</div>
+</section>
+<section id="rolling-operations">
+<h3>Rolling Operations<a class="headerlink" href="#rolling-operations" title="Link to this heading">#</a></h3>
+<p>The final category of operations applies to “rolling windows”. (See <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.rolling.html">rolling</a> documentation.) We specify a function to apply over a moving window along the index. We specify the size of the window and, optionally, the weights. We also use the keyword <code class="docutils literal notranslate"><span class="pre">centered</span></code> to tell pandas whether to center the operation around the midpoint of the window.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">T_DAILY_MEAN</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">df</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">win_type</span><span class="o">=</span><span class="s1">&#39;triang&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">T_DAILY_MEAN</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x112cd4b38&gt;
+</pre></div>
+</div>
+<img alt="../../_images/7783f31d226bb89827e78b44681b9a62273955f069b3202c4f0c7b333c476f3f.png" src="../../_images/7783f31d226bb89827e78b44681b9a62273955f069b3202c4f0c7b333c476f3f.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./lectures_DS/pandas"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example">An Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-happened">What Happened?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-groupby-method">The <code class="docutils literal notranslate"><span class="pre">groupby</span></code> method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-groubby-object">The <code class="docutils literal notranslate"><span class="pre">GroubBy</span></code> object</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iterating-and-selecting-groups">Iterating and selecting groups</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregation">Aggregation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformation">Transformation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-grouping">Time Grouping</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-anomalies">Calculating anomalies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resampling">Resampling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rolling-operations">Rolling Operations</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dhruv Balwada & Kara Lamb
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

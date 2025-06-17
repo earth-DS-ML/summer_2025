@@ -204,6 +204,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../../assignments/numpy_matplotlib.html">Assignment 3a: Numpy and Matplotlib</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../assignments/more_matplotlib.html">Assignment 3b: More Matplotlib</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../pandas/pandas_intro.html">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pandas/basic_pandas.html">Pandas Fundamentals</a></li>
+</ul>
 
     </div>
 </nav></div>
@@ -1330,7 +1335,7 @@ We will now bring in Matplotib to start visualizating these arrays.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7e6701838e00&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f32b960cce0&gt;]
 </pre></div>
 </div>
 <img alt="../../_images/603f1bf3f1ae45fc73f091eed1d8fd5379d18a2c2049271fdba4407abf436374.png" src="../../_images/603f1bf3f1ae45fc73f091eed1d8fd5379d18a2c2049271fdba4407abf436374.png" />
@@ -1345,7 +1350,7 @@ He we use <code class="docutils literal notranslate"><span class="pre">pcolormes
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7e6702f33950&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7f32b9664710&gt;
 </pre></div>
 </div>
 <img alt="../../_images/aee5e6ad0abf6c8531d407defa42e9534904af34d1b17628e4d4db5fbfdeeff6.png" src="../../_images/aee5e6ad0abf6c8531d407defa42e9534904af34d1b17628e4d4db5fbfdeeff6.png" />
@@ -1358,7 +1363,7 @@ He we use <code class="docutils literal notranslate"><span class="pre">pcolormes
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7e67019192b0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7f32b962fdd0&gt;
 </pre></div>
 </div>
 <img alt="../../_images/687758ce4d9b814fbb3ee73767310e7d25a1314f8215395e457ac3ef919fa15b.png" src="../../_images/687758ce4d9b814fbb3ee73767310e7d25a1314f8215395e457ac3ef919fa15b.png" />
@@ -1385,7 +1390,7 @@ He we use <code class="docutils literal notranslate"><span class="pre">pcolormes
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7e6701791640&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f32b9568260&gt;]
 </pre></div>
 </div>
 <img alt="../../_images/e231bdee97fec8d0a3261b94696c016c9598ffcf0ecb321bb5c9b73296c90dc7.png" src="../../_images/e231bdee97fec8d0a3261b94696c016c9598ffcf0ecb321bb5c9b73296c90dc7.png" />
@@ -1408,7 +1413,7 @@ He we use <code class="docutils literal notranslate"><span class="pre">pcolormes
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7e6701758cb0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7f32b9554590&gt;
 </pre></div>
 </div>
 <img alt="../../_images/a59eab6f899beced9be60114504ebca682eedc05ebbf6afa7d2b6448e3e8d7bc.png" src="../../_images/a59eab6f899beced9be60114504ebca682eedc05ebbf6afa7d2b6448e3e8d7bc.png" />
@@ -1427,7 +1432,7 @@ He we use <code class="docutils literal notranslate"><span class="pre">pcolormes
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7e6701890290&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7f32b95699a0&gt;
 </pre></div>
 </div>
 <img alt="../../_images/fb2430822223cb60c72d454db888532dd7fc888396cbff89113e017fbc8c13ff.png" src="../../_images/fb2430822223cb60c72d454db888532dd7fc888396cbff89113e017fbc8c13ff.png" />
@@ -1478,7 +1483,7 @@ You can accidentally lose the structure of the data.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7a393e168350&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7f8b5b22d400&gt;
 </pre></div>
 </div>
 <img alt="../../_images/48b818563042a3bb9177ebab898f7fb78c95a6121f5e41e37d6d968d44158839.png" src="../../_images/48b818563042a3bb9177ebab898f7fb78c95a6121f5e41e37d6d968d44158839.png" />
@@ -1493,7 +1498,7 @@ You can accidentally lose the structure of the data.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7a39eded09b0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7f8b5b288650&gt;
 </pre></div>
 </div>
 <img alt="../../_images/e3be160088a48aacb62b62f6f59cc09e2fab6e45ac2813df7f0785b69cc81d3f.png" src="../../_images/e3be160088a48aacb62b62f6f59cc09e2fab6e45ac2813df7f0785b69cc81d3f.png" />
@@ -1581,12 +1586,25 @@ When performing operations on two arrays, NumPy compares their shapes element-wi
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7f8b5b2a9100&gt;
+</pre></div>
+</div>
+<img alt="../../_images/398feb5c8be4b594acce40d17421ac3535a7842f2e7923f47debb595e46e4103.png" src="../../_images/398feb5c8be4b594acce40d17421ac3535a7842f2e7923f47debb595e46e4103.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7a3935ee5640&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7f8b5b2d2de0&gt;
 </pre></div>
 </div>
 <img alt="../../_images/1c8644f869a8f096c95db31624dfcb5ca39d50db1ca99e7a5bc5035ddb3d26bc.png" src="../../_images/1c8644f869a8f096c95db31624dfcb5ca39d50db1ca99e7a5bc5035ddb3d26bc.png" />
@@ -1607,7 +1625,7 @@ When performing operations on two arrays, NumPy compares their shapes element-wi
 </div>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">40</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">41</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># multiply f by y</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">h</span> <span class="o">=</span> <span class="n">f</span> <span class="o">*</span> <span class="n">y</span>
@@ -1641,7 +1659,7 @@ Then the length-50 dimensions will line up.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7a3935e87290&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7f8b52eff8f0&gt;
 </pre></div>
 </div>
 <img alt="../../_images/da9a8c4510b2bc3c6f24efa42f9e72b39bbe028cf60e5f0561b5fbe088c9d944.png" src="../../_images/da9a8c4510b2bc3c6f24efa42f9e72b39bbe028cf60e5f0561b5fbe088c9d944.png" />
@@ -1650,6 +1668,74 @@ Then the length-50 dimensions will line up.</p>
 <section id="exercise">
 <h3>Exercise<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h3>
 <p>Can you create and plot the <code class="docutils literal notranslate"><span class="pre">f</span> <span class="pre">=</span> <span class="pre">np.sin(xx)</span> <span class="pre">*</span> <span class="pre">np.cos(0.5*yy)</span></code> from before, but using the 1-D x and y and broadcasting?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(100,)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="kc">None</span><span class="p">,:]</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1, 100)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(50,)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="p">[:,</span><span class="kc">None</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(50, 1)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="kc">None</span><span class="p">,:])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="n">y</span><span class="p">[:,</span><span class="kc">None</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7f8b52def020&gt;
+</pre></div>
+</div>
+<img alt="../../_images/398feb5c8be4b594acce40d17421ac3535a7842f2e7923f47debb595e46e4103.png" src="../../_images/398feb5c8be4b594acce40d17421ac3535a7842f2e7923f47debb595e46e4103.png" />
+</div>
+</div>
 </section>
 </section>
 <section id="reduction-operations">
@@ -1699,9 +1785,104 @@ There are many different reduction operations. Here we will look at some of the 
 <p>A key property of numpy reductions is the ability to operate on just one axis.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.colorbar.Colorbar at 0x7f8b51ba1820&gt;
+</pre></div>
+</div>
+<img alt="../../_images/a8ab64f21d321d3a4a83fe76e2a86e8586a87e4d31d2453a92004e459d9dcaa6.png" src="../../_images/a8ab64f21d321d3a4a83fe76e2a86e8586a87e4d31d2453a92004e459d9dcaa6.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">temp2</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">temp2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>50
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">temp2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">25</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># apply on just one axis</span>
 <span class="n">g_ymean</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">g_xmean</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">temp3</span> <span class="o">=</span> <span class="n">temp</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">temp3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(100, 50, 25)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">temp3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>50
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">temp</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(1.0)
 </pre></div>
 </div>
 </div>
@@ -1732,6 +1913,43 @@ There are many different reduction operations. Here we will look at some of the 
 <img alt="../../_images/892396ac0d3953a4c21c8a9aa5c7272f999931c33a4f495499276c325d41b398.png" src="../../_images/892396ac0d3953a4c21c8a9aa5c7272f999931c33a4f495499276c325d41b398.png" />
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-9.42326863e-32, -4.77205105e-17, -9.27211559e-17, ...,
+        -9.27211559e-17, -4.77205105e-17, -9.42326863e-32],
+       [-9.86000036e-17, -4.99321700e-02, -9.70184196e-02, ...,
+        -9.70184196e-02, -4.99321700e-02, -9.86000036e-17],
+       [-1.96794839e-16, -9.96591580e-02, -1.93638170e-01, ...,
+        -1.93638170e-01, -9.96591580e-02, -1.96794839e-16],
+       ...,
+       [-1.96794839e-16, -9.96591580e-02, -1.93638170e-01, ...,
+        -1.93638170e-01, -9.96591580e-02, -1.96794839e-16],
+       [-9.86000036e-17, -4.99321700e-02, -9.70184196e-02, ...,
+        -9.70184196e-02, -4.99321700e-02, -9.86000036e-17],
+       [-9.42326863e-32, -4.77205105e-17, -9.27211559e-17, ...,
+        -9.27211559e-17, -4.77205105e-17, -9.42326863e-32]],
+      shape=(50, 100))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(50, 100)
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="data-files">
 <h2>Data Files<a class="headerlink" href="#data-files" title="Link to this heading">#</a></h2>
@@ -1751,8 +1969,78 @@ Later we will learn about NetCDF, the recommended way to store earth and environ
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g_loaded</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;g.npy&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g_loaded</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-9.42326863e-32, -4.77205105e-17, -9.27211559e-17, ...,
+        -9.27211559e-17, -4.77205105e-17, -9.42326863e-32],
+       [-9.86000036e-17, -4.99321700e-02, -9.70184196e-02, ...,
+        -9.70184196e-02, -4.99321700e-02, -9.86000036e-17],
+       [-1.96794839e-16, -9.96591580e-02, -1.93638170e-01, ...,
+        -1.93638170e-01, -9.96591580e-02, -1.96794839e-16],
+       ...,
+       [-1.96794839e-16, -9.96591580e-02, -1.93638170e-01, ...,
+        -1.93638170e-01, -9.96591580e-02, -1.96794839e-16],
+       [-9.86000036e-17, -4.99321700e-02, -9.70184196e-02, ...,
+        -9.70184196e-02, -4.99321700e-02, -9.86000036e-17],
+       [-9.42326863e-32, -4.77205105e-17, -9.27211559e-17, ...,
+        -9.27211559e-17, -4.77205105e-17, -9.42326863e-32]],
+      shape=(50, 100))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_equal</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">g_loaded</span><span class="o">*</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">AssertionError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">86</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_equal</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">g_loaded</span><span class="o">*</span><span class="mf">0.5</span><span class="p">)</span>
 
-<span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_equal</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">g_loaded</span><span class="p">)</span>
+    <span class="p">[</span><span class="o">...</span> <span class="n">skipping</span> <span class="n">hidden</span> <span class="mi">3</span> <span class="n">frame</span><span class="p">]</span>
+
+<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/numpy/testing/_private/utils.py:921,</span> in <span class="ni">assert_array_compare</span><span class="nt">(comparison, x, y, err_msg, verbose, header, precision, equal_nan, equal_inf, strict, names)</span>
+<span class="g g-Whitespace">    </span><span class="mi">916</span>         <span class="n">err_msg</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">remarks</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">917</span>         <span class="n">msg</span> <span class="o">=</span> <span class="n">build_err_msg</span><span class="p">([</span><span class="n">ox</span><span class="p">,</span> <span class="n">oy</span><span class="p">],</span> <span class="n">err_msg</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">918</span>                             <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">919</span>                             <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">920</span>                             <span class="n">precision</span><span class="o">=</span><span class="n">precision</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">921</span>         <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">922</span> <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">923</span>     <span class="kn">import</span><span class="w"> </span><span class="nn">traceback</span>
+
+<span class="ne">AssertionError</span>: 
+<span class="n">Arrays</span> <span class="n">are</span> <span class="ow">not</span> <span class="n">equal</span>
+
+<span class="n">Mismatched</span> <span class="n">elements</span><span class="p">:</span> <span class="mi">5000</span> <span class="o">/</span> <span class="mi">5000</span> <span class="p">(</span><span class="mi">100</span><span class="o">%</span><span class="p">)</span>
+<span class="n">Max</span> <span class="n">absolute</span> <span class="n">difference</span> <span class="n">among</span> <span class="n">violations</span><span class="p">:</span> <span class="mf">2.40510295</span>
+<span class="n">Max</span> <span class="n">relative</span> <span class="n">difference</span> <span class="n">among</span> <span class="n">violations</span><span class="p">:</span> <span class="mf">1.</span>
+ <span class="n">ACTUAL</span><span class="p">:</span> <span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mf">9.423269e-32</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.772051e-17</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.272116e-17</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.272116e-17</span><span class="p">,</span>
+        <span class="o">-</span><span class="mf">4.772051e-17</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.423269e-32</span><span class="p">],</span>
+       <span class="p">[</span><span class="o">-</span><span class="mf">9.860000e-17</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.993217e-02</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.701842e-02</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.701842e-02</span><span class="p">,</span><span class="o">...</span>
+ <span class="n">DESIRED</span><span class="p">:</span> <span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mf">4.711634e-32</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.386026e-17</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.636058e-17</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.636058e-17</span><span class="p">,</span>
+        <span class="o">-</span><span class="mf">2.386026e-17</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.711634e-32</span><span class="p">],</span>
+       <span class="p">[</span><span class="o">-</span><span class="mf">4.930000e-17</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.496608e-02</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.850921e-02</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.850921e-02</span><span class="p">,</span><span class="o">...</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_equal</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">g_loaded</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
