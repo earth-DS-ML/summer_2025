@@ -25,5 +25,10 @@ parts:
     - file: lectures_DS/sci_python/more_matplotlib
     - file: assignments/numpy_matplotlib
     - file: assignments/more_matplotlib
+  - caption: Pandas
+    chapters:
+    - file: lectures_DS/pandas/pandas_intro
+    - file: lectures_DS/pandas/basic_pandas
+    - file: lectures_DS/pandas/pandas_groupby
 
 
