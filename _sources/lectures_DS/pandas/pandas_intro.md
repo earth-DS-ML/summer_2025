@@ -11,7 +11,7 @@ As of 2021, the growth has now leveled off, but Python remains at the top.
 
 A [follow-up analysis](https://149351115.v2.pressablecdn.com/wp-content/uploads/2017/09/related_tags_over_time-1-2000x2000.png) showed that this growth is driven by the data science packages such as numpy, matplotlib, and especially pandas.
 
-![pandas growth](https://149351115.v2.pressablecdn.com/wp-content/uploads/2017/09/related_tags_over_time-1-2000x2000.png)
+![pandas growth](https://ourcodingclub.github.io/assets/img/tutorials/pandas-python-intro/python-pandas-growth.png)
 
 The exponential growth of pandas is due to the fact that it _just works_. It saves you time and helps you do science more efficiently and effictively.
 

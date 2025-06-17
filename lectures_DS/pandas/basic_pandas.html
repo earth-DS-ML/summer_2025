@@ -1507,9 +1507,6 @@ Name: temperature, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading file &#39;data.txt&#39; from &#39;doi:10.5281/zenodo.5564850/data.txt&#39; to &#39;/home/jovyan/.cache/noaa-data&#39;.
-</pre></div>
-</div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;/home/jovyan/.cache/noaa-data/data.txt&#39;
 </pre></div>
 </div>
@@ -1604,7 +1601,7 @@ Name: temperature, dtype: int64
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;&gt;:1: SyntaxWarning: invalid escape sequence &#39;\s&#39;
 &lt;&gt;:1: SyntaxWarning: invalid escape sequence &#39;\s&#39;
-/tmp/ipykernel_695/3110905342.py:1: SyntaxWarning: invalid escape sequence &#39;\s&#39;
+/tmp/ipykernel_2052/3110905342.py:1: SyntaxWarning: invalid escape sequence &#39;\s&#39;
   df = pd.read_csv(datafile, sep=&#39;\s+&#39;)
 </pre></div>
 </div>
@@ -1787,7 +1784,7 @@ Name: temperature, dtype: int64
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;&gt;:1: SyntaxWarning: invalid escape sequence &#39;\s&#39;
 &lt;&gt;:1: SyntaxWarning: invalid escape sequence &#39;\s&#39;
-/tmp/ipykernel_695/4090761360.py:1: SyntaxWarning: invalid escape sequence &#39;\s&#39;
+/tmp/ipykernel_2052/4090761360.py:1: SyntaxWarning: invalid escape sequence &#39;\s&#39;
   df = pd.read_csv(datafile, sep=&#39;\s+&#39;, na_values=[-9999.0, -99.0])
 </pre></div>
 </div>
@@ -2056,7 +2053,7 @@ memory usage: 80.0+ KB
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;&gt;:1: SyntaxWarning: invalid escape sequence &#39;\s&#39;
 &lt;&gt;:1: SyntaxWarning: invalid escape sequence &#39;\s&#39;
-/tmp/ipykernel_695/293020238.py:1: SyntaxWarning: invalid escape sequence &#39;\s&#39;
+/tmp/ipykernel_2052/293020238.py:1: SyntaxWarning: invalid escape sequence &#39;\s&#39;
   df = pd.read_csv(datafile, sep=&#39;\s+&#39;,
 </pre></div>
 </div>
@@ -3445,13 +3442,13 @@ Name: 2017-08-07 00:00:00, dtype: object
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># monthly reampler object</span>
-<span class="n">rs_obj</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;MS&#39;</span><span class="p">)</span>
+<span class="n">rs_obj</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s1">&#39;number&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;MS&#39;</span><span class="p">)</span>
 <span class="n">rs_obj</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x7a4095013c80&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x7c53a972a3c0&gt;
 </pre></div>
 </div>
 </div>
@@ -3463,209 +3460,378 @@ Name: 2017-08-07 00:00:00, dtype: object
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/core/groupby/groupby.py:1942,</span> in <span class="ni">GroupBy._agg_py_fallback</span><span class="nt">(self, how, values, ndim, alt)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1941</span> <span class="k">try</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1942</span>     <span class="n">res_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_grouper</span><span class="o">.</span><span class="n">agg_series</span><span class="p">(</span><span class="n">ser</span><span class="p">,</span> <span class="n">alt</span><span class="p">,</span> <span class="n">preserve_dtype</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1943</span> <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/core/groupby/ops.py:864,</span> in <span class="ni">BaseGrouper.agg_series</span><span class="nt">(self, obj, func, preserve_dtype)</span>
-<span class="g g-Whitespace">    </span><span class="mi">862</span>     <span class="n">preserve_dtype</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="ne">--&gt; </span><span class="mi">864</span> <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_aggregate_series_pure_python</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">866</span> <span class="n">npvalues</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">maybe_convert_objects</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">try_float</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/core/groupby/ops.py:885,</span> in <span class="ni">BaseGrouper._aggregate_series_pure_python</span><span class="nt">(self, obj, func)</span>
-<span class="g g-Whitespace">    </span><span class="mi">884</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">splitter</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">885</span>     <span class="n">res</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">886</span>     <span class="n">res</span> <span class="o">=</span> <span class="n">extract_result</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/core/groupby/groupby.py:2454,</span> in <span class="ni">GroupBy.mean.&lt;locals&gt;.&lt;lambda&gt;</span><span class="nt">(x)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2451</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">2452</span>     <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cython_agg_general</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">2453</span>         <span class="s2">&quot;mean&quot;</span><span class="p">,</span>
-<span class="ne">-&gt; </span><span class="mi">2454</span>         <span class="n">alt</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">Series</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="n">numeric_only</span><span class="p">),</span>
-<span class="g g-Whitespace">   </span><span class="mi">2455</span>         <span class="n">numeric_only</span><span class="o">=</span><span class="n">numeric_only</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">2456</span>     <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2457</span>     <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">__finalize__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;groupby&quot;</span><span class="p">)</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/core/series.py:6549,</span> in <span class="ni">Series.mean</span><span class="nt">(self, axis, skipna, numeric_only, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">6541</span> <span class="nd">@doc</span><span class="p">(</span><span class="n">make_doc</span><span class="p">(</span><span class="s2">&quot;mean&quot;</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
-<span class="g g-Whitespace">   </span><span class="mi">6542</span> <span class="k">def</span><span class="w"> </span><span class="nf">mean</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">6543</span>     <span class="bp">self</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">6547</span>     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">6548</span> <span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">6549</span>     <span class="k">return</span> <span class="n">NDFrame</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">skipna</span><span class="p">,</span> <span class="n">numeric_only</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/core/generic.py:12420,</span> in <span class="ni">NDFrame.mean</span><span class="nt">(self, axis, skipna, numeric_only, **kwargs)</span>
-<span class="g g-Whitespace">  </span><span class="mi">12413</span> <span class="k">def</span><span class="w"> </span><span class="nf">mean</span><span class="p">(</span>
-<span class="g g-Whitespace">  </span><span class="mi">12414</span>     <span class="bp">self</span><span class="p">,</span>
-<span class="g g-Whitespace">  </span><span class="mi">12415</span>     <span class="n">axis</span><span class="p">:</span> <span class="n">Axis</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">  </span><span class="mi">12418</span>     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-<span class="g g-Whitespace">  </span><span class="mi">12419</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Series</span> <span class="o">|</span> <span class="nb">float</span><span class="p">:</span>
-<span class="ne">&gt; </span><span class="mi">12420</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stat_function</span><span class="p">(</span>
-<span class="g g-Whitespace">  </span><span class="mi">12421</span>         <span class="s2">&quot;mean&quot;</span><span class="p">,</span> <span class="n">nanops</span><span class="o">.</span><span class="n">nanmean</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">skipna</span><span class="p">,</span> <span class="n">numeric_only</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
-<span class="g g-Whitespace">  </span><span class="mi">12422</span>     <span class="p">)</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/core/generic.py:12377,</span> in <span class="ni">NDFrame._stat_function</span><span class="nt">(self, name, func, axis, skipna, numeric_only, **kwargs)</span>
-<span class="g g-Whitespace">  </span><span class="mi">12375</span> <span class="n">validate_bool_kwarg</span><span class="p">(</span><span class="n">skipna</span><span class="p">,</span> <span class="s2">&quot;skipna&quot;</span><span class="p">,</span> <span class="n">none_allowed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="ne">&gt; </span><span class="mi">12377</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reduce</span><span class="p">(</span>
-<span class="g g-Whitespace">  </span><span class="mi">12378</span>     <span class="n">func</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="n">skipna</span><span class="p">,</span> <span class="n">numeric_only</span><span class="o">=</span><span class="n">numeric_only</span>
-<span class="g g-Whitespace">  </span><span class="mi">12379</span> <span class="p">)</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/core/series.py:6457,</span> in <span class="ni">Series._reduce</span><span class="nt">(self, op, name, axis, skipna, numeric_only, filter_type, **kwds)</span>
-<span class="g g-Whitespace">   </span><span class="mi">6453</span>     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">6454</span>         <span class="sa">f</span><span class="s2">&quot;Series.</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> does not allow </span><span class="si">{</span><span class="n">kwd_name</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">numeric_only</span><span class="si">}</span><span class="s2"> &quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">6455</span>         <span class="s2">&quot;with non-numeric dtypes.&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">6456</span>     <span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">6457</span> <span class="k">return</span> <span class="n">op</span><span class="p">(</span><span class="n">delegate</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="n">skipna</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/core/nanops.py:147,</span> in <span class="ni">bottleneck_switch.__call__.&lt;locals&gt;.f</span><span class="nt">(values, axis, skipna, **kwds)</span>
-<span class="g g-Whitespace">    </span><span class="mi">146</span> <span class="k">else</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">147</span>     <span class="n">result</span> <span class="o">=</span> <span class="n">alt</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="n">skipna</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">149</span> <span class="k">return</span> <span class="n">result</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/core/nanops.py:404,</span> in <span class="ni">_datetimelike_compat.&lt;locals&gt;.new_func</span><span class="nt">(values, axis, skipna, mask, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">402</span>     <span class="n">mask</span> <span class="o">=</span> <span class="n">isna</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">404</span> <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="n">skipna</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">406</span> <span class="k">if</span> <span class="n">datetimelike</span><span class="p">:</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/core/nanops.py:720,</span> in <span class="ni">nanmean</span><span class="nt">(values, axis, skipna, mask)</span>
-<span class="g g-Whitespace">    </span><span class="mi">719</span> <span class="n">the_sum</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype_sum</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">720</span> <span class="n">the_sum</span> <span class="o">=</span> <span class="n">_ensure_numeric</span><span class="p">(</span><span class="n">the_sum</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">722</span> <span class="k">if</span> <span class="n">axis</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">the_sum</span><span class="p">,</span> <span class="s2">&quot;ndim&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/core/nanops.py:1701,</span> in <span class="ni">_ensure_numeric</span><span class="nt">(x)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1699</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">1700</span>     <span class="c1"># GH#44008, GH#36703 avoid casting e.g. strings to numeric</span>
-<span class="ne">-&gt; </span><span class="mi">1701</span>     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not convert string &#39;</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">&#39; to numeric&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1702</span> <span class="k">try</span><span class="p">:</span>
-
-<span class="ne">TypeError</span>: Could not convert string &#39;CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC&#39; to numeric
-
-<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
-
-<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">56</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">rs_obj</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/core/resample.py:1384,</span> in <span class="ni">Resampler.mean</span><span class="nt">(self, numeric_only, *args, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1382</span> <span class="n">maybe_warn_args_and_kwargs</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="s2">&quot;mean&quot;</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1383</span> <span class="n">nv</span><span class="o">.</span><span class="n">validate_resampler_func</span><span class="p">(</span><span class="s2">&quot;mean&quot;</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1384</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_downsample</span><span class="p">(</span><span class="s2">&quot;mean&quot;</span><span class="p">,</span> <span class="n">numeric_only</span><span class="o">=</span><span class="n">numeric_only</span><span class="p">)</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/core/resample.py:1782,</span> in <span class="ni">DatetimeIndexResampler._downsample</span><span class="nt">(self, how, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1779</span> <span class="c1"># we are downsampling</span>
-<span class="g g-Whitespace">   </span><span class="mi">1780</span> <span class="c1"># we want to call the actual grouper method here</span>
-<span class="g g-Whitespace">   </span><span class="mi">1781</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">axis</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1782</span>     <span class="n">result</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_grouper</span><span class="p">)</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">how</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1783</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1784</span>     <span class="c1"># test_resample_axis1</span>
-<span class="g g-Whitespace">   </span><span class="mi">1785</span>     <span class="n">result</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_grouper</span><span class="p">)</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">how</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/core/groupby/generic.py:1432,</span> in <span class="ni">DataFrameGroupBy.aggregate</span><span class="nt">(self, func, engine, engine_kwargs, *args, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1429</span>     <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;engine_kwargs&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">engine_kwargs</span>
-<span class="g g-Whitespace">   </span><span class="mi">1431</span> <span class="n">op</span> <span class="o">=</span> <span class="n">GroupByApply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1432</span> <span class="n">result</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">agg</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">1433</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">is_dict_like</span><span class="p">(</span><span class="n">func</span><span class="p">)</span> <span class="ow">and</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1434</span>     <span class="c1"># GH #52849</span>
-<span class="g g-Whitespace">   </span><span class="mi">1435</span>     <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">as_index</span> <span class="ow">and</span> <span class="n">is_list_like</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/core/apply.py:187,</span> in <span class="ni">Apply.agg</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">184</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span>
-<span class="g g-Whitespace">    </span><span class="mi">186</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">187</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_str</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">189</span> <span class="k">if</span> <span class="n">is_dict_like</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">190</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">agg_dict_like</span><span class="p">()</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/core/apply.py:603,</span> in <span class="ni">Apply.apply_str</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">601</span>         <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">602</span>             <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;axis&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axis</span>
-<span class="ne">--&gt; </span><span class="mi">603</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_apply_str</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/core/apply.py:693,</span> in <span class="ni">Apply._apply_str</span><span class="nt">(self, obj, func, *args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">691</span> <span class="n">f</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">692</span> <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">693</span>     <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">695</span> <span class="c1"># people may aggregate on a non-callable attribute</span>
-<span class="g g-Whitespace">    </span><span class="mi">696</span> <span class="c1"># but don&#39;t let them think they can pass args to it</span>
-<span class="g g-Whitespace">    </span><span class="mi">697</span> <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/core/groupby/groupby.py:2452,</span> in <span class="ni">GroupBy.mean</span><span class="nt">(self, numeric_only, engine, engine_kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2445</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_numba_agg_general</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">2446</span>         <span class="n">grouped_mean</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">2447</span>         <span class="n">executor</span><span class="o">.</span><span class="n">float_dtype_mapping</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">2448</span>         <span class="n">engine_kwargs</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">2449</span>         <span class="n">min_periods</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">2450</span>     <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2451</span> <span class="k">else</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">2452</span>     <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cython_agg_general</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">2453</span>         <span class="s2">&quot;mean&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">2454</span>         <span class="n">alt</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">Series</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="n">numeric_only</span><span class="p">),</span>
-<span class="g g-Whitespace">   </span><span class="mi">2455</span>         <span class="n">numeric_only</span><span class="o">=</span><span class="n">numeric_only</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">2456</span>     <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2457</span>     <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">__finalize__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;groupby&quot;</span><span class="p">)</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/core/groupby/groupby.py:1998,</span> in <span class="ni">GroupBy._cython_agg_general</span><span class="nt">(self, how, alt, numeric_only, min_count, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1995</span>     <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_agg_py_fallback</span><span class="p">(</span><span class="n">how</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="n">alt</span><span class="o">=</span><span class="n">alt</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1996</span>     <span class="k">return</span> <span class="n">result</span>
-<span class="ne">-&gt; </span><span class="mi">1998</span> <span class="n">new_mgr</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">grouped_reduce</span><span class="p">(</span><span class="n">array_func</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1999</span> <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wrap_agged_manager</span><span class="p">(</span><span class="n">new_mgr</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2000</span> <span class="k">if</span> <span class="n">how</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;idxmin&quot;</span><span class="p">,</span> <span class="s2">&quot;idxmax&quot;</span><span class="p">]:</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/core/internals/managers.py:1469,</span> in <span class="ni">BlockManager.grouped_reduce</span><span class="nt">(self, func)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1465</span> <span class="k">if</span> <span class="n">blk</span><span class="o">.</span><span class="n">is_object</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1466</span>     <span class="c1"># split on object-dtype blocks bc some columns may raise</span>
-<span class="g g-Whitespace">   </span><span class="mi">1467</span>     <span class="c1">#  while others do not.</span>
-<span class="g g-Whitespace">   </span><span class="mi">1468</span>     <span class="k">for</span> <span class="n">sb</span> <span class="ow">in</span> <span class="n">blk</span><span class="o">.</span><span class="n">_split</span><span class="p">():</span>
-<span class="ne">-&gt; </span><span class="mi">1469</span>         <span class="n">applied</span> <span class="o">=</span> <span class="n">sb</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1470</span>         <span class="n">result_blocks</span> <span class="o">=</span> <span class="n">extend_blocks</span><span class="p">(</span><span class="n">applied</span><span class="p">,</span> <span class="n">result_blocks</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1471</span> <span class="k">else</span><span class="p">:</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/core/internals/blocks.py:393,</span> in <span class="ni">Block.apply</span><span class="nt">(self, func, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">387</span> <span class="nd">@final</span>
-<span class="g g-Whitespace">    </span><span class="mi">388</span> <span class="k">def</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Block</span><span class="p">]:</span>
-<span class="g g-Whitespace">    </span><span class="mi">389</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">390</span><span class="sd">     apply the function to my values; return a block if we are not</span>
-<span class="g g-Whitespace">    </span><span class="mi">391</span><span class="sd">     one</span>
-<span class="g g-Whitespace">    </span><span class="mi">392</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">393</span>     <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">395</span>     <span class="n">result</span> <span class="o">=</span> <span class="n">maybe_coerce_values</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">396</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split_op_result</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/core/groupby/groupby.py:1995,</span> in <span class="ni">GroupBy._cython_agg_general.&lt;locals&gt;.array_func</span><span class="nt">(values)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1992</span>     <span class="k">return</span> <span class="n">result</span>
-<span class="g g-Whitespace">   </span><span class="mi">1994</span> <span class="k">assert</span> <span class="n">alt</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-<span class="ne">-&gt; </span><span class="mi">1995</span> <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_agg_py_fallback</span><span class="p">(</span><span class="n">how</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="n">alt</span><span class="o">=</span><span class="n">alt</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1996</span> <span class="k">return</span> <span class="n">result</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/core/groupby/groupby.py:1946,</span> in <span class="ni">GroupBy._agg_py_fallback</span><span class="nt">(self, how, values, ndim, alt)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1944</span>     <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;agg function failed [how-&gt;</span><span class="si">{</span><span class="n">how</span><span class="si">}</span><span class="s2">,dtype-&gt;</span><span class="si">{</span><span class="n">ser</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">]&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1945</span>     <span class="c1"># preserve the kind of exception that raised</span>
-<span class="ne">-&gt; </span><span class="mi">1946</span>     <span class="k">raise</span> <span class="nb">type</span><span class="p">(</span><span class="n">err</span><span class="p">)(</span><span class="n">msg</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">err</span>
-<span class="g g-Whitespace">   </span><span class="mi">1948</span> <span class="k">if</span> <span class="n">ser</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">object</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1949</span>     <span class="n">res_values</span> <span class="o">=</span> <span class="n">res_values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-<span class="ne">TypeError</span>: agg function failed [how-&gt;mean,dtype-&gt;object]
-</pre></div>
-</div>
-</div>
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>WBANNO</th>
+      <th>CRX_VN</th>
+      <th>LONGITUDE</th>
+      <th>LATITUDE</th>
+      <th>T_DAILY_MAX</th>
+      <th>T_DAILY_MIN</th>
+      <th>T_DAILY_MEAN</th>
+      <th>T_DAILY_AVG</th>
+      <th>P_DAILY_CALC</th>
+      <th>SOLARAD_DAILY</th>
+      <th>...</th>
+      <th>SOIL_MOISTURE_5_DAILY</th>
+      <th>SOIL_MOISTURE_10_DAILY</th>
+      <th>SOIL_MOISTURE_20_DAILY</th>
+      <th>SOIL_MOISTURE_50_DAILY</th>
+      <th>SOIL_MOISTURE_100_DAILY</th>
+      <th>SOIL_TEMP_5_DAILY</th>
+      <th>SOIL_TEMP_10_DAILY</th>
+      <th>SOIL_TEMP_20_DAILY</th>
+      <th>SOIL_TEMP_50_DAILY</th>
+      <th>SOIL_TEMP_100_DAILY</th>
+    </tr>
+    <tr>
+      <th>LST_DATE</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2017-01-01</th>
+      <td>64756.0</td>
+      <td>2.422000</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>3.945161</td>
+      <td>-3.993548</td>
+      <td>-0.025806</td>
+      <td>0.038710</td>
+      <td>3.090323</td>
+      <td>4.690000</td>
+      <td>...</td>
+      <td>0.236900</td>
+      <td>0.248300</td>
+      <td>0.204550</td>
+      <td>0.152806</td>
+      <td>0.175194</td>
+      <td>0.209677</td>
+      <td>0.267742</td>
+      <td>0.696774</td>
+      <td>1.438710</td>
+      <td>2.877419</td>
+    </tr>
+    <tr>
+      <th>2017-02-01</th>
+      <td>64756.0</td>
+      <td>2.422000</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>7.246429</td>
+      <td>-4.360714</td>
+      <td>1.442857</td>
+      <td>1.839286</td>
+      <td>2.414286</td>
+      <td>10.364286</td>
+      <td>...</td>
+      <td>0.226333</td>
+      <td>0.243000</td>
+      <td>0.207545</td>
+      <td>0.152857</td>
+      <td>0.175786</td>
+      <td>1.125000</td>
+      <td>1.100000</td>
+      <td>1.192857</td>
+      <td>1.492857</td>
+      <td>2.367857</td>
+    </tr>
+    <tr>
+      <th>2017-03-01</th>
+      <td>64756.0</td>
+      <td>2.422000</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>5.164516</td>
+      <td>-5.335484</td>
+      <td>-0.090323</td>
+      <td>0.167742</td>
+      <td>3.970968</td>
+      <td>13.113548</td>
+      <td>...</td>
+      <td>0.218033</td>
+      <td>0.229267</td>
+      <td>0.196258</td>
+      <td>0.153484</td>
+      <td>0.174548</td>
+      <td>2.122581</td>
+      <td>2.161290</td>
+      <td>2.345161</td>
+      <td>2.700000</td>
+      <td>3.387097</td>
+    </tr>
+    <tr>
+      <th>2017-04-01</th>
+      <td>64756.0</td>
+      <td>2.422000</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>17.813333</td>
+      <td>5.170000</td>
+      <td>11.493333</td>
+      <td>11.540000</td>
+      <td>2.300000</td>
+      <td>14.645000</td>
+      <td>...</td>
+      <td>0.199733</td>
+      <td>0.210300</td>
+      <td>0.190667</td>
+      <td>0.151000</td>
+      <td>0.172400</td>
+      <td>11.066667</td>
+      <td>10.666667</td>
+      <td>9.636667</td>
+      <td>8.426667</td>
+      <td>6.903333</td>
+    </tr>
+    <tr>
+      <th>2017-05-01</th>
+      <td>64756.0</td>
+      <td>2.422000</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>19.151613</td>
+      <td>7.338710</td>
+      <td>13.229032</td>
+      <td>13.638710</td>
+      <td>4.141935</td>
+      <td>16.519677</td>
+      <td>...</td>
+      <td>0.206613</td>
+      <td>0.210935</td>
+      <td>0.185613</td>
+      <td>0.147710</td>
+      <td>0.170000</td>
+      <td>16.454839</td>
+      <td>16.290323</td>
+      <td>15.361290</td>
+      <td>14.270968</td>
+      <td>12.696774</td>
+    </tr>
+    <tr>
+      <th>2017-06-01</th>
+      <td>64756.0</td>
+      <td>2.422000</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>25.423333</td>
+      <td>12.176667</td>
+      <td>18.796667</td>
+      <td>18.986667</td>
+      <td>3.743333</td>
+      <td>21.655000</td>
+      <td>...</td>
+      <td>0.185167</td>
+      <td>0.184300</td>
+      <td>0.173167</td>
+      <td>0.142533</td>
+      <td>0.167000</td>
+      <td>22.350000</td>
+      <td>22.166667</td>
+      <td>20.880000</td>
+      <td>19.370000</td>
+      <td>17.333333</td>
+    </tr>
+    <tr>
+      <th>2017-07-01</th>
+      <td>64756.0</td>
+      <td>2.422000</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>26.912903</td>
+      <td>15.183871</td>
+      <td>21.048387</td>
+      <td>20.993548</td>
+      <td>2.732258</td>
+      <td>20.566129</td>
+      <td>...</td>
+      <td>0.131226</td>
+      <td>0.115774</td>
+      <td>0.116613</td>
+      <td>0.121032</td>
+      <td>0.156677</td>
+      <td>24.993548</td>
+      <td>24.980645</td>
+      <td>23.925806</td>
+      <td>22.745161</td>
+      <td>21.164516</td>
+    </tr>
+    <tr>
+      <th>2017-08-01</th>
+      <td>64756.0</td>
+      <td>2.422000</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>25.741935</td>
+      <td>12.954839</td>
+      <td>19.351613</td>
+      <td>19.477419</td>
+      <td>2.758065</td>
+      <td>18.360000</td>
+      <td>...</td>
+      <td>0.143871</td>
+      <td>0.122258</td>
+      <td>0.105452</td>
+      <td>0.115290</td>
+      <td>0.151034</td>
+      <td>23.374194</td>
+      <td>23.519355</td>
+      <td>22.848387</td>
+      <td>22.193548</td>
+      <td>21.377419</td>
+    </tr>
+    <tr>
+      <th>2017-09-01</th>
+      <td>64756.0</td>
+      <td>2.422000</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>24.186667</td>
+      <td>11.300000</td>
+      <td>17.746667</td>
+      <td>17.463333</td>
+      <td>1.893333</td>
+      <td>15.154667</td>
+      <td>...</td>
+      <td>0.145167</td>
+      <td>0.139633</td>
+      <td>0.117267</td>
+      <td>0.112167</td>
+      <td>0.141926</td>
+      <td>20.256667</td>
+      <td>20.386667</td>
+      <td>19.966667</td>
+      <td>19.766667</td>
+      <td>19.530000</td>
+    </tr>
+    <tr>
+      <th>2017-10-01</th>
+      <td>64756.0</td>
+      <td>2.602645</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>21.043333</td>
+      <td>7.150000</td>
+      <td>14.100000</td>
+      <td>13.976667</td>
+      <td>3.500000</td>
+      <td>10.395000</td>
+      <td>...</td>
+      <td>0.151767</td>
+      <td>0.137767</td>
+      <td>0.111900</td>
+      <td>0.108900</td>
+      <td>0.122067</td>
+      <td>16.086667</td>
+      <td>16.193333</td>
+      <td>16.370000</td>
+      <td>16.893333</td>
+      <td>17.386667</td>
+    </tr>
+    <tr>
+      <th>2017-11-01</th>
+      <td>64756.0</td>
+      <td>2.622000</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>10.346667</td>
+      <td>-2.093333</td>
+      <td>4.120000</td>
+      <td>4.336667</td>
+      <td>0.826667</td>
+      <td>6.723333</td>
+      <td>...</td>
+      <td>0.241633</td>
+      <td>0.224467</td>
+      <td>0.203367</td>
+      <td>0.159500</td>
+      <td>0.155233</td>
+      <td>7.056667</td>
+      <td>7.273333</td>
+      <td>8.043333</td>
+      <td>9.633333</td>
+      <td>11.440000</td>
+    </tr>
+    <tr>
+      <th>2017-12-01</th>
+      <td>64756.0</td>
+      <td>2.622000</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>1.496774</td>
+      <td>-7.412903</td>
+      <td>-2.967742</td>
+      <td>-2.838710</td>
+      <td>2.109677</td>
+      <td>4.474194</td>
+      <td>...</td>
+      <td>0.255929</td>
+      <td>0.239071</td>
+      <td>0.213258</td>
+      <td>0.165387</td>
+      <td>0.163290</td>
+      <td>2.064516</td>
+      <td>2.241935</td>
+      <td>2.874194</td>
+      <td>4.248387</td>
+      <td>6.019355</td>
+    </tr>
+  </tbody>
+</table>
+<p>12 rows × 26 columns</p>
+</div></div></div>
 </div>
 <p>We can chain all of that together</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_mm</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;MS&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_mm</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s1">&#39;number&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;MS&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <span class="n">df_mm</span><span class="p">[[</span><span class="s1">&#39;T_DAILY_MIN&#39;</span><span class="p">,</span> <span class="s1">&#39;T_DAILY_MEAN&#39;</span><span class="p">,</span> <span class="s1">&#39;T_DAILY_MAX&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;LST_DATE&#39;&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;LST_DATE&#39;&gt;
 </pre></div>
 </div>
-<img alt="../../_images/09504cad077daa596678e831e097795fb3fd0e4dad8c3c97da2a3d40b9baaa04.png" src="../../_images/09504cad077daa596678e831e097795fb3fd0e4dad8c3c97da2a3d40b9baaa04.png" />
+<img alt="../../_images/e9b35b23eaff099cdb2d15de0397cc16c3ec50d72ed974efd974148688f65375.png" src="../../_images/e9b35b23eaff099cdb2d15de0397cc16c3ec50d72ed974efd974148688f65375.png" />
 </div>
 </div>
 <p>Next time we will dig deeper into resampling, rolling means, and grouping operations (groupby).</p>
