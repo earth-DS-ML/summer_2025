@@ -60,6 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'lectures_DS/pandas/basic_pandas';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Pandas: Groupby" href="pandas_groupby.html" />
     <link rel="prev" title="Pandas" href="pandas_intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -207,6 +208,7 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="pandas_intro.html">Pandas</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Pandas Fundamentals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pandas_groupby.html">Pandas: Groupby</a></li>
 </ul>
 
     </div>
@@ -1601,7 +1603,7 @@ Name: temperature, dtype: int64
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;&gt;:1: SyntaxWarning: invalid escape sequence &#39;\s&#39;
 &lt;&gt;:1: SyntaxWarning: invalid escape sequence &#39;\s&#39;
-/tmp/ipykernel_2052/3110905342.py:1: SyntaxWarning: invalid escape sequence &#39;\s&#39;
+/tmp/ipykernel_2683/3110905342.py:1: SyntaxWarning: invalid escape sequence &#39;\s&#39;
   df = pd.read_csv(datafile, sep=&#39;\s+&#39;)
 </pre></div>
 </div>
@@ -1784,7 +1786,7 @@ Name: temperature, dtype: int64
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;&gt;:1: SyntaxWarning: invalid escape sequence &#39;\s&#39;
 &lt;&gt;:1: SyntaxWarning: invalid escape sequence &#39;\s&#39;
-/tmp/ipykernel_2052/4090761360.py:1: SyntaxWarning: invalid escape sequence &#39;\s&#39;
+/tmp/ipykernel_2683/4090761360.py:1: SyntaxWarning: invalid escape sequence &#39;\s&#39;
   df = pd.read_csv(datafile, sep=&#39;\s+&#39;, na_values=[-9999.0, -99.0])
 </pre></div>
 </div>
@@ -2003,7 +2005,7 @@ memory usage: 80.0+ KB
 </div>
 </div>
 </div>
-<p>One problem here is that pandas did not recognize the <code class="docutils literal notranslate"><span class="pre">LDT_DATE</span></code> column as a date. Let’s help it.</p>
+<p>One problem here is that pandas did not recognize the <code class="docutils literal notranslate"><span class="pre">LST_DATE</span></code> column as a date. Let’s help it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">datafile</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;\s+&#39;</span><span class="p">,</span>
@@ -2053,7 +2055,7 @@ memory usage: 80.0+ KB
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;&gt;:1: SyntaxWarning: invalid escape sequence &#39;\s&#39;
 &lt;&gt;:1: SyntaxWarning: invalid escape sequence &#39;\s&#39;
-/tmp/ipykernel_2052/293020238.py:1: SyntaxWarning: invalid escape sequence &#39;\s&#39;
+/tmp/ipykernel_2683/293020238.py:1: SyntaxWarning: invalid escape sequence &#39;\s&#39;
   df = pd.read_csv(datafile, sep=&#39;\s+&#39;,
 </pre></div>
 </div>
@@ -3448,7 +3450,7 @@ Name: 2017-08-07 00:00:00, dtype: object
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x7c53a972a3c0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x788d9b612480&gt;
 </pre></div>
 </div>
 </div>
@@ -3877,6 +3879,15 @@ Name: 2017-08-07 00:00:00, dtype: object
         <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title">Pandas</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="pandas_groupby.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Pandas: Groupby</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>

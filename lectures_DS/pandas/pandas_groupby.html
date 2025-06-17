@@ -60,6 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'lectures_DS/pandas/pandas_groupby';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="Pandas Fundamentals" href="basic_pandas.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -121,8 +122,6 @@
     <div class="bd-container__inner bd-page-width">
       
       
-      
-        
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -205,9 +204,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../../assignments/more_matplotlib.html">Assignment 3b: More Matplotlib</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Pandas</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="pandas_intro.html">Pandas</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic_pandas.html">Pandas Fundamentals</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Pandas: Groupby</a></li>
 </ul>
 
     </div>
@@ -703,7 +703,7 @@ The point of this lesson is to make you feel confident in using <code class="doc
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x78a67755a9f0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x781dcda0b170&gt;
 </pre></div>
 </div>
 </div>
@@ -716,7 +716,7 @@ The point of this lesson is to make you feel confident in using <code class="doc
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x78a6773fb2c0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x781dcd6fb6b0&gt;
 </pre></div>
 </div>
 </div>
@@ -733,7 +733,7 @@ The point of this lesson is to make you feel confident in using <code class="doc
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x78a6773f9c70&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x781dcd5023c0&gt;
 </pre></div>
 </div>
 </div>
@@ -1294,7 +1294,7 @@ The point of this lesson is to make you feel confident in using <code class="doc
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2089/2808193076.py:1: FutureWarning: The provided callable &lt;function max at 0x78a7240d7100&gt; is currently using DataFrameGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2720/2808193076.py:1: FutureWarning: The provided callable &lt;function max at 0x781e643d3100&gt; is currently using DataFrameGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
   gb.aggregate(np.max).head()
 </pre></div>
 </div>
@@ -1497,7 +1497,7 @@ The point of this lesson is to make you feel confident in using <code class="doc
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2089/2287653877.py:1: FutureWarning: The provided callable &lt;function max at 0x78a7240d7100&gt; is currently using SeriesGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2720/2287653877.py:1: FutureWarning: The provided callable &lt;function max at 0x781e643d3100&gt; is currently using SeriesGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
   gb.mag.aggregate(np.max).head()
 </pre></div>
 </div>
@@ -1519,7 +1519,7 @@ Name: mag, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2089/2071493650.py:1: FutureWarning: The provided callable &lt;function max at 0x78a7240d7100&gt; is currently using SeriesGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2720/2071493650.py:1: FutureWarning: The provided callable &lt;function max at 0x781e643d3100&gt; is currently using SeriesGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
   gb.mag.aggregate(np.max).nlargest(10)
 </pre></div>
 </div>
@@ -1640,11 +1640,11 @@ Name: mag, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2089/1381609224.py:1: FutureWarning: The provided callable &lt;function min at 0x78a7240d7240&gt; is currently using SeriesGroupBy.min. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;min&quot; instead.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2720/1381609224.py:1: FutureWarning: The provided callable &lt;function min at 0x781e643d3240&gt; is currently using SeriesGroupBy.min. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;min&quot; instead.
   gb.mag.aggregate([np.min, np.max, np.mean]).head()
-/tmp/ipykernel_2089/1381609224.py:1: FutureWarning: The provided callable &lt;function max at 0x78a7240d7100&gt; is currently using SeriesGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
+/tmp/ipykernel_2720/1381609224.py:1: FutureWarning: The provided callable &lt;function max at 0x781e643d3100&gt; is currently using SeriesGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
   gb.mag.aggregate([np.min, np.max, np.mean]).head()
-/tmp/ipykernel_2089/1381609224.py:1: FutureWarning: The provided callable &lt;function mean at 0x78a7240d7b00&gt; is currently using SeriesGroupBy.mean. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;mean&quot; instead.
+/tmp/ipykernel_2720/1381609224.py:1: FutureWarning: The provided callable &lt;function mean at 0x781e643d3b00&gt; is currently using SeriesGroupBy.mean. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;mean&quot; instead.
   gb.mag.aggregate([np.min, np.max, np.mean]).head()
 </pre></div>
 </div>
@@ -1719,11 +1719,11 @@ Name: mag, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2089/3179219123.py:1: FutureWarning: The provided callable &lt;function min at 0x78a7240d7240&gt; is currently using SeriesGroupBy.min. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;min&quot; instead.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2720/3179219123.py:1: FutureWarning: The provided callable &lt;function min at 0x781e643d3240&gt; is currently using SeriesGroupBy.min. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;min&quot; instead.
   gb.mag.aggregate([np.min, np.max, np.mean]).nlargest(10, &#39;mean&#39;).plot(kind=&#39;bar&#39;)
-/tmp/ipykernel_2089/3179219123.py:1: FutureWarning: The provided callable &lt;function max at 0x78a7240d7100&gt; is currently using SeriesGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
+/tmp/ipykernel_2720/3179219123.py:1: FutureWarning: The provided callable &lt;function max at 0x781e643d3100&gt; is currently using SeriesGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
   gb.mag.aggregate([np.min, np.max, np.mean]).nlargest(10, &#39;mean&#39;).plot(kind=&#39;bar&#39;)
-/tmp/ipykernel_2089/3179219123.py:1: FutureWarning: The provided callable &lt;function mean at 0x78a7240d7b00&gt; is currently using SeriesGroupBy.mean. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;mean&quot; instead.
+/tmp/ipykernel_2720/3179219123.py:1: FutureWarning: The provided callable &lt;function mean at 0x781e643d3b00&gt; is currently using SeriesGroupBy.mean. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;mean&quot; instead.
   gb.mag.aggregate([np.min, np.max, np.mean]).nlargest(10, &#39;mean&#39;).plot(kind=&#39;bar&#39;)
 </pre></div>
 </div>
@@ -1794,11 +1794,11 @@ Name: mag, dtype: float64
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;&gt;:15: SyntaxWarning: invalid escape sequence &#39;\s&#39;
 &lt;&gt;:15: SyntaxWarning: invalid escape sequence &#39;\s&#39;
-/tmp/ipykernel_2089/2092298281.py:15: SyntaxWarning: invalid escape sequence &#39;\s&#39;
+/tmp/ipykernel_2720/2092298281.py:15: SyntaxWarning: invalid escape sequence &#39;\s&#39;
   names=headers, header=None, sep=&#39;\s+&#39;,
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2089/2092298281.py:15: SyntaxWarning: invalid escape sequence &#39;\s&#39;
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2720/2092298281.py:15: SyntaxWarning: invalid escape sequence &#39;\s&#39;
   names=headers, header=None, sep=&#39;\s+&#39;,
 </pre></div>
 </div>
@@ -2745,6 +2745,15 @@ Name: mag, dtype: float64
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="basic_pandas.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Pandas Fundamentals</p>
+      </div>
+    </a>
 </div>
                 </footer>
               
