@@ -1,0 +1,1878 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lab 1: Pandas Fundamentals with Earthquake Data &#8212; Earth Data Science and Machine Learning</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'assignments/cryptic_racoon1';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo_class.png" class="logo__image only-light" alt="Earth Data Science and Machine Learning - Home"/>
+    <script>document.write(`<img src="../_static/logo_class.png" class="logo__image only-dark" alt="Earth Data Science and Machine Learning - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome to Earth Data Science and Machine Learning Course Series
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">The Interactive Computing Environment</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lectures_DS/computing_env/jupyterlab.html">Intro to JupyterLab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lectures_DS/computing_env/intro_to_unix.html">Intro to Unix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lectures_DS/computing_env/intro_to_git.html">Intro to Git for Version Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lectures_DS/computing_env/assignment1.html">Assignment 1: Files, Git, and Github</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lectures_DS/data/data.html">All About Data</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">The Core Python Language</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lectures_DS/core_python/python_fundamentals.html">Python Fundamentals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lectures_DS/core_python/functions_classes.html">Python Functions and Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lectures_DS/core_python/organization_and_packaging.html">Organization and Packaging of Python Projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assignment_2.html">Assignment 2: Basic Python</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Scientific Python Fundamentals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lectures_DS/sci_python/numpy_and_matplotlib.html">Numpy and Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lectures_DS/sci_python/more_matplotlib.html">More Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numpy_matplotlib.html">Assignment 3a: Numpy and Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more_matplotlib.html">Assignment 3b: More Matplotlib</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lectures_DS/pandas/pandas_intro.html">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lectures_DS/pandas/basic_pandas.html">Pandas Fundamentals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lectures_DS/pandas/pandas_groupby.html">Pandas: Groupby</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pandas1.html">Lab 1: Pandas Fundamentals with Earthquake Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pandas2.html">Lab 2: Pandas Groupby with Hurricane Data</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Xarray</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lectures_DS/xarray/xarray_intro.html">Xarray for multidimensional gridded data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lectures_DS/xarray/xarray_fundamentals.html">Xarray Fundamentals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lectures_DS/xarray/xarray_advanced.html">Xarray Advanced</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/earth-DS-ML/summer_2025" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/earth-DS-ML/summer_2025/issues/new?title=Issue%20on%20page%20%2Fassignments/cryptic_racoon1.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/assignments/cryptic_racoon1.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lab 1: Pandas Fundamentals with Earthquake Data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-pandas-read-csv-function-directly-on-this-url-to-open-it-as-a-dataframe">1) Use Pandas’ read_csv function directly on this URL to open it as a DataFrame</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#re-read-the-data-in-such-a-way-that-all-date-columns-are-identified-as-dates-and-the-earthquake-id-is-used-as-the-index">2) Re-read the data in such a way that all date columns are identified as dates and the earthquake ID is used as the index</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-describe-to-get-the-basic-statistics-of-all-the-columns">3) Use <code class="docutils literal notranslate"><span class="pre">describe</span></code> to get the basic statistics of all the columns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-nlargest-to-get-the-top-20-earthquakes-by-magnitude">4) Use <code class="docutils literal notranslate"><span class="pre">nlargest</span></code> to get the top 20 earthquakes by magnitude</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extract-the-state-or-country-using-pandas-text-data-functions">5) Extract the state or country using Pandas text data functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#display-each-unique-value-from-the-new-column">6) Display each unique value from the new column</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-filtered-dataset-that-only-has-earthquakes-of-magnitude-4-or-larger-and">7) Create a filtered dataset that only has earthquakes of magnitude 4 or larger and</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-filtered-dataset-magnitude-4-count-the-number-of-earthquakes-in-each-country-state-make-a-bar-chart-of-this-number-for-the-top-5-locations-with-the-most-earthquakes">8) Using the filtered dataset (magnitude &gt; 4), count the number of earthquakes in each country/state. Make a bar chart of this number for the top 5 locations with the most earthquakes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-a-histogram-the-distribution-of-the-earthquake-magnitudes">9) Make a histogram the distribution of the Earthquake magnitudes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-the-locations-of-earthquakes-by-making-a-scatterplot-of-their-latitude-and-longitude">11) Visualize the locations of earthquakes by making a scatterplot of their latitude and longitude</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-1-pandas-fundamentals-with-earthquake-data">
+<h1>Lab 1: Pandas Fundamentals with Earthquake Data<a class="headerlink" href="#lab-1-pandas-fundamentals-with-earthquake-data" title="Link to this heading">#</a></h1>
+<p>In this assignment, we will review pandas fundamentals, such as how to</p>
+<ul class="simple">
+<li><p>Open csv files</p></li>
+<li><p>Manipulate dataframe indexes</p></li>
+<li><p>Parse date columns</p></li>
+<li><p>Examine basic dataframe statistics</p></li>
+<li><p>Manipulate text columns and extract values</p></li>
+<li><p>Plot dataframe contents using</p>
+<ul>
+<li><p>Bar charts</p></li>
+<li><p>Histograms</p></li>
+<li><p>Scatter plots</p></li>
+</ul>
+</li>
+</ul>
+<p>First, import Numpy, Pandas and Matplotlib and set the display options.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span> 
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Data for this assignment in .csv format downloaded from the <a class="reference external" href="https://earthquake.usgs.gov/earthquakes/search/">USGS Earthquakes Database</a> is available at:</p>
+<p><a class="reference external" href="https://raw.githubusercontent.com/earth-DS-ML/summer_2025/refs/heads/main/lectures_DS/data/usgs_earthquakes_2025.csv">https://raw.githubusercontent.com/earth-DS-ML/summer_2025/refs/heads/main/lectures_DS/data/usgs_earthquakes_2025.csv</a></p>
+<p>You don’t need to download this file. You can open it directly with Pandas.</p>
+<section id="use-pandas-read-csv-function-directly-on-this-url-to-open-it-as-a-dataframe">
+<h2>1) Use Pandas’ read_csv function directly on this URL to open it as a DataFrame<a class="headerlink" href="#use-pandas-read-csv-function-directly-on-this-url-to-open-it-as-a-dataframe" title="Link to this heading">#</a></h2>
+<p>(Don’t use any special options). Display the first few rows and the DataFrame info.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/earth-DS-ML/summer_2025/refs/heads/main/lectures_DS/data/usgs_earthquakes_2025.csv&#39;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">],</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>time</th>
+      <th>latitude</th>
+      <th>longitude</th>
+      <th>depth</th>
+      <th>mag</th>
+      <th>magType</th>
+      <th>nst</th>
+      <th>gap</th>
+      <th>dmin</th>
+      <th>rms</th>
+      <th>...</th>
+      <th>updated</th>
+      <th>place</th>
+      <th>type</th>
+      <th>horizontalError</th>
+      <th>depthError</th>
+      <th>magError</th>
+      <th>magNst</th>
+      <th>status</th>
+      <th>locationSource</th>
+      <th>magSource</th>
+    </tr>
+    <tr>
+      <th>id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>us6000qkt1</th>
+      <td>2025-06-17 12:00:22.773000+00:00</td>
+      <td>-23.164500</td>
+      <td>-175.354900</td>
+      <td>10.0</td>
+      <td>4.90</td>
+      <td>mb</td>
+      <td>22.0</td>
+      <td>166.00</td>
+      <td>6.4810</td>
+      <td>0.4900</td>
+      <td>...</td>
+      <td>2025-06-17T12:30:04.040Z</td>
+      <td>206 km SSW of ‘Ohonua, Tonga</td>
+      <td>earthquake</td>
+      <td>15.85</td>
+      <td>1.938</td>
+      <td>0.093</td>
+      <td>36.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+    </tr>
+    <tr>
+      <th>nn00899047</th>
+      <td>2025-06-17 11:04:43.352000+00:00</td>
+      <td>41.123400</td>
+      <td>-116.258400</td>
+      <td>3.7</td>
+      <td>2.70</td>
+      <td>ml</td>
+      <td>7.0</td>
+      <td>79.84</td>
+      <td>0.1590</td>
+      <td>0.1459</td>
+      <td>...</td>
+      <td>2025-06-17T11:28:44.047Z</td>
+      <td>47 km NNW of Carlin, Nevada</td>
+      <td>earthquake</td>
+      <td>NaN</td>
+      <td>4.400</td>
+      <td>0.260</td>
+      <td>4.0</td>
+      <td>reviewed</td>
+      <td>nn</td>
+      <td>nn</td>
+    </tr>
+    <tr>
+      <th>us6000qksf</th>
+      <td>2025-06-17 09:16:30.483000+00:00</td>
+      <td>-23.118100</td>
+      <td>-174.912900</td>
+      <td>10.0</td>
+      <td>4.80</td>
+      <td>mb</td>
+      <td>16.0</td>
+      <td>111.00</td>
+      <td>6.1510</td>
+      <td>0.4800</td>
+      <td>...</td>
+      <td>2025-06-17T10:43:17.040Z</td>
+      <td>196 km S of ‘Ohonua, Tonga</td>
+      <td>earthquake</td>
+      <td>14.94</td>
+      <td>1.939</td>
+      <td>0.148</td>
+      <td>14.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+    </tr>
+    <tr>
+      <th>nn00899041</th>
+      <td>2025-06-17 09:09:53.314000+00:00</td>
+      <td>41.114300</td>
+      <td>-116.292400</td>
+      <td>1.7</td>
+      <td>3.20</td>
+      <td>ml</td>
+      <td>16.0</td>
+      <td>63.95</td>
+      <td>0.1370</td>
+      <td>0.1140</td>
+      <td>...</td>
+      <td>2025-06-17T09:53:55.755Z</td>
+      <td>47 km NNW of Carlin, Nevada</td>
+      <td>earthquake</td>
+      <td>NaN</td>
+      <td>2.300</td>
+      <td>0.230</td>
+      <td>10.0</td>
+      <td>reviewed</td>
+      <td>nn</td>
+      <td>nn</td>
+    </tr>
+    <tr>
+      <th>nc75196741</th>
+      <td>2025-06-17 08:40:41.280000+00:00</td>
+      <td>38.046333</td>
+      <td>-118.785333</td>
+      <td>10.4</td>
+      <td>2.93</td>
+      <td>md</td>
+      <td>39.0</td>
+      <td>67.00</td>
+      <td>0.2282</td>
+      <td>0.0500</td>
+      <td>...</td>
+      <td>2025-06-17T09:41:06.390Z</td>
+      <td>27 km SE of Bodie, CA</td>
+      <td>earthquake</td>
+      <td>0.24</td>
+      <td>1.030</td>
+      <td>0.160</td>
+      <td>40.0</td>
+      <td>reviewed</td>
+      <td>nc</td>
+      <td>nc</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 21 columns</p>
+</div></div></div>
+</div>
+<p>You should have seen that the dates were not automatically parsed into datetime types.</p>
+</section>
+<section id="re-read-the-data-in-such-a-way-that-all-date-columns-are-identified-as-dates-and-the-earthquake-id-is-used-as-the-index">
+<h2>2) Re-read the data in such a way that all date columns are identified as dates and the earthquake ID is used as the index<a class="headerlink" href="#re-read-the-data-in-such-a-way-that-all-date-columns-are-identified-as-dates-and-the-earthquake-id-is-used-as-the-index" title="Link to this heading">#</a></h2>
+<p>Verify that this worked using the <code class="docutils literal notranslate"><span class="pre">head</span></code> and <code class="docutils literal notranslate"><span class="pre">info</span></code> functions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/earth-DS-ML/summer_2025/refs/heads/main/lectures_DS/data/usgs_earthquakes_2025.csv&#39;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">],</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>latitude</th>
+      <th>longitude</th>
+      <th>depth</th>
+      <th>mag</th>
+      <th>magType</th>
+      <th>nst</th>
+      <th>gap</th>
+      <th>dmin</th>
+      <th>rms</th>
+      <th>net</th>
+      <th>updated</th>
+      <th>place</th>
+      <th>type</th>
+      <th>horizontalError</th>
+      <th>depthError</th>
+      <th>magError</th>
+      <th>magNst</th>
+      <th>status</th>
+      <th>locationSource</th>
+      <th>magSource</th>
+    </tr>
+    <tr>
+      <th>time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2025-06-17 12:00:22.773000+00:00</th>
+      <td>-23.164500</td>
+      <td>-175.354900</td>
+      <td>10.0</td>
+      <td>4.90</td>
+      <td>mb</td>
+      <td>22.0</td>
+      <td>166.00</td>
+      <td>6.4810</td>
+      <td>0.4900</td>
+      <td>us</td>
+      <td>2025-06-17T12:30:04.040Z</td>
+      <td>206 km SSW of ‘Ohonua, Tonga</td>
+      <td>earthquake</td>
+      <td>15.85</td>
+      <td>1.938</td>
+      <td>0.093</td>
+      <td>36.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+    </tr>
+    <tr>
+      <th>2025-06-17 11:04:43.352000+00:00</th>
+      <td>41.123400</td>
+      <td>-116.258400</td>
+      <td>3.7</td>
+      <td>2.70</td>
+      <td>ml</td>
+      <td>7.0</td>
+      <td>79.84</td>
+      <td>0.1590</td>
+      <td>0.1459</td>
+      <td>nn</td>
+      <td>2025-06-17T11:28:44.047Z</td>
+      <td>47 km NNW of Carlin, Nevada</td>
+      <td>earthquake</td>
+      <td>NaN</td>
+      <td>4.400</td>
+      <td>0.260</td>
+      <td>4.0</td>
+      <td>reviewed</td>
+      <td>nn</td>
+      <td>nn</td>
+    </tr>
+    <tr>
+      <th>2025-06-17 09:16:30.483000+00:00</th>
+      <td>-23.118100</td>
+      <td>-174.912900</td>
+      <td>10.0</td>
+      <td>4.80</td>
+      <td>mb</td>
+      <td>16.0</td>
+      <td>111.00</td>
+      <td>6.1510</td>
+      <td>0.4800</td>
+      <td>us</td>
+      <td>2025-06-17T10:43:17.040Z</td>
+      <td>196 km S of ‘Ohonua, Tonga</td>
+      <td>earthquake</td>
+      <td>14.94</td>
+      <td>1.939</td>
+      <td>0.148</td>
+      <td>14.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+    </tr>
+    <tr>
+      <th>2025-06-17 09:09:53.314000+00:00</th>
+      <td>41.114300</td>
+      <td>-116.292400</td>
+      <td>1.7</td>
+      <td>3.20</td>
+      <td>ml</td>
+      <td>16.0</td>
+      <td>63.95</td>
+      <td>0.1370</td>
+      <td>0.1140</td>
+      <td>nn</td>
+      <td>2025-06-17T09:53:55.755Z</td>
+      <td>47 km NNW of Carlin, Nevada</td>
+      <td>earthquake</td>
+      <td>NaN</td>
+      <td>2.300</td>
+      <td>0.230</td>
+      <td>10.0</td>
+      <td>reviewed</td>
+      <td>nn</td>
+      <td>nn</td>
+    </tr>
+    <tr>
+      <th>2025-06-17 08:40:41.280000+00:00</th>
+      <td>38.046333</td>
+      <td>-118.785333</td>
+      <td>10.4</td>
+      <td>2.93</td>
+      <td>md</td>
+      <td>39.0</td>
+      <td>67.00</td>
+      <td>0.2282</td>
+      <td>0.0500</td>
+      <td>nc</td>
+      <td>2025-06-17T09:41:06.390Z</td>
+      <td>27 km SE of Bodie, CA</td>
+      <td>earthquake</td>
+      <td>0.24</td>
+      <td>1.030</td>
+      <td>0.160</td>
+      <td>40.0</td>
+      <td>reviewed</td>
+      <td>nc</td>
+      <td>nc</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="use-describe-to-get-the-basic-statistics-of-all-the-columns">
+<h2>3) Use <code class="docutils literal notranslate"><span class="pre">describe</span></code> to get the basic statistics of all the columns<a class="headerlink" href="#use-describe-to-get-the-basic-statistics-of-all-the-columns" title="Link to this heading">#</a></h2>
+<p>Note the highest and lowest magnitude of earthquakes in the databse.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>latitude</th>
+      <th>longitude</th>
+      <th>depth</th>
+      <th>mag</th>
+      <th>nst</th>
+      <th>gap</th>
+      <th>dmin</th>
+      <th>rms</th>
+      <th>horizontalError</th>
+      <th>depthError</th>
+      <th>magError</th>
+      <th>magNst</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>10654.000000</td>
+      <td>10654.000000</td>
+      <td>10654.000000</td>
+      <td>10654.000000</td>
+      <td>9919.000000</td>
+      <td>9919.000000</td>
+      <td>9918.000000</td>
+      <td>10654.000000</td>
+      <td>9820.000000</td>
+      <td>10653.000000</td>
+      <td>9868.000000</td>
+      <td>9909.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>19.480071</td>
+      <td>-27.702737</td>
+      <td>62.060599</td>
+      <td>3.864279</td>
+      <td>43.145378</td>
+      <td>134.090393</td>
+      <td>2.434296</td>
+      <td>0.615406</td>
+      <td>6.947442</td>
+      <td>4.411837</td>
+      <td>0.113816</td>
+      <td>36.508629</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>31.231385</td>
+      <td>125.968773</td>
+      <td>110.250304</td>
+      <td>0.854359</td>
+      <td>37.794869</td>
+      <td>71.401092</td>
+      <td>4.100662</td>
+      <td>0.284075</td>
+      <td>4.395204</td>
+      <td>4.907911</td>
+      <td>0.055055</td>
+      <td>52.030189</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>-73.220400</td>
+      <td>-179.993300</td>
+      <td>-2.950000</td>
+      <td>2.500000</td>
+      <td>3.000000</td>
+      <td>10.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>-6.095700</td>
+      <td>-151.755725</td>
+      <td>10.000000</td>
+      <td>3.000000</td>
+      <td>19.000000</td>
+      <td>76.000000</td>
+      <td>0.501000</td>
+      <td>0.420000</td>
+      <td>3.940000</td>
+      <td>1.841027</td>
+      <td>0.078000</td>
+      <td>12.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>23.175050</td>
+      <td>-67.340900</td>
+      <td>14.565000</td>
+      <td>4.200000</td>
+      <td>31.000000</td>
+      <td>121.000000</td>
+      <td>1.294500</td>
+      <td>0.620000</td>
+      <td>6.680000</td>
+      <td>1.978000</td>
+      <td>0.105000</td>
+      <td>20.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>47.420125</td>
+      <td>120.648275</td>
+      <td>63.054000</td>
+      <td>4.500000</td>
+      <td>53.000000</td>
+      <td>187.000000</td>
+      <td>2.669500</td>
+      <td>0.810000</td>
+      <td>9.760000</td>
+      <td>6.697000</td>
+      <td>0.139000</td>
+      <td>40.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>87.027900</td>
+      <td>179.985500</td>
+      <td>667.237000</td>
+      <td>7.700000</td>
+      <td>475.000000</td>
+      <td>358.180000</td>
+      <td>52.015000</td>
+      <td>1.860000</td>
+      <td>40.010000</td>
+      <td>41.322000</td>
+      <td>0.730000</td>
+      <td>892.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="use-nlargest-to-get-the-top-20-earthquakes-by-magnitude">
+<h2>4) Use <code class="docutils literal notranslate"><span class="pre">nlargest</span></code> to get the top 20 earthquakes by magnitude<a class="headerlink" href="#use-nlargest-to-get-the-top-20-earthquakes-by-magnitude" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.Series.nlargest.html">https://pandas.pydata.org/pandas-docs/stable/generated/pandas.Series.nlargest.html</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;mag&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>latitude</th>
+      <th>longitude</th>
+      <th>depth</th>
+      <th>mag</th>
+      <th>magType</th>
+      <th>nst</th>
+      <th>gap</th>
+      <th>dmin</th>
+      <th>rms</th>
+      <th>net</th>
+      <th>updated</th>
+      <th>place</th>
+      <th>type</th>
+      <th>horizontalError</th>
+      <th>depthError</th>
+      <th>magError</th>
+      <th>magNst</th>
+      <th>status</th>
+      <th>locationSource</th>
+      <th>magSource</th>
+    </tr>
+    <tr>
+      <th>time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2025-03-28 06:20:52.715000+00:00</th>
+      <td>22.0110</td>
+      <td>95.9363</td>
+      <td>10.000</td>
+      <td>7.7</td>
+      <td>mww</td>
+      <td>246.0</td>
+      <td>24.0</td>
+      <td>3.474</td>
+      <td>0.89</td>
+      <td>us</td>
+      <td>2025-06-16T19:10:14.405Z</td>
+      <td>2025 Mandalay, Burma (Myanmar) Earthquake</td>
+      <td>earthquake</td>
+      <td>7.63</td>
+      <td>1.719</td>
+      <td>0.028</td>
+      <td>121.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+    </tr>
+    <tr>
+      <th>2025-02-08 23:23:14.697000+00:00</th>
+      <td>17.6506</td>
+      <td>-82.3950</td>
+      <td>14.326</td>
+      <td>7.6</td>
+      <td>mww</td>
+      <td>235.0</td>
+      <td>18.0</td>
+      <td>4.662</td>
+      <td>0.62</td>
+      <td>us</td>
+      <td>2025-04-26T15:51:49.572Z</td>
+      <td>210 km SSW of George Town, Cayman Islands</td>
+      <td>earthquake</td>
+      <td>6.99</td>
+      <td>3.216</td>
+      <td>0.028</td>
+      <td>119.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+    </tr>
+    <tr>
+      <th>2025-05-02 12:58:26.014000+00:00</th>
+      <td>-56.8094</td>
+      <td>-68.1019</td>
+      <td>10.000</td>
+      <td>7.4</td>
+      <td>mww</td>
+      <td>284.0</td>
+      <td>20.0</td>
+      <td>1.900</td>
+      <td>0.75</td>
+      <td>us</td>
+      <td>2025-06-06T12:21:50.736Z</td>
+      <td>2025 Drake Passage Earthquake</td>
+      <td>earthquake</td>
+      <td>7.58</td>
+      <td>1.441</td>
+      <td>0.038</td>
+      <td>68.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+    </tr>
+    <tr>
+      <th>2025-03-30 12:18:50.362000+00:00</th>
+      <td>-20.3036</td>
+      <td>-174.0718</td>
+      <td>29.000</td>
+      <td>7.0</td>
+      <td>mww</td>
+      <td>287.0</td>
+      <td>20.0</td>
+      <td>4.091</td>
+      <td>0.96</td>
+      <td>us</td>
+      <td>2025-06-06T21:12:28.040Z</td>
+      <td>61 km SSE of Pangai, Tonga</td>
+      <td>earthquake</td>
+      <td>4.83</td>
+      <td>2.971</td>
+      <td>0.031</td>
+      <td>98.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+    </tr>
+    <tr>
+      <th>2025-04-04 20:04:38.129000+00:00</th>
+      <td>-6.3025</td>
+      <td>151.6257</td>
+      <td>9.000</td>
+      <td>6.9</td>
+      <td>mww</td>
+      <td>333.0</td>
+      <td>11.0</td>
+      <td>2.022</td>
+      <td>0.78</td>
+      <td>us</td>
+      <td>2025-06-09T13:38:40.040Z</td>
+      <td>184 km ESE of Kimbe, Papua New Guinea</td>
+      <td>earthquake</td>
+      <td>5.87</td>
+      <td>1.699</td>
+      <td>0.028</td>
+      <td>121.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+    </tr>
+    <tr>
+      <th>2025-04-03 14:09:29.739000+00:00</th>
+      <td>52.4538</td>
+      <td>-32.1071</td>
+      <td>10.000</td>
+      <td>6.9</td>
+      <td>mww</td>
+      <td>165.0</td>
+      <td>19.0</td>
+      <td>11.349</td>
+      <td>0.57</td>
+      <td>us</td>
+      <td>2025-06-09T13:38:39.040Z</td>
+      <td>Reykjanes Ridge</td>
+      <td>earthquake</td>
+      <td>8.40</td>
+      <td>1.762</td>
+      <td>0.031</td>
+      <td>99.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+    </tr>
+    <tr>
+      <th>2025-04-29 14:53:37.897000+00:00</th>
+      <td>-54.2616</td>
+      <td>155.6446</td>
+      <td>18.957</td>
+      <td>6.8</td>
+      <td>mww</td>
+      <td>475.0</td>
+      <td>11.0</td>
+      <td>1.942</td>
+      <td>0.51</td>
+      <td>us</td>
+      <td>2025-05-22T13:59:03.231Z</td>
+      <td>Macquarie Island region</td>
+      <td>earthquake</td>
+      <td>7.93</td>
+      <td>2.668</td>
+      <td>0.044</td>
+      <td>49.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+    </tr>
+    <tr>
+      <th>2025-01-13 12:19:32.252000+00:00</th>
+      <td>31.8326</td>
+      <td>131.5525</td>
+      <td>39.000</td>
+      <td>6.8</td>
+      <td>mww</td>
+      <td>151.0</td>
+      <td>18.0</td>
+      <td>0.992</td>
+      <td>1.07</td>
+      <td>us</td>
+      <td>2025-03-20T20:55:21.040Z</td>
+      <td>15 km SE of Miyazaki, Japan</td>
+      <td>earthquake</td>
+      <td>3.70</td>
+      <td>1.827</td>
+      <td>0.033</td>
+      <td>87.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+    </tr>
+    <tr>
+      <th>2025-03-28 06:32:04.777000+00:00</th>
+      <td>21.6975</td>
+      <td>95.9690</td>
+      <td>10.000</td>
+      <td>6.7</td>
+      <td>mww</td>
+      <td>106.0</td>
+      <td>41.0</td>
+      <td>4.266</td>
+      <td>0.75</td>
+      <td>us</td>
+      <td>2025-06-06T21:12:25.040Z</td>
+      <td>Burma (Myanmar)</td>
+      <td>earthquake</td>
+      <td>7.64</td>
+      <td>1.831</td>
+      <td>0.089</td>
+      <td>12.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+    </tr>
+    <tr>
+      <th>2025-03-25 01:43:11.796000+00:00</th>
+      <td>-46.7305</td>
+      <td>165.8632</td>
+      <td>21.000</td>
+      <td>6.7</td>
+      <td>mww</td>
+      <td>250.0</td>
+      <td>31.0</td>
+      <td>0.799</td>
+      <td>0.54</td>
+      <td>us</td>
+      <td>2025-05-29T17:36:32.040Z</td>
+      <td>170 km WSW of Riverton, New Zealand</td>
+      <td>earthquake</td>
+      <td>7.97</td>
+      <td>1.783</td>
+      <td>0.045</td>
+      <td>48.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+    </tr>
+    <tr>
+      <th>2025-04-16 01:42:59.524000+00:00</th>
+      <td>-47.8089</td>
+      <td>99.6130</td>
+      <td>10.000</td>
+      <td>6.6</td>
+      <td>mww</td>
+      <td>127.0</td>
+      <td>43.0</td>
+      <td>19.390</td>
+      <td>0.77</td>
+      <td>us</td>
+      <td>2025-05-23T02:25:56.217Z</td>
+      <td>southeast Indian Ridge</td>
+      <td>earthquake</td>
+      <td>10.50</td>
+      <td>1.788</td>
+      <td>0.093</td>
+      <td>11.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+    </tr>
+    <tr>
+      <th>2025-03-28 17:17:27.868000+00:00</th>
+      <td>0.7561</td>
+      <td>-29.7635</td>
+      <td>12.323</td>
+      <td>6.6</td>
+      <td>mww</td>
+      <td>326.0</td>
+      <td>24.0</td>
+      <td>8.962</td>
+      <td>0.44</td>
+      <td>us</td>
+      <td>2025-06-06T21:12:26.040Z</td>
+      <td>central Mid-Atlantic Ridge</td>
+      <td>earthquake</td>
+      <td>8.98</td>
+      <td>3.041</td>
+      <td>0.059</td>
+      <td>28.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+    </tr>
+    <tr>
+      <th>2025-05-20 15:05:59.387000+00:00</th>
+      <td>-3.7575</td>
+      <td>144.8116</td>
+      <td>16.819</td>
+      <td>6.5</td>
+      <td>mww</td>
+      <td>301.0</td>
+      <td>17.0</td>
+      <td>3.067</td>
+      <td>0.59</td>
+      <td>us</td>
+      <td>2025-06-12T17:09:08.356Z</td>
+      <td>89 km ENE of Angoram, Papua New Guinea</td>
+      <td>earthquake</td>
+      <td>7.77</td>
+      <td>3.021</td>
+      <td>0.043</td>
+      <td>52.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+    </tr>
+    <tr>
+      <th>2025-04-13 20:03:22.841000+00:00</th>
+      <td>-25.9815</td>
+      <td>-178.3309</td>
+      <td>271.000</td>
+      <td>6.5</td>
+      <td>mww</td>
+      <td>102.0</td>
+      <td>27.0</td>
+      <td>3.270</td>
+      <td>0.73</td>
+      <td>us</td>
+      <td>2025-06-14T18:26:42.040Z</td>
+      <td>south of the Fiji Islands</td>
+      <td>earthquake</td>
+      <td>9.61</td>
+      <td>1.946</td>
+      <td>0.041</td>
+      <td>57.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+    </tr>
+    <tr>
+      <th>2025-03-10 02:33:14.609000+00:00</th>
+      <td>71.1760</td>
+      <td>-8.1733</td>
+      <td>10.000</td>
+      <td>6.5</td>
+      <td>mww</td>
+      <td>437.0</td>
+      <td>15.0</td>
+      <td>0.219</td>
+      <td>0.59</td>
+      <td>us</td>
+      <td>2025-05-16T17:30:04.040Z</td>
+      <td>34 km NE of Olonkinbyen, Svalbard and Jan Mayen</td>
+      <td>earthquake</td>
+      <td>6.68</td>
+      <td>1.724</td>
+      <td>0.039</td>
+      <td>62.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+    </tr>
+    <tr>
+      <th>2025-06-06 17:15:06.906000+00:00</th>
+      <td>-26.6404</td>
+      <td>-70.4136</td>
+      <td>75.000</td>
+      <td>6.4</td>
+      <td>mww</td>
+      <td>317.0</td>
+      <td>16.0</td>
+      <td>0.518</td>
+      <td>0.69</td>
+      <td>us</td>
+      <td>2025-06-10T00:18:11.455Z</td>
+      <td>45 km SW of Diego de Almagro, Chile</td>
+      <td>earthquake</td>
+      <td>6.02</td>
+      <td>1.786</td>
+      <td>0.036</td>
+      <td>73.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+    </tr>
+    <tr>
+      <th>2025-05-14 04:15:40.513000+00:00</th>
+      <td>-18.7126</td>
+      <td>-175.3343</td>
+      <td>260.000</td>
+      <td>6.4</td>
+      <td>mww</td>
+      <td>262.0</td>
+      <td>30.0</td>
+      <td>5.518</td>
+      <td>0.70</td>
+      <td>us</td>
+      <td>2025-05-31T04:45:00.494Z</td>
+      <td>142 km W of Neiafu, Tonga</td>
+      <td>earthquake</td>
+      <td>10.42</td>
+      <td>1.918</td>
+      <td>0.047</td>
+      <td>43.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+    </tr>
+    <tr>
+      <th>2025-05-02 17:59:07.662000+00:00</th>
+      <td>-57.3040</td>
+      <td>-67.0168</td>
+      <td>8.000</td>
+      <td>6.4</td>
+      <td>mww</td>
+      <td>287.0</td>
+      <td>16.0</td>
+      <td>2.402</td>
+      <td>0.57</td>
+      <td>us</td>
+      <td>2025-06-06T21:56:04.707Z</td>
+      <td>289 km SSE of Ushuaia, Argentina</td>
+      <td>earthquake</td>
+      <td>6.92</td>
+      <td>1.657</td>
+      <td>0.071</td>
+      <td>19.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+    </tr>
+    <tr>
+      <th>2025-06-08 13:08:05.861000+00:00</th>
+      <td>4.5120</td>
+      <td>-73.1553</td>
+      <td>9.000</td>
+      <td>6.3</td>
+      <td>mww</td>
+      <td>158.0</td>
+      <td>39.0</td>
+      <td>1.208</td>
+      <td>0.90</td>
+      <td>us</td>
+      <td>2025-06-11T20:06:49.348Z</td>
+      <td>16 km NNE of Paratebueno, Colombia</td>
+      <td>earthquake</td>
+      <td>6.37</td>
+      <td>1.815</td>
+      <td>0.032</td>
+      <td>96.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+    </tr>
+    <tr>
+      <th>2025-04-25 11:44:52.610000+00:00</th>
+      <td>1.0816</td>
+      <td>-79.5387</td>
+      <td>18.000</td>
+      <td>6.3</td>
+      <td>mww</td>
+      <td>208.0</td>
+      <td>32.0</td>
+      <td>0.723</td>
+      <td>1.16</td>
+      <td>us</td>
+      <td>2025-05-30T09:28:51.466Z</td>
+      <td>18 km NE of Esmeraldas, Ecuador</td>
+      <td>earthquake</td>
+      <td>5.53</td>
+      <td>1.591</td>
+      <td>0.032</td>
+      <td>96.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Examine the structure of the <code class="docutils literal notranslate"><span class="pre">place</span></code> column. The state / country information seems to be in there. How would you get it out?</p>
+</section>
+<section id="extract-the-state-or-country-using-pandas-text-data-functions">
+<h2>5) Extract the state or country using Pandas <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/text.html">text data functions</a><a class="headerlink" href="#extract-the-state-or-country-using-pandas-text-data-functions" title="Link to this heading">#</a></h2>
+<p>Add it as a new column to the dataframe called <code class="docutils literal notranslate"><span class="pre">country</span></code>. Note that some of the “countries” are actually U.S. states.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">place</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>time
+2025-06-17 12:00:22.773000+00:00      206 km SSW of ‘Ohonua, Tonga
+2025-06-17 11:04:43.352000+00:00       47 km NNW of Carlin, Nevada
+2025-06-17 09:16:30.483000+00:00        196 km S of ‘Ohonua, Tonga
+2025-06-17 09:09:53.314000+00:00       47 km NNW of Carlin, Nevada
+2025-06-17 08:40:41.280000+00:00             27 km SE of Bodie, CA
+                                                 ...              
+2025-01-10 00:49:27.075000+00:00          79 km SE of Adak, Alaska
+2025-01-10 00:33:23.897000+00:00       37 km SSE of Egegik, Alaska
+2025-01-10 00:30:10.096000+00:00     south of the Kermadec Islands
+2025-01-10 00:17:25.435000+00:00       41 km SSE of Egegik, Alaska
+2025-01-10 00:15:53.054000+00:00    17 km NW of Metahāra, Ethiopia
+Name: place, Length: 10654, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">place</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>time
+2025-06-17 12:00:22.773000+00:00                            Tonga
+2025-06-17 11:04:43.352000+00:00                           Nevada
+2025-06-17 09:16:30.483000+00:00                            Tonga
+2025-06-17 09:09:53.314000+00:00                           Nevada
+2025-06-17 08:40:41.280000+00:00                               CA
+                                                ...              
+2025-01-10 00:49:27.075000+00:00                           Alaska
+2025-01-10 00:33:23.897000+00:00                           Alaska
+2025-01-10 00:30:10.096000+00:00    south of the Kermadec Islands
+2025-01-10 00:17:25.435000+00:00                           Alaska
+2025-01-10 00:15:53.054000+00:00                         Ethiopia
+Name: place, Length: 10654, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">place</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="display-each-unique-value-from-the-new-column">
+<h2>6) Display each unique value from the new column<a class="headerlink" href="#display-each-unique-value-from-the-new-column" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.Series.unique.html">https://pandas.pydata.org/pandas-docs/stable/generated/pandas.Series.unique.html</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">unique_countries</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">country</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">unique_countries</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>228
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="create-a-filtered-dataset-that-only-has-earthquakes-of-magnitude-4-or-larger-and">
+<h2>7) Create a filtered dataset that only has earthquakes of magnitude 4 or larger and<a class="headerlink" href="#create-a-filtered-dataset-that-only-has-earthquakes-of-magnitude-4-or-larger-and" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_large</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">mag</span><span class="o">&gt;=</span><span class="mi">4</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">mag</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;All&#39;</span><span class="p">)</span>
+<span class="n">df_large</span><span class="o">.</span><span class="n">mag</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Larger than 4&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7aec1c231370&gt;
+</pre></div>
+</div>
+<img alt="../_images/9d90f2c3c97588018bfdb218f563a029f86305affeb41bcdcc9748148e9a9b8b.png" src="../_images/9d90f2c3c97588018bfdb218f563a029f86305affeb41bcdcc9748148e9a9b8b.png" />
+</div>
+</div>
+</section>
+<section id="using-the-filtered-dataset-magnitude-4-count-the-number-of-earthquakes-in-each-country-state-make-a-bar-chart-of-this-number-for-the-top-5-locations-with-the-most-earthquakes">
+<h2>8) Using the filtered dataset (magnitude &gt; 4), count the number of earthquakes in each country/state. Make a bar chart of this number for the top 5 locations with the most earthquakes<a class="headerlink" href="#using-the-filtered-dataset-magnitude-4-count-the-number-of-earthquakes-in-each-country-state-make-a-bar-chart-of-this-number-for-the-top-5-locations-with-the-most-earthquakes" title="Link to this heading">#</a></h2>
+<p>Location name on the x axis, Earthquake count on the y axis</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_large</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mag</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;country&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/7f61900e0c2addaf4cb041ee57c79ea9a83821649155587941ef369034675c4b.png" src="../_images/7f61900e0c2addaf4cb041ee57c79ea9a83821649155587941ef369034675c4b.png" />
+</div>
+</div>
+</section>
+<section id="make-a-histogram-the-distribution-of-the-earthquake-magnitudes">
+<h2>9) Make a histogram the distribution of the Earthquake magnitudes<a class="headerlink" href="#make-a-histogram-the-distribution-of-the-earthquake-magnitudes" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/version/0.23/generated/pandas.DataFrame.hist.html">https://pandas.pydata.org/pandas-docs/version/0.23/generated/pandas.DataFrame.hist.html</a>
+<a class="reference external" href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.hist.html">https://matplotlib.org/api/_as_gen/matplotlib.pyplot.hist.html</a></p>
+<p>Do one subplot for the filtered and one for the unfiltered dataset.
+Use a Logarithmic scale. What sort of relationship do you see?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">mag</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;All&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;All earthquakes&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">df_large</span><span class="o">.</span><span class="n">mag</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Larger than 4&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;All earthquakes &gt;= 4&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/a3e0df1c8401b1f6486260da403f8a16b9745c222933b69a8ea2d3ec5e4f43ad.png" src="../_images/a3e0df1c8401b1f6486260da403f8a16b9745c222933b69a8ea2d3ec5e4f43ad.png" />
+</div>
+</div>
+</section>
+<section id="visualize-the-locations-of-earthquakes-by-making-a-scatterplot-of-their-latitude-and-longitude">
+<h2>11) Visualize the locations of earthquakes by making a scatterplot of their latitude and longitude<a class="headerlink" href="#visualize-the-locations-of-earthquakes-by-making-a-scatterplot-of-their-latitude-and-longitude" title="Link to this heading">#</a></h2>
+<p>Use a two-column subplot with both the filtered and unfiltered datasets. Color the points by magnitude. Make it pretty</p>
+<p>What difference do you note between the filtered and unfiltered datasets?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;latitude&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;mag&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">colorbar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">())</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;df&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">df_large</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;latitude&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;mag&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">colorbar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">())</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;df_large&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/2f387a1f940d11c0c3e0cf9b0e0f0d1a3509d36cc06fb514e2d4f786d9add778.png" src="../_images/2f387a1f940d11c0c3e0cf9b0e0f0d1a3509d36cc06fb514e2d4f786d9add778.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./assignments"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-pandas-read-csv-function-directly-on-this-url-to-open-it-as-a-dataframe">1) Use Pandas’ read_csv function directly on this URL to open it as a DataFrame</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#re-read-the-data-in-such-a-way-that-all-date-columns-are-identified-as-dates-and-the-earthquake-id-is-used-as-the-index">2) Re-read the data in such a way that all date columns are identified as dates and the earthquake ID is used as the index</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-describe-to-get-the-basic-statistics-of-all-the-columns">3) Use <code class="docutils literal notranslate"><span class="pre">describe</span></code> to get the basic statistics of all the columns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-nlargest-to-get-the-top-20-earthquakes-by-magnitude">4) Use <code class="docutils literal notranslate"><span class="pre">nlargest</span></code> to get the top 20 earthquakes by magnitude</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extract-the-state-or-country-using-pandas-text-data-functions">5) Extract the state or country using Pandas text data functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#display-each-unique-value-from-the-new-column">6) Display each unique value from the new column</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-filtered-dataset-that-only-has-earthquakes-of-magnitude-4-or-larger-and">7) Create a filtered dataset that only has earthquakes of magnitude 4 or larger and</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-filtered-dataset-magnitude-4-count-the-number-of-earthquakes-in-each-country-state-make-a-bar-chart-of-this-number-for-the-top-5-locations-with-the-most-earthquakes">8) Using the filtered dataset (magnitude &gt; 4), count the number of earthquakes in each country/state. Make a bar chart of this number for the top 5 locations with the most earthquakes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-a-histogram-the-distribution-of-the-earthquake-magnitudes">9) Make a histogram the distribution of the Earthquake magnitudes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-the-locations-of-earthquakes-by-making-a-scatterplot-of-their-latitude-and-longitude">11) Visualize the locations of earthquakes by making a scatterplot of their latitude and longitude</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dhruv Balwada & Kara Lamb
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

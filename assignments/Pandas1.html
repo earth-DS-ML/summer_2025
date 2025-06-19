@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Assignment 2: Basic Python &#8212; Earth Data Science and Machine Learning</title>
+    <title>Lab 1: Pandas Fundamentals with Earthquake Data &#8212; Earth Data Science and Machine Learning</title>
   
   
   
@@ -57,11 +57,11 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'assignments/assignment_2';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'assignments/Pandas1';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Numpy and Matplotlib" href="../lectures_DS/sci_python/numpy_and_matplotlib.html" />
-    <link rel="prev" title="Organization and Packaging of Python Projects" href="../lectures_DS/core_python/organization_and_packaging.html" />
+    <link rel="next" title="Lab 2: Pandas Groupby with Hurricane Data" href="Pandas2.html" />
+    <link rel="prev" title="Pandas: Groupby" href="../lectures_DS/pandas/pandas_groupby.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -191,11 +191,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../lectures_DS/data/data.html">All About Data</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">The Core Python Language</span></p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../lectures_DS/core_python/python_fundamentals.html">Python Fundamentals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lectures_DS/core_python/functions_classes.html">Python Functions and Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lectures_DS/core_python/organization_and_packaging.html">Organization and Packaging of Python Projects</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Assignment 2: Basic Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assignment_2.html">Assignment 2: Basic Python</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Scientific Python Fundamentals</span></p>
 <ul class="nav bd-sidenav">
@@ -205,11 +205,11 @@
 <li class="toctree-l1"><a class="reference internal" href="more_matplotlib.html">Assignment 3b: More Matplotlib</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Pandas</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../lectures_DS/pandas/pandas_intro.html">Pandas</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lectures_DS/pandas/basic_pandas.html">Pandas Fundamentals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lectures_DS/pandas/pandas_groupby.html">Pandas: Groupby</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Pandas1.html">Lab 1: Pandas Fundamentals with Earthquake Data</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lab 1: Pandas Fundamentals with Earthquake Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Pandas2.html">Lab 2: Pandas Groupby with Hurricane Data</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Xarray</span></p>
@@ -288,7 +288,7 @@
       
       
       
-      <li><a href="https://github.com/earth-DS-ML/summer_2025/issues/new?title=Issue%20on%20page%20%2Fassignments/assignment_2.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/earth-DS-ML/summer_2025/issues/new?title=Issue%20on%20page%20%2Fassignments/Pandas1.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -318,7 +318,7 @@
       
       
       
-      <li><a href="../_sources/assignments/assignment_2.ipynb" target="_blank"
+      <li><a href="../_sources/assignments/Pandas1.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -402,7 +402,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Assignment 2: Basic Python</h1>
+    <h1>Lab 1: Pandas Fundamentals with Earthquake Data</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -412,30 +412,16 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-i-lists-and-loops">Part I: Lists and Loops</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-list-with-the-names-of-every-planet-in-the-solar-system-in-order">1) Create a list with the names of every planet in the solar system (in order)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#have-python-tell-you-how-many-planets-there-are-by-examining-your-list">2) Have Python tell you how many planets there are by examining your list</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#use-slicing-to-display-the-first-four-planets-the-rocky-planets">3) Use slicing to display the first four planets (the rocky planets)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iterate-through-your-planets-and-print-the-planet-name-only-if-it-has-an-s-at-the-end">4) Iterate through your planets and print the planet name only if it has an <code class="docutils literal notranslate"><span class="pre">s</span></code> at the end</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-ii-dictionaries">Part II: Dictionaries</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#now-create-a-dictionary-that-maps-each-planet-name-to-its-mass">1) Now create a dictionary that maps each planet name to its mass</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#use-your-dictionary-to-look-up-earth-s-mass">2) Use your dictionary to look up Earth’s mass</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loop-through-the-data-and-create-a-list-of-planets-whose-mast-is-greater-than-100-x-10-24-kg">3) Loop through the data and create a list of planets whose mast is greater than 100 x 10^24 kg</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#now-add-pluto-to-your-dictionary">4) Now add pluto to your dictionary</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-iii-functions">Part III: Functions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#write-a-function-to-convert-temperature-from-kelvin-to-celsius">1. Write a function to convert temperature from kelvin to celsius</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#write-a-function-to-convert-temperature-to-fahrenheit">2. Write a function to convert temperature to fahrenheit</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-that-the-outputs-are-sensible">3) Check that the outputs are sensible</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#now-write-a-function-that-converts-from-farenheit">4) Now write a function that converts <em>from</em> farenheit</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#write-a-function-that-takes-two-arguments-feet-and-inches-and-returns-height-in-meters">5) Write a function that takes two arguments (feet and inches) and returns height in meters</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#write-a-function-takes-one-argument-height-in-meters-and-returns-two-arguments-feet-and-inches">6. Write a function takes one argument (height in meters) and returns two arguments (feet and inches)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verify-that-the-round-trip-conversion-from-and-back-to-meters-is-consistent">7) Verify that the “round trip” conversion from and back to meters is consistent</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-pandas-read-csv-function-directly-on-this-url-to-open-it-as-a-dataframe">1) Use Pandas’ read_csv function directly on this URL to open it as a DataFrame</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#re-read-the-data-in-such-a-way-that-all-date-columns-are-identified-as-dates-and-the-earthquake-id-is-used-as-the-index">2) Re-read the data in such a way that all date columns are identified as dates and the earthquake ID is used as the index</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-describe-to-get-the-basic-statistics-of-all-the-columns">3) Use <code class="docutils literal notranslate"><span class="pre">describe</span></code> to get the basic statistics of all the columns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-nlargest-to-get-the-top-20-earthquakes-by-magnitude">4) Use <code class="docutils literal notranslate"><span class="pre">nlargest</span></code> to get the top 20 earthquakes by magnitude</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extract-the-state-or-country-using-pandas-text-data-functions">5) Extract the state or country using Pandas text data functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#display-each-unique-value-from-the-new-column">6) Display each unique value from the new column</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-filtered-dataset-that-only-has-earthquakes-of-magnitude-4-or-larger-and">7) Create a filtered dataset that only has earthquakes of magnitude 4 or larger and</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-filtered-dataset-magnitude-4-count-the-number-of-earthquakes-in-each-country-state-make-a-bar-chart-of-this-number-for-the-top-5-locations-with-the-most-earthquakes">8) Using the filtered dataset (magnitude &gt; 4), count the number of earthquakes in each country/state. Make a bar chart of this number for the top 5 locations with the most earthquakes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-a-histogram-the-distribution-of-the-earthquake-magnitudes">9) Make a histogram the distribution of the Earthquake magnitudes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-the-locations-of-earthquakes-by-making-a-scatterplot-of-their-latitude-and-longitude">11) Visualize the locations of earthquakes by making a scatterplot of their latitude and longitude</a></li>
 </ul>
             </nav>
         </div>
@@ -447,88 +433,71 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="assignment-2-basic-python">
-<h1>Assignment 2: Basic Python<a class="headerlink" href="#assignment-2-basic-python" title="Link to this heading">#</a></h1>
-<div class="tip admonition">
-<p class="admonition-title">Learning Goals</p>
-<p>This assignment will verify that you have the following skills:</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-1-pandas-fundamentals-with-earthquake-data">
+<h1>Lab 1: Pandas Fundamentals with Earthquake Data<a class="headerlink" href="#lab-1-pandas-fundamentals-with-earthquake-data" title="Link to this heading">#</a></h1>
+<p>In this assignment, we will review pandas fundamentals, such as how to</p>
 <ul class="simple">
-<li><p>Create lists and dictionaries</p></li>
-<li><p>Iterate through lists, tuples, and dictionaries</p></li>
-<li><p>Index sequences (e.g. lists and tuples)</p></li>
-<li><p>Define functions</p></li>
-<li><p>Use optional keyword arguments in functions</p></li>
+<li><p>Open csv files</p></li>
+<li><p>Manipulate dataframe indexes</p></li>
+<li><p>Parse date columns</p></li>
+<li><p>Examine basic dataframe statistics</p></li>
+<li><p>Manipulate text columns and extract values</p></li>
+<li><p>Plot dataframe contents using</p>
+<ul>
+<li><p>Bar charts</p></li>
+<li><p>Histograms</p></li>
+<li><p>Scatter plots</p></li>
 </ul>
-</div>
-<section id="part-i-lists-and-loops">
-<h2>Part I: Lists and Loops<a class="headerlink" href="#part-i-lists-and-loops" title="Link to this heading">#</a></h2>
-<p>In this problem, we will explore the basic data structures and flow controls of Python by <em>manually creating data structures</em>.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Pluto is <a class="reference external" href="https://www.loc.gov/everyday-mysteries/item/why-is-pluto-no-longer-a-planet/">not a planet any more</a>.</p>
-</div>
-<section id="create-a-list-with-the-names-of-every-planet-in-the-solar-system-in-order">
-<h3>1) Create a list with the names of every planet in the solar system (in order)<a class="headerlink" href="#create-a-list-with-the-names-of-every-planet-in-the-solar-system-in-order" title="Link to this heading">#</a></h3>
+</li>
+</ul>
+<p>First, import Numpy, Pandas and Matplotlib and set the display options.</p>
+<p>Data for this assignment in .csv format downloaded from the <a class="reference external" href="https://earthquake.usgs.gov/earthquakes/search/">USGS Earthquakes Database</a> is available at:</p>
+<p><a class="reference external" href="https://raw.githubusercontent.com/earth-DS-ML/summer_2025/refs/heads/main/lectures_DS/data/usgs_earthquakes_2025.csv">https://raw.githubusercontent.com/earth-DS-ML/summer_2025/refs/heads/main/lectures_DS/data/usgs_earthquakes_2025.csv</a></p>
+<p>You don’t need to download this file. You can open it directly with Pandas.</p>
+<section id="use-pandas-read-csv-function-directly-on-this-url-to-open-it-as-a-dataframe">
+<h2>1) Use Pandas’ read_csv function directly on this URL to open it as a DataFrame<a class="headerlink" href="#use-pandas-read-csv-function-directly-on-this-url-to-open-it-as-a-dataframe" title="Link to this heading">#</a></h2>
+<p>(Don’t use any special options). Display the first few rows and the DataFrame info.</p>
+<p>You should have seen that the dates were not automatically parsed into datetime types.</p>
 </section>
-<section id="have-python-tell-you-how-many-planets-there-are-by-examining-your-list">
-<h3>2) Have Python tell you how many planets there are by examining your list<a class="headerlink" href="#have-python-tell-you-how-many-planets-there-are-by-examining-your-list" title="Link to this heading">#</a></h3>
+<section id="re-read-the-data-in-such-a-way-that-all-date-columns-are-identified-as-dates-and-the-earthquake-id-is-used-as-the-index">
+<h2>2) Re-read the data in such a way that all date columns are identified as dates and the earthquake ID is used as the index<a class="headerlink" href="#re-read-the-data-in-such-a-way-that-all-date-columns-are-identified-as-dates-and-the-earthquake-id-is-used-as-the-index" title="Link to this heading">#</a></h2>
+<p>Verify that this worked using the <code class="docutils literal notranslate"><span class="pre">head</span></code> and <code class="docutils literal notranslate"><span class="pre">info</span></code> functions.</p>
 </section>
-<section id="use-slicing-to-display-the-first-four-planets-the-rocky-planets">
-<h3>3) Use slicing to display the first four planets (the rocky planets)<a class="headerlink" href="#use-slicing-to-display-the-first-four-planets-the-rocky-planets" title="Link to this heading">#</a></h3>
+<section id="use-describe-to-get-the-basic-statistics-of-all-the-columns">
+<h2>3) Use <code class="docutils literal notranslate"><span class="pre">describe</span></code> to get the basic statistics of all the columns<a class="headerlink" href="#use-describe-to-get-the-basic-statistics-of-all-the-columns" title="Link to this heading">#</a></h2>
+<p>Note the highest and lowest magnitude of earthquakes in the databse.</p>
 </section>
-<section id="iterate-through-your-planets-and-print-the-planet-name-only-if-it-has-an-s-at-the-end">
-<h3>4) Iterate through your planets and print the planet name only if it has an <code class="docutils literal notranslate"><span class="pre">s</span></code> at the end<a class="headerlink" href="#iterate-through-your-planets-and-print-the-planet-name-only-if-it-has-an-s-at-the-end" title="Link to this heading">#</a></h3>
+<section id="use-nlargest-to-get-the-top-20-earthquakes-by-magnitude">
+<h2>4) Use <code class="docutils literal notranslate"><span class="pre">nlargest</span></code> to get the top 20 earthquakes by magnitude<a class="headerlink" href="#use-nlargest-to-get-the-top-20-earthquakes-by-magnitude" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.Series.nlargest.html">https://pandas.pydata.org/pandas-docs/stable/generated/pandas.Series.nlargest.html</a></p>
+<p>Examine the structure of the <code class="docutils literal notranslate"><span class="pre">place</span></code> column. The state / country information seems to be in there. How would you get it out?</p>
 </section>
+<section id="extract-the-state-or-country-using-pandas-text-data-functions">
+<h2>5) Extract the state or country using Pandas <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/text.html">text data functions</a><a class="headerlink" href="#extract-the-state-or-country-using-pandas-text-data-functions" title="Link to this heading">#</a></h2>
+<p>Add it as a new column to the dataframe called <code class="docutils literal notranslate"><span class="pre">country</span></code>. Note that some of the “countries” are actually U.S. states.</p>
 </section>
-<section id="part-ii-dictionaries">
-<h2>Part II: Dictionaries<a class="headerlink" href="#part-ii-dictionaries" title="Link to this heading">#</a></h2>
-<section id="now-create-a-dictionary-that-maps-each-planet-name-to-its-mass">
-<h3>1) Now create a dictionary that maps each planet name to its mass<a class="headerlink" href="#now-create-a-dictionary-that-maps-each-planet-name-to-its-mass" title="Link to this heading">#</a></h3>
-<p>You can use values from this <a class="reference external" href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/">NASA fact sheet</a>.
-You can use whatever units you want, but be consistent.</p>
+<section id="display-each-unique-value-from-the-new-column">
+<h2>6) Display each unique value from the new column<a class="headerlink" href="#display-each-unique-value-from-the-new-column" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.Series.unique.html">https://pandas.pydata.org/pandas-docs/stable/generated/pandas.Series.unique.html</a></p>
 </section>
-<section id="use-your-dictionary-to-look-up-earth-s-mass">
-<h3>2) Use your dictionary to look up Earth’s mass<a class="headerlink" href="#use-your-dictionary-to-look-up-earth-s-mass" title="Link to this heading">#</a></h3>
+<section id="create-a-filtered-dataset-that-only-has-earthquakes-of-magnitude-4-or-larger-and">
+<h2>7) Create a filtered dataset that only has earthquakes of magnitude 4 or larger and<a class="headerlink" href="#create-a-filtered-dataset-that-only-has-earthquakes-of-magnitude-4-or-larger-and" title="Link to this heading">#</a></h2>
 </section>
-<section id="loop-through-the-data-and-create-a-list-of-planets-whose-mast-is-greater-than-100-x-10-24-kg">
-<h3>3) Loop through the data and create a list of planets whose mast is greater than 100 x 10^24 kg<a class="headerlink" href="#loop-through-the-data-and-create-a-list-of-planets-whose-mast-is-greater-than-100-x-10-24-kg" title="Link to this heading">#</a></h3>
-<p>Display your result</p>
+<section id="using-the-filtered-dataset-magnitude-4-count-the-number-of-earthquakes-in-each-country-state-make-a-bar-chart-of-this-number-for-the-top-5-locations-with-the-most-earthquakes">
+<h2>8) Using the filtered dataset (magnitude &gt; 4), count the number of earthquakes in each country/state. Make a bar chart of this number for the top 5 locations with the most earthquakes<a class="headerlink" href="#using-the-filtered-dataset-magnitude-4-count-the-number-of-earthquakes-in-each-country-state-make-a-bar-chart-of-this-number-for-the-top-5-locations-with-the-most-earthquakes" title="Link to this heading">#</a></h2>
+<p>Location name on the x axis, Earthquake count on the y axis</p>
 </section>
-<section id="now-add-pluto-to-your-dictionary">
-<h3>4) Now add pluto to your dictionary<a class="headerlink" href="#now-add-pluto-to-your-dictionary" title="Link to this heading">#</a></h3>
+<section id="make-a-histogram-the-distribution-of-the-earthquake-magnitudes">
+<h2>9) Make a histogram the distribution of the Earthquake magnitudes<a class="headerlink" href="#make-a-histogram-the-distribution-of-the-earthquake-magnitudes" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/version/0.23/generated/pandas.DataFrame.hist.html">https://pandas.pydata.org/pandas-docs/version/0.23/generated/pandas.DataFrame.hist.html</a>
+<a class="reference external" href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.hist.html">https://matplotlib.org/api/_as_gen/matplotlib.pyplot.hist.html</a></p>
+<p>Do one subplot for the filtered and one for the unfiltered dataset.
+Use a Logarithmic scale. What sort of relationship do you see?</p>
 </section>
-</section>
-<section id="part-iii-functions">
-<h2>Part III: Functions<a class="headerlink" href="#part-iii-functions" title="Link to this heading">#</a></h2>
-<section id="write-a-function-to-convert-temperature-from-kelvin-to-celsius">
-<h3>1. Write a function to convert temperature from kelvin to celsius<a class="headerlink" href="#write-a-function-to-convert-temperature-from-kelvin-to-celsius" title="Link to this heading">#</a></h3>
-<p>and celsius to kelvin</p>
-</section>
-<section id="write-a-function-to-convert-temperature-to-fahrenheit">
-<h3>2. Write a function to convert temperature to fahrenheit<a class="headerlink" href="#write-a-function-to-convert-temperature-to-fahrenheit" title="Link to this heading">#</a></h3>
-<p>Include an optional keyword argument to specify whether the input is in  celcius or kelvin.
-Call your previously defined functions if necessary.</p>
-</section>
-<section id="check-that-the-outputs-are-sensible">
-<h3>3) Check that the outputs are sensible<a class="headerlink" href="#check-that-the-outputs-are-sensible" title="Link to this heading">#</a></h3>
-<p>by trying a few examples</p>
-</section>
-<section id="now-write-a-function-that-converts-from-farenheit">
-<h3>4) Now write a function that converts <em>from</em> farenheit<a class="headerlink" href="#now-write-a-function-that-converts-from-farenheit" title="Link to this heading">#</a></h3>
-<p>and uses a keyword argument to specify whether you want the output in celcius or kelvin</p>
-</section>
-<section id="write-a-function-that-takes-two-arguments-feet-and-inches-and-returns-height-in-meters">
-<h3>5) Write a function that takes two arguments (feet and inches) and returns height in meters<a class="headerlink" href="#write-a-function-that-takes-two-arguments-feet-and-inches-and-returns-height-in-meters" title="Link to this heading">#</a></h3>
-<p>Verify it gives sensible answers</p>
-</section>
-<section id="write-a-function-takes-one-argument-height-in-meters-and-returns-two-arguments-feet-and-inches">
-<h3>6. Write a function takes one argument (height in meters) and returns two arguments (feet and inches)<a class="headerlink" href="#write-a-function-takes-one-argument-height-in-meters-and-returns-two-arguments-feet-and-inches" title="Link to this heading">#</a></h3>
-<p>(Consult the <a class="reference external" href="https://docs.python.org/3/tutorial/introduction.html#numbers">tutorial on numbers</a> if you are stuck on how to implement this.)</p>
-</section>
-<section id="verify-that-the-round-trip-conversion-from-and-back-to-meters-is-consistent">
-<h3>7) Verify that the “round trip” conversion from and back to meters is consistent<a class="headerlink" href="#verify-that-the-round-trip-conversion-from-and-back-to-meters-is-consistent" title="Link to this heading">#</a></h3>
-<p>Check for 3 different values of height in meters</p>
-</section>
+<section id="visualize-the-locations-of-earthquakes-by-making-a-scatterplot-of-their-latitude-and-longitude">
+<h2>11) Visualize the locations of earthquakes by making a scatterplot of their latitude and longitude<a class="headerlink" href="#visualize-the-locations-of-earthquakes-by-making-a-scatterplot-of-their-latitude-and-longitude" title="Link to this heading">#</a></h2>
+<p>Use a two-column subplot with both the filtered and unfiltered datasets. Color the points by magnitude. Make it pretty</p>
+<p>What difference do you note between the filtered and unfiltered datasets?</p>
 </section>
 </section>
 
@@ -563,20 +532,20 @@ Call your previously defined functions if necessary.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../lectures_DS/core_python/organization_and_packaging.html"
+       href="../lectures_DS/pandas/pandas_groupby.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Organization and Packaging of Python Projects</p>
+        <p class="prev-next-title">Pandas: Groupby</p>
       </div>
     </a>
     <a class="right-next"
-       href="../lectures_DS/sci_python/numpy_and_matplotlib.html"
+       href="Pandas2.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Numpy and Matplotlib</p>
+        <p class="prev-next-title">Lab 2: Pandas Groupby with Hurricane Data</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -596,30 +565,16 @@ Call your previously defined functions if necessary.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-i-lists-and-loops">Part I: Lists and Loops</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-list-with-the-names-of-every-planet-in-the-solar-system-in-order">1) Create a list with the names of every planet in the solar system (in order)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#have-python-tell-you-how-many-planets-there-are-by-examining-your-list">2) Have Python tell you how many planets there are by examining your list</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#use-slicing-to-display-the-first-four-planets-the-rocky-planets">3) Use slicing to display the first four planets (the rocky planets)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iterate-through-your-planets-and-print-the-planet-name-only-if-it-has-an-s-at-the-end">4) Iterate through your planets and print the planet name only if it has an <code class="docutils literal notranslate"><span class="pre">s</span></code> at the end</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-ii-dictionaries">Part II: Dictionaries</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#now-create-a-dictionary-that-maps-each-planet-name-to-its-mass">1) Now create a dictionary that maps each planet name to its mass</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#use-your-dictionary-to-look-up-earth-s-mass">2) Use your dictionary to look up Earth’s mass</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loop-through-the-data-and-create-a-list-of-planets-whose-mast-is-greater-than-100-x-10-24-kg">3) Loop through the data and create a list of planets whose mast is greater than 100 x 10^24 kg</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#now-add-pluto-to-your-dictionary">4) Now add pluto to your dictionary</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-iii-functions">Part III: Functions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#write-a-function-to-convert-temperature-from-kelvin-to-celsius">1. Write a function to convert temperature from kelvin to celsius</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#write-a-function-to-convert-temperature-to-fahrenheit">2. Write a function to convert temperature to fahrenheit</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-that-the-outputs-are-sensible">3) Check that the outputs are sensible</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#now-write-a-function-that-converts-from-farenheit">4) Now write a function that converts <em>from</em> farenheit</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#write-a-function-that-takes-two-arguments-feet-and-inches-and-returns-height-in-meters">5) Write a function that takes two arguments (feet and inches) and returns height in meters</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#write-a-function-takes-one-argument-height-in-meters-and-returns-two-arguments-feet-and-inches">6. Write a function takes one argument (height in meters) and returns two arguments (feet and inches)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verify-that-the-round-trip-conversion-from-and-back-to-meters-is-consistent">7) Verify that the “round trip” conversion from and back to meters is consistent</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-pandas-read-csv-function-directly-on-this-url-to-open-it-as-a-dataframe">1) Use Pandas’ read_csv function directly on this URL to open it as a DataFrame</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#re-read-the-data-in-such-a-way-that-all-date-columns-are-identified-as-dates-and-the-earthquake-id-is-used-as-the-index">2) Re-read the data in such a way that all date columns are identified as dates and the earthquake ID is used as the index</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-describe-to-get-the-basic-statistics-of-all-the-columns">3) Use <code class="docutils literal notranslate"><span class="pre">describe</span></code> to get the basic statistics of all the columns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-nlargest-to-get-the-top-20-earthquakes-by-magnitude">4) Use <code class="docutils literal notranslate"><span class="pre">nlargest</span></code> to get the top 20 earthquakes by magnitude</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extract-the-state-or-country-using-pandas-text-data-functions">5) Extract the state or country using Pandas text data functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#display-each-unique-value-from-the-new-column">6) Display each unique value from the new column</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-filtered-dataset-that-only-has-earthquakes-of-magnitude-4-or-larger-and">7) Create a filtered dataset that only has earthquakes of magnitude 4 or larger and</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-filtered-dataset-magnitude-4-count-the-number-of-earthquakes-in-each-country-state-make-a-bar-chart-of-this-number-for-the-top-5-locations-with-the-most-earthquakes">8) Using the filtered dataset (magnitude &gt; 4), count the number of earthquakes in each country/state. Make a bar chart of this number for the top 5 locations with the most earthquakes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-a-histogram-the-distribution-of-the-earthquake-magnitudes">9) Make a histogram the distribution of the Earthquake magnitudes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-the-locations-of-earthquakes-by-making-a-scatterplot-of-their-latitude-and-longitude">11) Visualize the locations of earthquakes by making a scatterplot of their latitude and longitude</a></li>
 </ul>
   </nav></div>
 
