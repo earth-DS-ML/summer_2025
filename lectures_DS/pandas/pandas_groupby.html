@@ -450,7 +450,7 @@ The point of this lesson is to make you feel confident in using <code class="doc
 <p>First we read the Earthquake data from our previous assignment:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/usgs_earthquakes_2025.csv&#39;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">],</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/earth-DS-ML/summer_2025/refs/heads/main/lectures_DS/data/usgs_earthquakes_2025.csv&#39;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">],</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">place</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 <span class="n">df_small</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">mag</span><span class="o">&lt;</span><span class="mi">4</span><span class="p">]</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">mag</span><span class="o">&gt;</span><span class="mi">4</span><span class="p">]</span>
@@ -650,6 +650,18 @@ The point of this lesson is to make you feel confident in using <code class="doc
 <p>5 rows × 22 columns</p>
 </div></div></div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5923
+</pre></div>
+</div>
+</div>
+</div>
 <section id="an-example">
 <h2>An Example<a class="headerlink" href="#an-example" title="Link to this heading">#</a></h2>
 <p>This is an example of a “one-liner” that you can accomplish with groupby.</p>
@@ -703,7 +715,7 @@ The point of this lesson is to make you feel confident in using <code class="doc
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x781dcda0b170&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x79f668136540&gt;
 </pre></div>
 </div>
 </div>
@@ -716,7 +728,7 @@ The point of this lesson is to make you feel confident in using <code class="doc
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x781dcd6fb6b0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x79f5aa517230&gt;
 </pre></div>
 </div>
 </div>
@@ -733,7 +745,7 @@ The point of this lesson is to make you feel confident in using <code class="doc
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x781dcd5023c0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x79f660d282f0&gt;
 </pre></div>
 </div>
 </div>
@@ -1294,7 +1306,7 @@ The point of this lesson is to make you feel confident in using <code class="doc
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2720/2808193076.py:1: FutureWarning: The provided callable &lt;function max at 0x781e643d3100&gt; is currently using DataFrameGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2757/2808193076.py:1: FutureWarning: The provided callable &lt;function max at 0x79f6602a3100&gt; is currently using DataFrameGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
   gb.aggregate(np.max).head()
 </pre></div>
 </div>
@@ -1497,7 +1509,7 @@ The point of this lesson is to make you feel confident in using <code class="doc
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2720/2287653877.py:1: FutureWarning: The provided callable &lt;function max at 0x781e643d3100&gt; is currently using SeriesGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2757/2287653877.py:1: FutureWarning: The provided callable &lt;function max at 0x79f6602a3100&gt; is currently using SeriesGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
   gb.mag.aggregate(np.max).head()
 </pre></div>
 </div>
@@ -1519,7 +1531,7 @@ Name: mag, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2720/2071493650.py:1: FutureWarning: The provided callable &lt;function max at 0x781e643d3100&gt; is currently using SeriesGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2757/2071493650.py:1: FutureWarning: The provided callable &lt;function max at 0x79f6602a3100&gt; is currently using SeriesGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
   gb.mag.aggregate(np.max).nlargest(10)
 </pre></div>
 </div>
@@ -1640,11 +1652,11 @@ Name: mag, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2720/1381609224.py:1: FutureWarning: The provided callable &lt;function min at 0x781e643d3240&gt; is currently using SeriesGroupBy.min. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;min&quot; instead.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2757/1381609224.py:1: FutureWarning: The provided callable &lt;function min at 0x79f6602a3240&gt; is currently using SeriesGroupBy.min. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;min&quot; instead.
   gb.mag.aggregate([np.min, np.max, np.mean]).head()
-/tmp/ipykernel_2720/1381609224.py:1: FutureWarning: The provided callable &lt;function max at 0x781e643d3100&gt; is currently using SeriesGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
+/tmp/ipykernel_2757/1381609224.py:1: FutureWarning: The provided callable &lt;function max at 0x79f6602a3100&gt; is currently using SeriesGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
   gb.mag.aggregate([np.min, np.max, np.mean]).head()
-/tmp/ipykernel_2720/1381609224.py:1: FutureWarning: The provided callable &lt;function mean at 0x781e643d3b00&gt; is currently using SeriesGroupBy.mean. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;mean&quot; instead.
+/tmp/ipykernel_2757/1381609224.py:1: FutureWarning: The provided callable &lt;function mean at 0x79f6602a3b00&gt; is currently using SeriesGroupBy.mean. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;mean&quot; instead.
   gb.mag.aggregate([np.min, np.max, np.mean]).head()
 </pre></div>
 </div>
@@ -1719,11 +1731,11 @@ Name: mag, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2720/3179219123.py:1: FutureWarning: The provided callable &lt;function min at 0x781e643d3240&gt; is currently using SeriesGroupBy.min. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;min&quot; instead.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2757/3179219123.py:1: FutureWarning: The provided callable &lt;function min at 0x79f6602a3240&gt; is currently using SeriesGroupBy.min. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;min&quot; instead.
   gb.mag.aggregate([np.min, np.max, np.mean]).nlargest(10, &#39;mean&#39;).plot(kind=&#39;bar&#39;)
-/tmp/ipykernel_2720/3179219123.py:1: FutureWarning: The provided callable &lt;function max at 0x781e643d3100&gt; is currently using SeriesGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
+/tmp/ipykernel_2757/3179219123.py:1: FutureWarning: The provided callable &lt;function max at 0x79f6602a3100&gt; is currently using SeriesGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
   gb.mag.aggregate([np.min, np.max, np.mean]).nlargest(10, &#39;mean&#39;).plot(kind=&#39;bar&#39;)
-/tmp/ipykernel_2720/3179219123.py:1: FutureWarning: The provided callable &lt;function mean at 0x781e643d3b00&gt; is currently using SeriesGroupBy.mean. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;mean&quot; instead.
+/tmp/ipykernel_2757/3179219123.py:1: FutureWarning: The provided callable &lt;function mean at 0x79f6602a3b00&gt; is currently using SeriesGroupBy.mean. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;mean&quot; instead.
   gb.mag.aggregate([np.min, np.max, np.mean]).nlargest(10, &#39;mean&#39;).plot(kind=&#39;bar&#39;)
 </pre></div>
 </div>
@@ -1794,17 +1806,17 @@ Name: mag, dtype: float64
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;&gt;:15: SyntaxWarning: invalid escape sequence &#39;\s&#39;
 &lt;&gt;:15: SyntaxWarning: invalid escape sequence &#39;\s&#39;
-/tmp/ipykernel_2720/2092298281.py:15: SyntaxWarning: invalid escape sequence &#39;\s&#39;
+/tmp/ipykernel_2757/2092298281.py:15: SyntaxWarning: invalid escape sequence &#39;\s&#39;
   names=headers, header=None, sep=&#39;\s+&#39;,
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2720/2092298281.py:15: SyntaxWarning: invalid escape sequence &#39;\s&#39;
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2757/2092298281.py:15: SyntaxWarning: invalid escape sequence &#39;\s&#39;
   names=headers, header=None, sep=&#39;\s+&#39;,
 </pre></div>
 </div>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">23</span><span class="p">],</span> <span class="n">line</span> <span class="mi">14</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">24</span><span class="p">],</span> <span class="n">line</span> <span class="mi">14</span>
 <span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">2019</span><span class="p">):</span>
 <span class="g g-Whitespace">     </span><span class="mi">13</span>     <span class="n">data_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">/CRND0103-</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">-NY_Millbrook_3_W.txt&#39;</span>               
 <span class="ne">---&gt; </span><span class="mi">14</span>     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">ftp_base</span> <span class="o">+</span> <span class="n">data_url</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>

@@ -1,0 +1,84 @@
+Traceback (most recent call last):
+  File "/srv/conda/envs/notebook/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 154, in wrapped
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/srv/conda/envs/notebook/lib/python3.12/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/srv/conda/envs/notebook/lib/python3.12/site-packages/nbclient/client.py", line 1319, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/srv/conda/envs/notebook/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 158, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/srv/conda/envs/notebook/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/srv/conda/envs/notebook/lib/python3.12/site-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/srv/conda/envs/notebook/lib/python3.12/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/srv/conda/envs/notebook/lib/python3.12/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+gistemp_file = pooch.retrieve(
+    'https://data.giss.nasa.gov/pub/gistemp/gistemp1200_GHCNv4_ERSSTv5.nc.gz',
+    known_hash='52e5c2d0b601ccb5188301ca5247b0563c0000dc6086dffa8489e555a109f3d0',
+    processor=pooch.Decompress(),
+)
+------------------
+
+----- stderr -----
+Downloading data from 'https://data.giss.nasa.gov/pub/gistemp/gistemp1200_GHCNv4_ERSSTv5.nc.gz' to file '/home/jovyan/.cache/pooch/d87657ed105a8945c211515b79b884c2-gistemp1200_GHCNv4_ERSSTv5.nc.gz'.
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mHTTPError[0m                                 Traceback (most recent call last)
+Cell [0;32mIn[57], line 1[0m
+[0;32m----> 1[0m gistemp_file [38;5;241m=[39m [43mpooch[49m[38;5;241;43m.[39;49m[43mretrieve[49m[43m([49m
+[1;32m      2[0m [43m    [49m[38;5;124;43m'[39;49m[38;5;124;43mhttps://data.giss.nasa.gov/pub/gistemp/gistemp1200_GHCNv4_ERSSTv5.nc.gz[39;49m[38;5;124;43m'[39;49m[43m,[49m
+[1;32m      3[0m [43m    [49m[43mknown_hash[49m[38;5;241;43m=[39;49m[38;5;124;43m'[39;49m[38;5;124;43m52e5c2d0b601ccb5188301ca5247b0563c0000dc6086dffa8489e555a109f3d0[39;49m[38;5;124;43m'[39;49m[43m,[49m
+[1;32m      4[0m [43m    [49m[43mprocessor[49m[38;5;241;43m=[39;49m[43mpooch[49m[38;5;241;43m.[39;49m[43mDecompress[49m[43m([49m[43m)[49m[43m,[49m
+[1;32m      5[0m [43m)[49m
+
+File [0;32m/srv/conda/envs/notebook/lib/python3.12/site-packages/pooch/core.py:239[0m, in [0;36mretrieve[0;34m(url, known_hash, fname, path, processor, downloader, progressbar)[0m
+[1;32m    236[0m [38;5;28;01mif[39;00m downloader [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m:
+[1;32m    237[0m     downloader [38;5;241m=[39m choose_downloader(url, progressbar[38;5;241m=[39mprogressbar)
+[0;32m--> 239[0m [43mstream_download[49m[43m([49m[43murl[49m[43m,[49m[43m [49m[43mfull_path[49m[43m,[49m[43m [49m[43mknown_hash[49m[43m,[49m[43m [49m[43mdownloader[49m[43m,[49m[43m [49m[43mpooch[49m[38;5;241;43m=[39;49m[38;5;28;43;01mNone[39;49;00m[43m)[49m
+[1;32m    241[0m [38;5;28;01mif[39;00m known_hash [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m:
+[1;32m    242[0m     get_logger()[38;5;241m.[39minfo(
+[1;32m    243[0m         [38;5;124m"[39m[38;5;124mSHA256 hash of downloaded file: [39m[38;5;132;01m%s[39;00m[38;5;130;01m\n[39;00m[38;5;124m"[39m
+[1;32m    244[0m         [38;5;124m"[39m[38;5;124mUse this value as the [39m[38;5;124m'[39m[38;5;124mknown_hash[39m[38;5;124m'[39m[38;5;124m argument of [39m[38;5;124m'[39m[38;5;124mpooch.retrieve[39m[38;5;124m'[39m[38;5;124m"[39m
+[0;32m   (...)[0m
+[1;32m    247[0m         file_hash([38;5;28mstr[39m(full_path)),
+[1;32m    248[0m     )
+
+File [0;32m/srv/conda/envs/notebook/lib/python3.12/site-packages/pooch/core.py:807[0m, in [0;36mstream_download[0;34m(url, fname, known_hash, downloader, pooch, retry_if_failed)[0m
+[1;32m    803[0m [38;5;28;01mtry[39;00m:
+[1;32m    804[0m     [38;5;66;03m# Stream the file to a temporary so that we can safely check its[39;00m
+[1;32m    805[0m     [38;5;66;03m# hash before overwriting the original.[39;00m
+[1;32m    806[0m     [38;5;28;01mwith[39;00m temporary_file(path[38;5;241m=[39m[38;5;28mstr[39m(fname[38;5;241m.[39mparent)) [38;5;28;01mas[39;00m tmp:
+[0;32m--> 807[0m         [43mdownloader[49m[43m([49m[43murl[49m[43m,[49m[43m [49m[43mtmp[49m[43m,[49m[43m [49m[43mpooch[49m[43m)[49m
+[1;32m    808[0m         hash_matches(tmp, known_hash, strict[38;5;241m=[39m[38;5;28;01mTrue[39;00m, source[38;5;241m=[39m[38;5;28mstr[39m(fname[38;5;241m.[39mname))
+[1;32m    809[0m         shutil[38;5;241m.[39mmove(tmp, [38;5;28mstr[39m(fname))
+
+File [0;32m/srv/conda/envs/notebook/lib/python3.12/site-packages/pooch/downloaders.py:221[0m, in [0;36mHTTPDownloader.__call__[0;34m(self, url, output_file, pooch, check_only)[0m
+[1;32m    219[0m [38;5;28;01mtry[39;00m:
+[1;32m    220[0m     response [38;5;241m=[39m requests[38;5;241m.[39mget(url, timeout[38;5;241m=[39mtimeout, [38;5;241m*[39m[38;5;241m*[39mkwargs)
+[0;32m--> 221[0m     [43mresponse[49m[38;5;241;43m.[39;49m[43mraise_for_status[49m[43m([49m[43m)[49m
+[1;32m    222[0m     content [38;5;241m=[39m response[38;5;241m.[39miter_content(chunk_size[38;5;241m=[39m[38;5;28mself[39m[38;5;241m.[39mchunk_size)
+[1;32m    223[0m     total [38;5;241m=[39m [38;5;28mint[39m(response[38;5;241m.[39mheaders[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mcontent-length[39m[38;5;124m"[39m, [38;5;241m0[39m))
+
+File [0;32m/srv/conda/envs/notebook/lib/python3.12/site-packages/requests/models.py:1024[0m, in [0;36mResponse.raise_for_status[0;34m(self)[0m
+[1;32m   1019[0m     http_error_msg [38;5;241m=[39m (
+[1;32m   1020[0m         [38;5;124mf[39m[38;5;124m"[39m[38;5;132;01m{[39;00m[38;5;28mself[39m[38;5;241m.[39mstatus_code[38;5;132;01m}[39;00m[38;5;124m Server Error: [39m[38;5;132;01m{[39;00mreason[38;5;132;01m}[39;00m[38;5;124m for url: [39m[38;5;132;01m{[39;00m[38;5;28mself[39m[38;5;241m.[39murl[38;5;132;01m}[39;00m[38;5;124m"[39m
+[1;32m   1021[0m     )
+[1;32m   1023[0m [38;5;28;01mif[39;00m http_error_msg:
+[0;32m-> 1024[0m     [38;5;28;01mraise[39;00m HTTPError(http_error_msg, response[38;5;241m=[39m[38;5;28mself[39m)
+
+[0;31mHTTPError[0m: 403 Client Error: Forbidden for url: https://data.giss.nasa.gov/pub/gistemp/gistemp1200_GHCNv4_ERSSTv5.nc.gz
+
