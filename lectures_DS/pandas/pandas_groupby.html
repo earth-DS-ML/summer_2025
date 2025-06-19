@@ -60,6 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'lectures_DS/pandas/pandas_groupby';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Xarray for multidimensional gridded data" href="../xarray/xarray_intro.html" />
     <link rel="prev" title="Pandas Fundamentals" href="basic_pandas.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -208,6 +209,11 @@
 <li class="toctree-l1"><a class="reference internal" href="pandas_intro.html">Pandas</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic_pandas.html">Pandas Fundamentals</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Pandas: Groupby</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Xarray</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../xarray/xarray_intro.html">Xarray for multidimensional gridded data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xarray/xarray_fundamentals.html">Xarray Fundamentals</a></li>
 </ul>
 
     </div>
@@ -662,6 +668,32 @@ The point of this lesson is to make you feel confident in using <code class="doc
 </div>
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">mag</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;id&#39;&gt;
+</pre></div>
+</div>
+<img alt="../../_images/a59f63d3c0ccc06370708c698b3d20069bd1ae57e2530e58a396d7011dc3e564.png" src="../../_images/a59f63d3c0ccc06370708c698b3d20069bd1ae57e2530e58a396d7011dc3e564.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">mag</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">hist</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: ylabel=&#39;Frequency&#39;&gt;
+</pre></div>
+</div>
+<img alt="../../_images/568c53a890d24593897e4f8ba459e71b79fd874b14c7af12db5389b7fc95f021.png" src="../../_images/568c53a890d24593897e4f8ba459e71b79fd874b14c7af12db5389b7fc95f021.png" />
+</div>
+</div>
 <section id="an-example">
 <h2>An Example<a class="headerlink" href="#an-example" title="Link to this heading">#</a></h2>
 <p>This is an example of a “one-liner” that you can accomplish with groupby.</p>
@@ -710,12 +742,234 @@ The point of this lesson is to make you feel confident in using <code class="doc
 <p>via <a class="reference external" href="https://medium.com/analytics-vidhya/split-apply-combine-strategy-for-data-mining-4fd6e2a0cc99">https://medium.com/analytics-vidhya/split-apply-combine-strategy-for-data-mining-4fd6e2a0cc99</a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>time</th>
+      <th>latitude</th>
+      <th>longitude</th>
+      <th>depth</th>
+      <th>mag</th>
+      <th>magType</th>
+      <th>nst</th>
+      <th>gap</th>
+      <th>dmin</th>
+      <th>rms</th>
+      <th>...</th>
+      <th>place</th>
+      <th>type</th>
+      <th>horizontalError</th>
+      <th>depthError</th>
+      <th>magError</th>
+      <th>magNst</th>
+      <th>status</th>
+      <th>locationSource</th>
+      <th>magSource</th>
+      <th>country</th>
+    </tr>
+    <tr>
+      <th>id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>us6000qkt1</th>
+      <td>2025-06-17 12:00:22.773000+00:00</td>
+      <td>-23.1645</td>
+      <td>-175.3549</td>
+      <td>10.000</td>
+      <td>4.9</td>
+      <td>mb</td>
+      <td>22.0</td>
+      <td>166.0</td>
+      <td>6.481</td>
+      <td>0.49</td>
+      <td>...</td>
+      <td>206 km SSW of ‘Ohonua, Tonga</td>
+      <td>earthquake</td>
+      <td>15.85</td>
+      <td>1.938</td>
+      <td>0.093</td>
+      <td>36.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+      <td>Tonga</td>
+    </tr>
+    <tr>
+      <th>us6000qksf</th>
+      <td>2025-06-17 09:16:30.483000+00:00</td>
+      <td>-23.1181</td>
+      <td>-174.9129</td>
+      <td>10.000</td>
+      <td>4.8</td>
+      <td>mb</td>
+      <td>16.0</td>
+      <td>111.0</td>
+      <td>6.151</td>
+      <td>0.48</td>
+      <td>...</td>
+      <td>196 km S of ‘Ohonua, Tonga</td>
+      <td>earthquake</td>
+      <td>14.94</td>
+      <td>1.939</td>
+      <td>0.148</td>
+      <td>14.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+      <td>Tonga</td>
+    </tr>
+    <tr>
+      <th>us6000qks2</th>
+      <td>2025-06-17 08:36:22.986000+00:00</td>
+      <td>8.2769</td>
+      <td>126.8035</td>
+      <td>34.840</td>
+      <td>5.3</td>
+      <td>mww</td>
+      <td>100.0</td>
+      <td>67.0</td>
+      <td>1.706</td>
+      <td>1.23</td>
+      <td>...</td>
+      <td>42 km ENE of Barcelona, Philippines</td>
+      <td>earthquake</td>
+      <td>7.91</td>
+      <td>3.994</td>
+      <td>0.062</td>
+      <td>25.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+      <td>Philippines</td>
+    </tr>
+    <tr>
+      <th>us6000qkrz</th>
+      <td>2025-06-17 08:13:19.239000+00:00</td>
+      <td>50.6542</td>
+      <td>156.7597</td>
+      <td>91.831</td>
+      <td>4.7</td>
+      <td>mb</td>
+      <td>55.0</td>
+      <td>152.0</td>
+      <td>2.526</td>
+      <td>0.64</td>
+      <td>...</td>
+      <td>44 km E of Severo-Kuril’sk, Russia</td>
+      <td>earthquake</td>
+      <td>10.38</td>
+      <td>7.726</td>
+      <td>0.032</td>
+      <td>287.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+      <td>Russia</td>
+    </tr>
+    <tr>
+      <th>us6000qks0</th>
+      <td>2025-06-17 08:12:55.629000+00:00</td>
+      <td>-32.8812</td>
+      <td>-13.2948</td>
+      <td>10.000</td>
+      <td>5.0</td>
+      <td>mb</td>
+      <td>44.0</td>
+      <td>59.0</td>
+      <td>4.254</td>
+      <td>0.91</td>
+      <td>...</td>
+      <td>southern Mid-Atlantic Ridge</td>
+      <td>earthquake</td>
+      <td>10.55</td>
+      <td>1.837</td>
+      <td>0.076</td>
+      <td>55.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+      <td>southern Mid-Atlantic Ridge</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 22 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">country</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>id
+us6000qkt1                            Tonga
+us6000qksf                            Tonga
+us6000qks2                      Philippines
+us6000qkrz                           Russia
+us6000qks0      southern Mid-Atlantic Ridge
+                          ...              
+us6000pll8                         Ethiopia
+us6000pj3b                            Libya
+us6000pj2q                            Tonga
+us6000pll7    south of the Kermadec Islands
+us6000plld                         Ethiopia
+Name: country, Length: 5923, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">country</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x79f668136540&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x7bc3d0951ee0&gt;
 </pre></div>
 </div>
 </div>
@@ -728,7 +982,7 @@ The point of this lesson is to make you feel confident in using <code class="doc
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x79f5aa517230&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x7bc3d0a8c740&gt;
 </pre></div>
 </div>
 </div>
@@ -745,7 +999,7 @@ The point of this lesson is to make you feel confident in using <code class="doc
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x79f660d282f0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x7bc3d0eb09b0&gt;
 </pre></div>
 </div>
 </div>
@@ -763,6 +1017,18 @@ The point of this lesson is to make you feel confident in using <code class="doc
 </div>
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gb</span><span class="o">.</span><span class="n">groups</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;2025 Drake Passage Earthquake&#39;: [&#39;us7000pwkn&#39;], &#39;Afghanistan&#39;: [&#39;us6000qkkm&#39;, &#39;us6000qjhm&#39;, &#39;us6000qiif&#39;, &#39;us6000qhyi&#39;, &#39;us6000qh0s&#39;, &#39;us7000q1by&#39;, &#39;us7000q0z5&#39;, &#39;us7000q0aw&#39;, &#39;us7000q05h&#39;, &#39;us7000pzz5&#39;, &#39;us7000pyne&#39;, &#39;us7000pydu&#39;, &#39;us7000px78&#39;, &#39;us7000pwle&#39;, &#39;us7000pve9&#39;, &#39;us7000pvcr&#39;, &#39;us7000pv82&#39;, &#39;us7000pv7x&#39;, &#39;us7000pv02&#39;, &#39;us6000q76g&#39;, &#39;us6000q6fr&#39;, &#39;us7000pw58&#39;, &#39;us6000q6c3&#39;, &#39;us7000ppcq&#39;, &#39;us7000pni6&#39;, &#39;us7000pni0&#39;, &#39;us7000pne1&#39;, &#39;us7000pn0e&#39;, &#39;us7000pmym&#39;, &#39;us7000plhv&#39;, &#39;us7000plec&#39;, &#39;us6000pzkp&#39;, &#39;us6000pxul&#39;, &#39;us6000pwru&#39;, &#39;us6000pxge&#39;, &#39;us6000pvsk&#39;, &#39;us7000pflg&#39;, &#39;us7000pfcc&#39;, &#39;us7000pfc9&#39;, &#39;us7000pefx&#39;, &#39;us7000pd3k&#39;, &#39;us7000pchv&#39;, &#39;us7000pb68&#39;, &#39;us7000pb30&#39;, &#39;us6000pmd7&#39;, &#39;us6000plpp&#39;, &#39;us6000pk88&#39;, &#39;us6000pk23&#39;, &#39;us6000pjtx&#39;, &#39;us6000pjpy&#39;, &#39;us6000pjlp&#39;], &#39;Alaska&#39;: [&#39;ak0257l477bi&#39;, &#39;ak0257jjjt29&#39;, &#39;us6000qjn2&#39;, &#39;ak0257egu4bq&#39;, &#39;us6000qim5&#39;, &#39;us6000qhrc&#39;, &#39;us6000qhqn&#39;, &#39;us6000qh9t&#39;, &#39;us6000qh5l&#39;, &#39;us6000qgw0&#39;, &#39;us6000qgul&#39;, &#39;us6000qgu2&#39;, &#39;ak0256ktdnj4&#39;, &#39;us7000q120&#39;, &#39;us7000q103&#39;, &#39;us7000q05k&#39;, &#39;ak0256cduo5a&#39;, &#39;us7000pzxn&#39;, &#39;us7000pzxk&#39;, &#39;us7000pzuw&#39;, &#39;us7000pyxj&#39;, &#39;us7000pylz&#39;, &#39;ak0255xdoqqm&#39;, &#39;us7000pxq3&#39;, &#39;us7000pxfn&#39;, &#39;us7000px7s&#39;, &#39;us7000px2b&#39;, &#39;us7000px16&#39;, &#39;us7000pwzd&#39;, &#39;ak0255iimhly&#39;, &#39;ak0255gxqhup&#39;, &#39;us7000pvhf&#39;, &#39;us7000pvg2&#39;, &#39;us7000pz0m&#39;, &#39;us7000pvfz&#39;, &#39;ak0255c5z643&#39;, &#39;ak0255ai7sp2&#39;, &#39;us7000puzd&#39;, &#39;us7000puxl&#39;, &#39;ak02558sa3g9&#39;, &#39;ak02556vvgv8&#39;, &#39;ak02550duu6u&#39;, &#39;us6000q6uf&#39;, &#39;us6000q6d9&#39;, &#39;us6000q63h&#39;, &#39;ak0254qpszpf&#39;, &#39;us6000q5px&#39;, &#39;us6000q4n1&#39;, &#39;us7000ppga&#39;, &#39;ak02546kb91j&#39;, &#39;us7000pnzd&#39;, &#39;ak02543813cl&#39;, &#39;us7000pncx&#39;, &#39;us7000pm2d&#39;, &#39;us7000plv1&#39;, &#39;us7000plu1&#39;, &#39;us7000plq5&#39;, &#39;us7000plph&#39;, &#39;us7000plqb&#39;, &#39;us7000plmb&#39;, &#39;us7000plm0&#39;, &#39;us7000pllz&#39;, &#39;us7000pllx&#39;, &#39;us7000pllu&#39;, &#39;us7000plkc&#39;, &#39;us7000pli7&#39;, &#39;us7000plh5&#39;, &#39;us7000pldt&#39;, &#39;us6000pzzb&#39;, &#39;us6000pzxa&#39;, &#39;us6000pzwx&#39;, &#39;us6000pzwb&#39;, &#39;us6000pzqj&#39;, &#39;us6000pzqc&#39;, &#39;us6000pz88&#39;, &#39;ak0253g7eroz&#39;, &#39;ak0253bfth7a&#39;, &#39;ak02539pgcbe&#39;, &#39;ak0252zva6il&#39;, &#39;us6000pwu6&#39;, &#39;us6000pwrr&#39;, &#39;us6000pwgw&#39;, &#39;us6000pwgv&#39;, &#39;us6000pwav&#39;, &#39;us6000pw0n&#39;, &#39;us6000pvyk&#39;, &#39;us6000pvws&#39;, &#39;us6000pvlf&#39;, &#39;us6000pvcz&#39;, &#39;us7000pf61&#39;, &#39;us7000peyt&#39;, &#39;ak0252at3f6f&#39;, &#39;ak02525rrdfc&#39;, &#39;us7000pfaj&#39;, &#39;ak025215oy3m&#39;, &#39;us7000pcsr&#39;, &#39;us7000pcdc&#39;, &#39;us7000pc67&#39;, &#39;ak0251no79w4&#39;, &#39;ak0251no5hd4&#39;, ...], &#39;Algeria&#39;: [&#39;us6000pzjl&#39;], &#39;Anguilla&#39;: [&#39;us7000q1pi&#39;, &#39;us7000pnj1&#39;, &#39;us7000pmzs&#39;], &#39;Antigua and Barbuda&#39;: [&#39;us6000q727&#39;], &#39;Arctic Ocean&#39;: [&#39;us6000pw77&#39;], &#39;Argentina&#39;: [&#39;us6000qkr2&#39;, &#39;us6000qkjx&#39;, &#39;us6000qkge&#39;, &#39;us6000qjeh&#39;, &#39;us6000qjc1&#39;, &#39;us6000qizy&#39;, &#39;us6000qixb&#39;, &#39;us6000qivj&#39;, &#39;us6000qipm&#39;, &#39;us6000qid1&#39;, &#39;us6000qic2&#39;, &#39;us6000qi0p&#39;, &#39;us6000qh7k&#39;, &#39;us6000qgat&#39;, &#39;us7000q1iy&#39;, &#39;us7000q1h1&#39;, &#39;us7000q19u&#39;, &#39;us7000q19r&#39;, &#39;us7000q18v&#39;, &#39;us7000q16k&#39;, &#39;us7000q0t0&#39;, &#39;us7000q0ph&#39;, &#39;us7000q0nf&#39;, &#39;us7000q0gx&#39;, &#39;us7000q0gl&#39;, &#39;us7000q0g2&#39;, &#39;us7000q0ei&#39;, &#39;us7000q08s&#39;, &#39;us7000pzsu&#39;, &#39;us7000pzrr&#39;, &#39;us7000pzqr&#39;, &#39;us7000pzpf&#39;, &#39;us7000pyxp&#39;, &#39;us7000pyxf&#39;, &#39;us7000pywq&#39;, &#39;us7000pypa&#39;, &#39;us7000pymb&#39;, &#39;us7000pyfw&#39;, &#39;us7000pyd0&#39;, &#39;us7000pxzj&#39;, &#39;us7000pxwc&#39;, &#39;us7000pxuz&#39;, &#39;us7000pxsr&#39;, &#39;us7000q0ul&#39;, &#39;us7000pxgt&#39;, &#39;us7000pxga&#39;, &#39;us7000pxet&#39;, &#39;us7000pxdq&#39;, &#39;us7000px7t&#39;, &#39;us7000px7r&#39;, &#39;us7000px70&#39;, &#39;us7000px5s&#39;, &#39;us7000q0dg&#39;, &#39;us7000px3t&#39;, &#39;us7000px2n&#39;, &#39;us7000px2k&#39;, &#39;us7000px2f&#39;, &#39;us7000px2e&#39;, &#39;us7000px21&#39;, &#39;us7000px1n&#39;, &#39;us7000px11&#39;, &#39;us7000pxuq&#39;, &#39;us7000px0d&#39;, &#39;us7000pwzm&#39;, &#39;us7000pwyb&#39;, &#39;us7000q06w&#39;, &#39;us7000pwx1&#39;, &#39;us7000pwwx&#39;, &#39;us7000pwwr&#39;, &#39;us7000pwvl&#39;, &#39;us7000pwvf&#39;, &#39;us7000q06n&#39;, &#39;us7000pwvb&#39;, &#39;us7000pwuu&#39;, &#39;us7000pwuw&#39;, &#39;us7000q071&#39;, &#39;us7000q06h&#39;, &#39;us7000pwu4&#39;, &#39;us7000pxmh&#39;, &#39;us7000pwtl&#39;, &#39;us7000pwt6&#39;, &#39;us7000pzn7&#39;, &#39;us7000pws6&#39;, &#39;us7000pwrt&#39;, &#39;us7000pwrl&#39;, &#39;us7000pwr3&#39;, &#39;us7000pzna&#39;, &#39;us7000pwqt&#39;, &#39;us7000pwqr&#39;, &#39;us7000pwqj&#39;, &#39;us7000pwqh&#39;, &#39;us7000pwq7&#39;, &#39;us7000pwq4&#39;, &#39;us7000pwqa&#39;, &#39;us7000pwpu&#39;, &#39;us7000pwpi&#39;, &#39;us7000pwp8&#39;, &#39;us7000pwp6&#39;, &#39;us7000pwp5&#39;, &#39;us7000pwp2&#39;, ...], &#39;Armenia&#39;: [&#39;us6000pxla&#39;], &#39;Ascension Island region&#39;: [&#39;us6000pzsm&#39;, &#39;us6000py1g&#39;, &#39;us6000pzrl&#39;], &#39;Australia&#39;: [&#39;us7000q14n&#39;, &#39;us7000pua2&#39;, &#39;us6000q403&#39;, &#39;us6000pw9t&#39;, &#39;us7000pccz&#39;, &#39;us6000ply9&#39;, &#39;us6000pjcz&#39;], &#39;Azerbaijan&#39;: [&#39;us6000pxcy&#39;], &#39;Azores Islands region&#39;: [&#39;us6000pw1w&#39;], &#39;Bahamas&#39;: [&#39;us7000pbgs&#39;], &#39;Balleny Islands region&#39;: [&#39;us6000qk0w&#39;, &#39;us7000pya4&#39;, &#39;us6000q3l2&#39;, &#39;us6000q3pb&#39;, &#39;us6000pxxd&#39;, &#39;us6000pyvw&#39;, &#39;us6000pyvv&#39;, &#39;us7000peg4&#39;, &#39;us6000pvek&#39;], &#39;Banda Sea&#39;: [&#39;us6000qjd5&#39;, &#39;us6000qhhq&#39;, &#39;us7000q1ax&#39;, &#39;us7000pwys&#39;, &#39;us6000q6yj&#39;, &#39;us6000q6ad&#39;, &#39;us6000q4pm&#39;, &#39;us7000plt2&#39;, &#39;us6000pzp8&#39;, &#39;us6000pzje&#39;, &#39;us6000pz92&#39;, &#39;us6000py48&#39;, &#39;us6000pxs1&#39;, &#39;us6000pxlx&#39;, &#39;us6000pwq3&#39;, &#39;us6000pvss&#39;, &#39;us6000pxf2&#39;, &#39;us7000pdj1&#39;, &#39;us7000pdh2&#39;, &#39;us7000pctb&#39;, &#39;us7000pafc&#39;, &#39;us7000pbvd&#39;], &#39;Barbados&#39;: [&#39;us7000pvgz&#39;], &#39;Bolivia&#39;: [&#39;us6000qke5&#39;, &#39;us6000qgpx&#39;, &#39;us6000qgja&#39;, &#39;us7000q1gg&#39;, &#39;us7000q04n&#39;, &#39;us7000pytn&#39;, &#39;us7000py8h&#39;, &#39;us7000pvhc&#39;, &#39;us7000puyi&#39;, &#39;us7000pugx&#39;, &#39;us6000q75s&#39;, &#39;us6000q6nc&#39;, &#39;us7000pm4n&#39;, &#39;us6000pvkg&#39;, &#39;us7000pcae&#39;, &#39;us7000pdff&#39;, &#39;us6000pjk9&#39;], &#39;Bosnia and Herzegovina&#39;: [&#39;us7000pyn6&#39;], &#39;Brazil&#39;: [&#39;us6000q3lw&#39;, &#39;us6000pw95&#39;], &#39;Burma&#39;: [&#39;us7000pnbt&#39;, &#39;us7000pnbe&#39;, &#39;us7000pnba&#39;], &#39;Burma (Myanmar)&#39;: [&#39;us6000qjak&#39;, &#39;us6000qjah&#39;, &#39;us6000qj3e&#39;, &#39;us6000qhnw&#39;, &#39;us6000qgji&#39;, &#39;us6000qjkt&#39;, &#39;us6000qi7n&#39;, &#39;us7000q025&#39;, &#39;us7000pzv3&#39;, &#39;us7000py69&#39;, &#39;us7000px5u&#39;, &#39;us7000pzd6&#39;, &#39;us7000pvha&#39;, &#39;us6000q72i&#39;, &#39;us6000q6w6&#39;, &#39;us6000q6pf&#39;, &#39;us7000pw6m&#39;, &#39;us6000q5tq&#39;, &#39;us6000q5ps&#39;, &#39;us6000q5e2&#39;, &#39;us7000putd&#39;, &#39;us6000q5b0&#39;, &#39;us7000pus6&#39;, &#39;us6000q4vy&#39;, &#39;us7000pu8u&#39;, &#39;us6000q6tu&#39;, &#39;us6000q3ye&#39;, &#39;us7000ppgb&#39;, &#39;us7000ppf6&#39;, &#39;us6000q5fg&#39;, &#39;us7000pp91&#39;, &#39;us7000pp7z&#39;, &#39;us7000pp3w&#39;, &#39;us6000q565&#39;, &#39;us6000q55v&#39;, &#39;us6000q55u&#39;, &#39;us7000pnwl&#39;, &#39;us7000pnsw&#39;, &#39;us7000pnsb&#39;, &#39;us6000q4xv&#39;, &#39;us6000q4xp&#39;, &#39;us7000pnqp&#39;, &#39;us7000pnkj&#39;, &#39;us6000q4s3&#39;, &#39;us6000q4ru&#39;, &#39;us6000q4ke&#39;, &#39;us6000q4kb&#39;, &#39;us6000q4k2&#39;, &#39;us7000pne5&#39;, &#39;us7000pnq3&#39;, &#39;us7000pnc5&#39;, &#39;us7000pnfz&#39;, &#39;us7000pnfs&#39;, &#39;us7000pnbh&#39;, &#39;us6000q4jp&#39;, &#39;us7000pnf1&#39;, &#39;us7000pnb8&#39;, &#39;us6000q4jt&#39;, &#39;us6000q4ji&#39;, &#39;us7000pnb6&#39;, &#39;us7000pncv&#39;, &#39;us7000pncy&#39;, &#39;us7000pn9z&#39;, &#39;us6000pwwz&#39;, &#39;us6000pwx1&#39;, &#39;us6000pylr&#39;, &#39;us6000pwjj&#39;, &#39;us6000pw91&#39;, &#39;us7000pfnn&#39;, &#39;us7000pffe&#39;, &#39;us6000pm9m&#39;], &#39;Burma (Myanmar) Earthquake&#39;: [&#39;us7000pn9s&#39;], &#39;CA&#39;: [&#39;nc75195021&#39;, &#39;nc75186621&#39;, &#39;nc75186201&#39;, &#39;nc75170586&#39;, &#39;ci40925991&#39;, &#39;nc75149826&#39;, &#39;ci41075584&#39;, &#39;nc75133062&#39;, &#39;nc75132032&#39;, &#39;nc75131617&#39;, &#39;nc75123321&#39;], &#39;Canada&#39;: [&#39;us6000qjm5&#39;, &#39;us6000pv9t&#39;, &#39;us7000pfbs&#39;, &#39;us7000peye&#39;, &#39;us7000pbsu&#39;, &#39;us7000pax1&#39;, &#39;us7000p9ue&#39;, &#39;us6000pjt7&#39;], &#39;Carlsberg Ridge&#39;: [&#39;us6000qka3&#39;, &#39;us6000qgsu&#39;, &#39;us6000qi7p&#39;, &#39;us7000q169&#39;, &#39;us6000qgwd&#39;, &#39;us7000pxy6&#39;, &#39;us7000pw6p&#39;, &#39;us6000pyev&#39;, &#39;us6000pvth&#39;, &#39;us6000pvux&#39;, &#39;us7000pf18&#39;, &#39;us7000pdsm&#39;, &#39;us7000pdrz&#39;, &#39;us7000pds7&#39;, &#39;us7000pc83&#39;, &#39;us7000pc7k&#39;, &#39;us7000pdrb&#39;, &#39;us7000pc7i&#39;, &#39;us7000pb1l&#39;, &#39;us6000pmkr&#39;], &#39;Cayman Islands&#39;: [&#39;us6000q4ee&#39;, &#39;us6000pyfk&#39;, &#39;us6000pwju&#39;, &#39;us6000pv78&#39;, &#39;us7000pfpx&#39;, &#39;us6000pwmh&#39;, &#39;us7000pcgc&#39;, &#39;us7000pce1&#39;, &#39;us7000pcdw&#39;, &#39;us7000pce3&#39;, &#39;us7000pcdl&#39;, &#39;us7000pc8j&#39;], &#39;Chad&#39;: [&#39;us6000qjvj&#39;, &#39;us7000q1b1&#39;], &#39;Chagos Archipelago region&#39;: [&#39;us7000pw54&#39;, &#39;us6000q5i1&#39;, &#39;us7000pny8&#39;, &#39;us6000pyuc&#39;, &#39;us6000px4p&#39;, &#39;us6000pyej&#39;, &#39;us6000pyee&#39;, &#39;us7000pdzz&#39;, &#39;us7000pbib&#39;, &#39;us6000pkck&#39;], &#39;Chile&#39;: [&#39;us6000qkjt&#39;, &#39;us6000qkhr&#39;, &#39;us6000qkfl&#39;, &#39;us6000qjpw&#39;, &#39;us6000qj2v&#39;, &#39;us6000qiu3&#39;, &#39;us6000qiqd&#39;, &#39;us6000qiln&#39;, &#39;us6000qigd&#39;, &#39;us6000qhsr&#39;, &#39;us6000qhmb&#39;, &#39;us6000qgui&#39;, &#39;us6000qglj&#39;, &#39;us6000qgjn&#39;, &#39;us7000q1jb&#39;, &#39;us7000q1hb&#39;, &#39;us7000q1h3&#39;, &#39;us7000q12c&#39;, &#39;us7000q0zp&#39;, &#39;us7000q0hu&#39;, &#39;us7000q0gy&#39;, &#39;us7000q09n&#39;, &#39;us7000q08u&#39;, &#39;us7000q01w&#39;, &#39;us7000pzyb&#39;, &#39;us7000pysp&#39;, &#39;us6000qg7g&#39;, &#39;us7000pyiu&#39;, &#39;us7000pydt&#39;, &#39;us7000pyb2&#39;, &#39;us7000py5b&#39;, &#39;us7000pxvf&#39;, &#39;us7000pxur&#39;, &#39;us7000pxud&#39;, &#39;us7000pxi5&#39;, &#39;us7000pxfw&#39;, &#39;us7000px85&#39;, &#39;us7000px6k&#39;, &#39;us7000px56&#39;, &#39;us7000px3w&#39;, &#39;us7000px3i&#39;, &#39;us7000px3e&#39;, &#39;us7000pwxk&#39;, &#39;us7000pwuy&#39;, &#39;us7000pwml&#39;, &#39;us7000pwju&#39;, &#39;us7000pwiv&#39;, &#39;us7000pwa7&#39;, &#39;us7000pw5b&#39;, &#39;us7000pw17&#39;, &#39;us7000pw16&#39;, &#39;us7000pvsr&#39;, &#39;us7000pvrq&#39;, &#39;us7000pviq&#39;, &#39;us7000pvg1&#39;, &#39;us7000pv9r&#39;, &#39;us7000pv1p&#39;, &#39;us7000pur7&#39;, &#39;us7000pun2&#39;, &#39;us7000pumj&#39;, &#39;us7000puhb&#39;, &#39;us7000puff&#39;, &#39;us7000pucf&#39;, &#39;us7000pu78&#39;, &#39;us7000pu4z&#39;, &#39;us6000q7dw&#39;, &#39;us6000q7cp&#39;, &#39;us6000q7bs&#39;, &#39;us6000q730&#39;, &#39;us6000q723&#39;, &#39;us6000q720&#39;, &#39;us6000q6xh&#39;, &#39;us6000q6ey&#39;, &#39;us6000q64k&#39;, &#39;us6000q623&#39;, &#39;us6000q5x5&#39;, &#39;us6000q5sj&#39;, &#39;us6000q5nv&#39;, &#39;us6000q5m7&#39;, &#39;us6000q5hi&#39;, &#39;us6000q5d6&#39;, &#39;us6000q54q&#39;, &#39;us6000q53h&#39;, &#39;us6000q50f&#39;, &#39;us6000q4uw&#39;, &#39;us6000q4ui&#39;, &#39;us6000q48b&#39;, &#39;us6000q482&#39;, &#39;us6000q3wt&#39;, &#39;us6000q3wf&#39;, &#39;us6000q3v6&#39;, &#39;us6000q3t7&#39;, &#39;us6000q3kx&#39;, &#39;us7000pp2r&#39;, &#39;us7000pp0k&#39;, &#39;us7000pntb&#39;, &#39;us7000pnpt&#39;, &#39;us7000pnk3&#39;, &#39;us7000pnjq&#39;, &#39;us7000pmqb&#39;, ...], &#39;China&#39;: [&#39;us6000qkfb&#39;, &#39;us6000qhzg&#39;, &#39;us6000qhcd&#39;, &#39;us6000qh7q&#39;, &#39;us6000qh1p&#39;, &#39;us6000qi60&#39;, &#39;us7000q0k4&#39;, &#39;us7000q0dn&#39;, &#39;us7000q078&#39;, &#39;us7000q01q&#39;, &#39;us7000q00n&#39;, &#39;us7000pzjr&#39;, &#39;us7000pzi1&#39;, &#39;us7000pyxb&#39;, &#39;us7000pyq7&#39;, &#39;us7000pyjd&#39;, &#39;us7000py51&#39;, &#39;us7000py37&#39;, &#39;us7000px1b&#39;, &#39;us7000pvht&#39;, &#39;us7000pvaf&#39;, &#39;us7000pv6f&#39;, &#39;us7000puj0&#39;, &#39;us6000q7ge&#39;, &#39;us6000q7eb&#39;, &#39;us6000q770&#39;, &#39;us6000q6me&#39;, &#39;us7000pvx4&#39;, &#39;us6000q5s2&#39;, &#39;us7000pu94&#39;, &#39;us6000q4hb&#39;, &#39;us6000q5yk&#39;, &#39;us6000q5yi&#39;, &#39;us7000pnxl&#39;, &#39;us7000pntt&#39;, &#39;us7000pnl4&#39;, &#39;us7000pmjv&#39;, &#39;us7000pmg7&#39;, &#39;us7000pm7w&#39;, &#39;us7000pn3i&#39;, &#39;us6000pzk0&#39;, &#39;us6000pz7y&#39;, &#39;us7000plnb&#39;, &#39;us6000pyqi&#39;, &#39;us6000pyj5&#39;, &#39;us6000pzlf&#39;, &#39;us6000px0n&#39;, &#39;us6000pwfj&#39;, &#39;us6000pwej&#39;, &#39;us6000pvs1&#39;, &#39;us6000pvry&#39;, &#39;us6000pw46&#39;, &#39;us6000pw3t&#39;, &#39;us7000pexp&#39;, &#39;us7000pcg9&#39;, &#39;us7000pbcv&#39;, &#39;us7000pbbc&#39;, &#39;us6000pmq8&#39;, &#39;us6000pmay&#39;, &#39;us6000pm9x&#39;, &#39;us7000pb1r&#39;, &#39;us6000plrd&#39;, &#39;us7000pacn&#39;, &#39;us6000pl82&#39;, &#39;us6000pl54&#39;, &#39;us6000pl4q&#39;, &#39;us6000pl22&#39;, &#39;us6000pl00&#39;, &#39;us6000pkan&#39;, &#39;us6000pk5z&#39;, &#39;us6000pjxx&#39;, &#39;us6000pllz&#39;, &#39;us6000pj8x&#39;, &#39;us6000pj5q&#39;, &#39;us6000pllr&#39;, &#39;us6000pllh&#39;], &#39;Colombia&#39;: [&#39;us6000qj2c&#39;, &#39;us6000qizg&#39;, &#39;us6000qiys&#39;, &#39;us6000qiy2&#39;, &#39;us6000qixr&#39;, &#39;us6000qilg&#39;, &#39;us7000q10j&#39;, &#39;us7000pzz7&#39;, &#39;us7000pymq&#39;, &#39;us7000px4d&#39;, &#39;us7000pumw&#39;, &#39;us7000pum1&#39;, &#39;us6000q6zz&#39;, &#39;us6000q6zq&#39;, &#39;us6000q4wr&#39;, &#39;us6000q6rh&#39;, &#39;us7000pp5r&#39;, &#39;us7000pmup&#39;, &#39;us6000q3rc&#39;, &#39;us6000q3pn&#39;, &#39;us6000pz0i&#39;, &#39;us6000pxx4&#39;, &#39;us6000px4q&#39;, &#39;us6000pw9c&#39;, &#39;us7000pex2&#39;, &#39;us7000pe90&#39;, &#39;us7000pd4n&#39;, &#39;us7000pbxz&#39;, &#39;us7000p9zc&#39;, &#39;us6000pmsg&#39;, &#39;us6000pmg0&#39;, &#39;us6000pl25&#39;, &#39;us6000pj4s&#39;], &#39;Costa Rica&#39;: [&#39;us6000qim8&#39;, &#39;us6000qi7q&#39;, &#39;us7000pz5u&#39;, &#39;us7000q0up&#39;, &#39;us6000q7a1&#39;, &#39;us6000q5ue&#39;, &#39;us6000q4qw&#39;, &#39;us6000pwri&#39;, &#39;us7000pflk&#39;, &#39;us7000pfcj&#39;, &#39;us7000pel7&#39;, &#39;us6000pjeu&#39;], &#39;Croatia&#39;: [&#39;us6000pvby&#39;, &#39;us7000pcwq&#39;], &#39;Democratic Republic of the Congo&#39;: [&#39;us7000q01z&#39;, &#39;us7000q0dm&#39;], &#39;Dominica&#39;: [&#39;us7000pms4&#39;], &#39;Dominican Republic&#39;: [&#39;pr2025165001&#39;, &#39;us6000qk8s&#39;, &#39;us6000qjqj&#39;, &#39;pr2025157001&#39;, &#39;us7000py6n&#39;, &#39;pr2025119001&#39;, &#39;us7000pvq8&#39;, &#39;pr2025108001&#39;, &#39;pr2025078002&#39;, &#39;us7000pn4a&#39;, &#39;pr2025068000&#39;, &#39;pr2025061003&#39;, &#39;pr2025061002&#39;, &#39;pr2025059001&#39;, &#39;pr2025056002&#39;, &#39;pr2025047000&#39;, &#39;us7000pb0a&#39;, &#39;pr2025025000&#39;], &#39;Drake Passage&#39;: [&#39;us7000px0y&#39;, &#39;us7000px5q&#39;, &#39;us6000pyb1&#39;], &#39;Easter Island region&#39;: [&#39;us6000qi5p&#39;, &#39;us7000q13h&#39;, &#39;us6000q526&#39;, &#39;us7000pn66&#39;, &#39;us7000pm89&#39;, &#39;us6000pyf6&#39;, &#39;us7000pfqd&#39;, &#39;us6000pwmj&#39;, &#39;us6000pl89&#39;, &#39;us7000pa2l&#39;, &#39;us7000pa2c&#39;, &#39;us7000p9vb&#39;], &#39;Ecuador&#39;: [&#39;us6000qkrr&#39;, &#39;us6000qkr0&#39;, &#39;us6000qk7i&#39;, &#39;us7000q1rn&#39;, &#39;us7000pyg8&#39;, &#39;us7000pyez&#39;, &#39;us7000pxkc&#39;, &#39;us7000px81&#39;, &#39;us7000pwwy&#39;, &#39;us7000pv06&#39;, &#39;us6000q75b&#39;, &#39;us6000q6cg&#39;, &#39;us6000q5um&#39;, &#39;us6000pxlb&#39;, &#39;us7000pfks&#39;, &#39;us7000pbgl&#39;, &#39;us7000pb6s&#39;, &#39;us7000pam3&#39;, &#39;us7000palx&#39;, &#39;us7000pajt&#39;, &#39;us7000pahy&#39;, &#39;us7000pa4m&#39;, &#39;us6000pjxc&#39;, &#39;us6000pjm2&#39;], &#39;Ecuador region&#39;: [&#39;us7000pw5p&#39;, &#39;us7000pdqz&#39;], &#39;El Salvador&#39;: [&#39;us6000qj8g&#39;, &#39;us6000qgpv&#39;, &#39;us6000qgai&#39;, &#39;us7000q1hl&#39;, &#39;us7000q0vi&#39;, &#39;us7000pz6y&#39;, &#39;us7000pygb&#39;, &#39;us7000py0z&#39;, &#39;us7000pv0u&#39;, &#39;us6000q57p&#39;, &#39;us7000pm6s&#39;, &#39;us6000pzy8&#39;, &#39;us6000pzpd&#39;, &#39;us6000pyfy&#39;, &#39;us6000pxkc&#39;, &#39;us6000pvsq&#39;, &#39;us6000px9g&#39;, &#39;us7000pe34&#39;, &#39;us7000pe2z&#39;, &#39;us6000pv5k&#39;, &#39;us7000pc16&#39;, &#39;us7000pate&#39;, &#39;us6000pl1r&#39;], &#39;Eritrea&#39;: [&#39;us6000pwmb&#39;], &#39;Ethiopia&#39;: [&#39;us6000q56m&#39;, &#39;us6000pzb4&#39;, &#39;us6000pz82&#39;, &#39;us6000pz7g&#39;, &#39;us6000pwjr&#39;, &#39;us6000pwhp&#39;, &#39;us6000pwge&#39;, &#39;us6000pwew&#39;, &#39;us6000py5e&#39;, &#39;us6000pvs4&#39;, &#39;us6000px9k&#39;, &#39;us7000pfq1&#39;, &#39;us6000px1g&#39;, &#39;us7000pfss&#39;, &#39;us7000pfpk&#39;, &#39;us6000pw2a&#39;, &#39;us6000pw25&#39;, &#39;us7000pdu6&#39;, &#39;us7000pd3b&#39;, &#39;us7000pc2k&#39;, &#39;us7000pc2b&#39;, &#39;us7000pbaq&#39;, &#39;us7000pd6m&#39;, &#39;us7000pd68&#39;, &#39;us7000pd67&#39;, &#39;us7000pd65&#39;, &#39;us7000pd73&#39;, &#39;us7000paqb&#39;, &#39;us7000pc3p&#39;, &#39;us7000pc45&#39;, &#39;us7000pc46&#39;, &#39;us7000pc3n&#39;, &#39;us7000p9p0&#39;, &#39;us6000pmiy&#39;, &#39;us6000pm1j&#39;, &#39;us6000pm7l&#39;, &#39;us6000pm1e&#39;, &#39;us7000paes&#39;, &#39;us7000paeq&#39;, &#39;us6000plyr&#39;, &#39;us6000plte&#39;, &#39;us7000padi&#39;, &#39;us6000plrr&#39;, &#39;us7000pae5&#39;, &#39;us7000pad8&#39;, &#39;us7000pae4&#39;, &#39;us7000pae3&#39;, &#39;us7000padh&#39;, &#39;us6000plra&#39;, &#39;us6000plr5&#39;, &#39;us7000pad3&#39;, &#39;us7000padz&#39;, &#39;us7000pae0&#39;, &#39;us7000pae1&#39;, &#39;us7000pad5&#39;, &#39;us7000pad2&#39;, &#39;us6000pli7&#39;, &#39;us6000pl7y&#39;, &#39;us7000pa28&#39;, &#39;us7000pa1v&#39;, &#39;us6000pl5h&#39;, &#39;us7000p9vj&#39;, &#39;us7000p9vi&#39;, &#39;us7000p9vl&#39;, &#39;us7000p9uy&#39;, &#39;us7000p9mi&#39;, &#39;us6000pmlk&#39;, &#39;us6000pmli&#39;, &#39;us6000pkpl&#39;, &#39;us6000pmkx&#39;, &#39;us6000pmkw&#39;, &#39;us6000pkjx&#39;, &#39;us6000pkih&#39;, &#39;us6000pkbw&#39;, &#39;us6000pm4r&#39;, &#39;us6000pkbv&#39;, &#39;us6000pm3f&#39;, &#39;us6000pk1q&#39;, &#39;us6000pm2m&#39;, &#39;us6000pm2l&#39;, &#39;us6000pjx5&#39;, &#39;us6000pm32&#39;, &#39;us6000pm2a&#39;, &#39;us6000pjuu&#39;, &#39;us6000pjsw&#39;, &#39;us6000plv2&#39;, &#39;us6000plvi&#39;, &#39;us6000plv0&#39;, &#39;us6000pluy&#39;, &#39;us6000pjnm&#39;, &#39;us6000pluf&#39;, &#39;us6000plud&#39;, &#39;us6000pjl6&#39;, &#39;us6000pjkx&#39;, &#39;us6000pjjv&#39;, &#39;us6000pjjs&#39;, &#39;us6000pltr&#39;, &#39;us6000pji9&#39;, &#39;us6000pjhq&#39;, &#39;us6000pltk&#39;, ...], &#39;Federated States of Micronesia&#39;: [&#39;us7000q1aj&#39;], &#39;Federated States of Micronesia region&#39;: [&#39;us7000pe5b&#39;], &#39;Fiji&#39;: [&#39;us6000qh7h&#39;, &#39;us6000qk3l&#39;, &#39;us6000qjw6&#39;, &#39;us6000qgwy&#39;, &#39;us7000pz2m&#39;, &#39;us7000q1m0&#39;, &#39;us7000pyg3&#39;, &#39;us7000q1k8&#39;, &#39;us7000q1jk&#39;, &#39;us7000pzmd&#39;, &#39;us7000pvj1&#39;, &#39;us7000pz71&#39;, &#39;us7000py0e&#39;, &#39;us7000pxzv&#39;, &#39;us6000q7j5&#39;, &#39;us7000pwni&#39;, &#39;us7000pwlg&#39;, &#39;us7000pvk5&#39;, &#39;us7000pvk3&#39;, &#39;us6000q5mm&#39;, &#39;us7000pv1s&#39;, &#39;us7000puii&#39;, &#39;us6000q4uh&#39;, &#39;us6000q4j3&#39;, &#39;us6000q6il&#39;, &#39;us6000q3we&#39;, &#39;us6000q663&#39;, &#39;us6000q5fh&#39;, &#39;us6000q5ew&#39;, &#39;us7000pnkr&#39;, &#39;us6000q3zu&#39;, &#39;us6000q3zg&#39;, &#39;us6000q3r0&#39;, &#39;us7000pmgb&#39;, &#39;us7000pm16&#39;, &#39;us7000pm09&#39;, &#39;us7000pp9n&#39;, &#39;us6000pzwy&#39;, &#39;us6000pztt&#39;, &#39;us7000pn39&#39;, &#39;us6000pze7&#39;, &#39;us6000pz1w&#39;, &#39;us6000pyt9&#39;, &#39;us6000pyqg&#39;, &#39;us7000plcu&#39;, &#39;us6000pyvy&#39;, &#39;us6000pyu8&#39;, &#39;us6000pyu3&#39;, &#39;us6000pymr&#39;, &#39;us6000pwg3&#39;, &#39;us6000pwcw&#39;, &#39;us6000pxyr&#39;, &#39;us6000pxab&#39;, &#39;us6000pvda&#39;, &#39;us6000pwt4&#39;, &#39;us7000pebj&#39;, &#39;us7000pe49&#39;, &#39;us7000pe21&#39;, &#39;us7000pf1h&#39;, &#39;us7000pd21&#39;, &#39;us7000pd20&#39;, &#39;us7000pdsh&#39;, &#39;us7000pc21&#39;, &#39;us7000pbr3&#39;, &#39;us7000p9wv&#39;, &#39;us7000pbll&#39;, &#39;us6000pms1&#39;, &#39;us6000pmmd&#39;, &#39;us6000pmmf&#39;, &#39;us6000plip&#39;, &#39;us6000pl6x&#39;, &#39;us7000p9mp&#39;, &#39;us7000p9lq&#39;, &#39;us6000pm4q&#39;, &#39;us6000pjqd&#39;, &#39;us6000pjk4&#39;, &#39;us6000pj63&#39;], &#39;Fiji region&#39;: [&#39;us6000qjgf&#39;, &#39;us6000qjbx&#39;, &#39;us6000qi9v&#39;, &#39;us6000qjk0&#39;, &#39;us7000q16w&#39;, &#39;us7000q11p&#39;, &#39;us7000q0eg&#39;, &#39;us6000qhfn&#39;, &#39;us6000qglw&#39;, &#39;us7000q1kj&#39;, &#39;us7000pycn&#39;, &#39;us7000q144&#39;, &#39;us7000pxxi&#39;, &#39;us7000pxu9&#39;, &#39;us7000pzmr&#39;, &#39;us7000pw9p&#39;, &#39;us7000pzes&#39;, &#39;us7000pzey&#39;, &#39;us7000pzdv&#39;, &#39;us7000pzde&#39;, &#39;us7000pyvb&#39;, &#39;us6000q77p&#39;, &#39;us7000pwnw&#39;, &#39;us7000pwm3&#39;, &#39;us6000q6df&#39;, &#39;us7000putv&#39;, &#39;us7000putq&#39;, &#39;us6000q4v8&#39;, &#39;us6000q6tz&#39;, &#39;us6000q6tv&#39;, &#39;us6000q49v&#39;, &#39;us7000ppae&#39;, &#39;us6000q5el&#39;, &#39;us6000q4yd&#39;, &#39;us7000pnif&#39;, &#39;us7000pmpv&#39;, &#39;us7000pmgw&#39;, &#39;us7000pmdz&#39;, &#39;us7000pneg&#39;, &#39;us7000pn3r&#39;, &#39;us6000pz6u&#39;, &#39;us7000pmir&#39;, &#39;us6000pz30&#39;, &#39;us6000pytl&#39;, &#39;us6000pyla&#39;, &#39;us6000pxzb&#39;, &#39;us6000pwa9&#39;, &#39;us6000pxf4&#39;, &#39;us6000pvqp&#39;, &#39;us6000px7u&#39;, &#39;us6000px1n&#39;, &#39;us7000pf3d&#39;, &#39;us7000peek&#39;, &#39;us6000pvdv&#39;, &#39;us7000pe4v&#39;, &#39;us7000pe3e&#39;, &#39;us7000pdig&#39;, &#39;us7000pf14&#39;, &#39;us7000pckn&#39;, &#39;us7000pdq0&#39;, &#39;us7000pbzh&#39;, &#39;us7000pat6&#39;, &#39;us6000pms2&#39;, &#39;us6000pm80&#39;, &#39;us7000paf0&#39;, &#39;us6000pm0p&#39;, &#39;us6000plwe&#39;, &#39;us6000plfj&#39;, &#39;us6000pkwe&#39;, &#39;us7000p9lw&#39;, &#39;us6000pm2g&#39;], &#39;Georgia&#39;: [&#39;us6000pxme&#39;], &#39;Greece&#39;: [&#39;us6000qkni&#39;, &#39;us6000qj9n&#39;, &#39;us6000qiqq&#39;, &#39;us6000qiq1&#39;, &#39;us6000qidl&#39;, &#39;us6000qi2m&#39;, &#39;us6000qhma&#39;, &#39;us6000qgv0&#39;, &#39;us6000qg8n&#39;, &#39;us7000q1nc&#39;, &#39;us7000q0pq&#39;, &#39;us7000q02x&#39;, &#39;us7000pzze&#39;, &#39;us7000pzzb&#39;, &#39;us7000pzx1&#39;, &#39;us7000pz2p&#39;, &#39;us7000pyx9&#39;, &#39;us7000pyr9&#39;, &#39;us7000q1ju&#39;, &#39;us7000px4q&#39;, &#39;us7000px4a&#39;, &#39;us7000pwc4&#39;, &#39;us7000pw15&#39;, &#39;us6000q7d0&#39;, &#39;us6000q79q&#39;, &#39;us7000pwmd&#39;, &#39;us6000q5ui&#39;, &#39;us6000q5nz&#39;, &#39;us6000q4f3&#39;, &#39;us6000q3m6&#39;, &#39;us7000pnwe&#39;, &#39;us7000pn53&#39;, &#39;us6000q3qx&#39;, &#39;us7000plv2&#39;, &#39;us7000plhm&#39;, &#39;us7000pmsu&#39;, &#39;us6000pz6e&#39;, &#39;us6000pyw2&#39;, &#39;us6000pyv0&#39;, &#39;us7000pln7&#39;, &#39;us6000py36&#39;, &#39;us6000pxy1&#39;, &#39;us6000pxq1&#39;, &#39;us6000pyl7&#39;, &#39;us6000px9y&#39;, &#39;us6000pv7z&#39;, &#39;us7000pfs8&#39;, &#39;us7000pfpz&#39;, &#39;us7000pf23&#39;, &#39;us7000pepv&#39;, &#39;us7000penp&#39;, &#39;us7000peij&#39;, &#39;us6000pvmx&#39;, &#39;us7000pefy&#39;, &#39;us7000pefq&#39;, &#39;us7000peff&#39;, &#39;us7000pe91&#39;, &#39;us7000pe8q&#39;, &#39;us7000pe7k&#39;, &#39;us7000pe7i&#39;, &#39;us7000pe5s&#39;, &#39;us7000pe5c&#39;, &#39;us6000pv62&#39;, &#39;us7000pdzt&#39;, &#39;us7000pf9w&#39;, &#39;us7000pf9i&#39;, &#39;us7000pdu1&#39;, &#39;us7000pdp7&#39;, &#39;us7000pde0&#39;, &#39;us7000pddy&#39;, &#39;us7000pd9b&#39;, &#39;us7000pd9a&#39;, &#39;us7000pd8n&#39;, &#39;us7000pd7j&#39;, &#39;us7000pd4h&#39;, &#39;us7000pd35&#39;, &#39;us7000pezy&#39;, &#39;us7000pf0h&#39;, &#39;us7000pd31&#39;, &#39;us7000pf0g&#39;, &#39;us7000pd30&#39;, &#39;us7000pezu&#39;, &#39;us7000pd2y&#39;, &#39;us7000pd2x&#39;, &#39;us7000pf11&#39;, &#39;us7000pezs&#39;, &#39;us7000pd2t&#39;, &#39;us7000pd26&#39;, &#39;us7000pd1v&#39;, &#39;us7000pezc&#39;, &#39;us7000pd1u&#39;, &#39;us7000pd1t&#39;, &#39;us7000pd1n&#39;, &#39;us7000pd1i&#39;, &#39;us7000pd1f&#39;, &#39;us7000pd03&#39;, &#39;us7000pcwn&#39;, &#39;us7000pcvx&#39;, &#39;us7000pcvr&#39;, &#39;us7000pet2&#39;, ...], &#39;Greenland Sea&#39;: [&#39;us6000qk3m&#39;, &#39;us6000qgd4&#39;, &#39;us7000py1f&#39;, &#39;us7000pp5e&#39;], &#39;Guadeloupe&#39;: [&#39;us6000pwq0&#39;], &#39;Guam&#39;: [&#39;us6000qiv6&#39;, &#39;us6000qis7&#39;, &#39;us6000qgeq&#39;, &#39;us6000qjns&#39;, &#39;us7000q1s4&#39;, &#39;us7000q1pq&#39;, &#39;us6000qjks&#39;, &#39;us6000qjkq&#39;, &#39;us6000qjkk&#39;, &#39;us7000q1hq&#39;, &#39;us6000qhqb&#39;, &#39;us7000pzcm&#39;, &#39;us7000pvh5&#39;, &#39;us7000pz0j&#39;, &#39;us7000pya7&#39;, &#39;us6000q7fi&#39;, &#39;us7000pvwi&#39;, &#39;us6000q5na&#39;, &#39;us6000q53j&#39;, &#39;us6000q6rc&#39;, &#39;us6000q6j3&#39;, &#39;us6000q6j4&#39;, &#39;us6000q66m&#39;, &#39;us7000ppgp&#39;, &#39;us7000ppgj&#39;, &#39;us7000pm9h&#39;, &#39;us6000pyvb&#39;, &#39;us6000pwpg&#39;, &#39;us6000pwn3&#39;, &#39;us6000pwbj&#39;, &#39;us6000pxf8&#39;, &#39;us6000pw3p&#39;, &#39;us6000pw3m&#39;, &#39;us7000pezb&#39;, &#39;us7000pejm&#39;, &#39;us7000pcpu&#39;, &#39;us7000pbi7&#39;, &#39;us7000pbia&#39;, &#39;us7000pbhd&#39;, &#39;us7000pbha&#39;, &#39;us6000pm11&#39;, &#39;us7000padr&#39;, &#39;us6000plsn&#39;, &#39;us6000plnt&#39;, &#39;us7000pacc&#39;, &#39;us6000pldf&#39;, &#39;us6000pmlg&#39;, &#39;us6000pm55&#39;, &#39;us6000pm2p&#39;, &#39;us6000plvh&#39;, &#39;us6000pln2&#39;, &#39;us6000pjed&#39;], &#39;Guatemala&#39;: [&#39;us6000qibj&#39;, &#39;us7000q1ql&#39;, &#39;us7000q1j2&#39;, &#39;us6000qhn4&#39;, &#39;us7000pytk&#39;, &#39;us7000pysg&#39;, &#39;us6000q772&#39;, &#39;us6000pz2y&#39;, &#39;us6000pyuq&#39;, &#39;us6000pw7t&#39;, &#39;us6000pw7c&#39;, &#39;us6000pw5z&#39;, &#39;us6000pvpg&#39;, &#39;us7000pebq&#39;, &#39;us7000pe58&#39;, &#39;us7000pe1b&#39;, &#39;us7000pclr&#39;, &#39;us7000pbqa&#39;, &#39;us7000pbjy&#39;, &#39;us7000pbfs&#39;, &#39;us7000pbfb&#39;, &#39;us6000plr3&#39;, &#39;us6000pmll&#39;], &#39;Hawaii&#39;: [&#39;hv74676927&#39;, &#39;hv74634117&#39;], &#39;Honduras&#39;: [&#39;us6000qj2a&#39;, &#39;us6000qiwx&#39;, &#39;us7000pzup&#39;, &#39;us6000pyzt&#39;, &#39;us6000pymn&#39;, &#39;us6000pwyn&#39;, &#39;us7000pf94&#39;, &#39;us7000pdkn&#39;, &#39;us7000pd93&#39;, &#39;us7000pcs6&#39;, &#39;us7000pcjy&#39;, &#39;us7000pcgn&#39;, &#39;us7000pe9s&#39;, &#39;us7000pcdu&#39;, &#39;us7000pann&#39;, &#39;us7000pac3&#39;], &#39;Iceland&#39;: [&#39;us6000qj6s&#39;, &#39;us7000q1ae&#39;, &#39;us7000q1ad&#39;, &#39;us7000q1a9&#39;, &#39;us6000qgmh&#39;, &#39;us7000pz4h&#39;, &#39;us7000pyxt&#39;, &#39;us7000pxd6&#39;, &#39;us7000q0kr&#39;, &#39;us6000q639&#39;, &#39;us7000ppa5&#39;, &#39;us7000ppa1&#39;, &#39;us7000ppa0&#39;, &#39;us7000pfi9&#39;, &#39;us6000pjw8&#39;, &#39;us6000pjw6&#39;, &#39;us6000pjvv&#39;, &#39;us6000pjvs&#39;], &#39;Iceland region&#39;: [&#39;us7000q1l3&#39;, &#39;us7000pbup&#39;], &#39;Idaho&#39;: [&#39;us6000qiz0&#39;, &#39;us6000pmkg&#39;], &#39;India&#39;: [&#39;us6000qkjz&#39;, &#39;us6000qi2j&#39;, &#39;us6000qju8&#39;, &#39;us6000qg9r&#39;, &#39;us6000qgly&#39;, &#39;us7000pzmx&#39;, &#39;us7000pvhl&#39;, &#39;us6000q5cs&#39;, &#39;us6000q548&#39;, &#39;us7000pp84&#39;, &#39;us6000q56x&#39;, &#39;us6000q4rz&#39;, &#39;us7000pm6h&#39;, &#39;us6000q3ny&#39;, &#39;us6000q3p6&#39;, &#39;us7000pm5l&#39;, &#39;us7000pm5g&#39;, &#39;us7000pn3v&#39;, &#39;us6000pzix&#39;, &#39;us6000pzed&#39;, &#39;us6000pyqh&#39;, &#39;us6000pyp3&#39;, &#39;us6000pybb&#39;, &#39;us6000pxru&#39;, &#39;us6000pwzr&#39;, &#39;us6000pwz6&#39;, &#39;us6000pyem&#39;, &#39;us6000pw15&#39;, &#39;us6000pvpc&#39;, &#39;us6000pv8n&#39;, &#39;us6000pwme&#39;, &#39;us7000pewd&#39;, &#39;us7000pe5z&#39;, &#39;us7000pcnh&#39;, &#39;us7000pc5t&#39;, &#39;us7000pc5s&#39;, &#39;us7000pc3s&#39;, &#39;us6000plwf&#39;, &#39;us6000plmk&#39;, &#39;us6000pll1&#39;, &#39;us6000plds&#39;, &#39;us6000plaw&#39;, &#39;us6000pl6c&#39;, &#39;us6000pkzi&#39;], &#39;India region&#39;: [&#39;us7000pyzr&#39;, &#39;us6000q5eb&#39;, &#39;us6000q55w&#39;, &#39;us6000q3r8&#39;, &#39;us7000pmhv&#39;, &#39;us6000pyak&#39;, &#39;us6000py97&#39;, &#39;us6000pl7i&#39;, &#39;us6000pl7f&#39;], &#39;Indian Ocean Triple Junction&#39;: [&#39;us6000qi7t&#39;, &#39;us7000pzl0&#39;, &#39;us7000pxaf&#39;, &#39;us7000pusr&#39;, &#39;us7000pndv&#39;, &#39;us7000pnd7&#39;, &#39;us7000pn4k&#39;, &#39;us7000pn4l&#39;], &#39;Indonesia&#39;: [&#39;us6000qkrl&#39;, &#39;us6000qkij&#39;, &#39;us6000qkh3&#39;, &#39;us6000qkgx&#39;, &#39;us6000qkg5&#39;, &#39;us6000qk0d&#39;, &#39;us6000qjtm&#39;, &#39;us6000qjsf&#39;, &#39;us6000qjqz&#39;, &#39;us6000qjjd&#39;, &#39;us6000qjg5&#39;, &#39;us6000qj73&#39;, &#39;us6000qiwc&#39;, &#39;us6000qivz&#39;, &#39;us6000qinl&#39;, &#39;us6000qii9&#39;, &#39;us6000qie5&#39;, &#39;us6000qics&#39;, &#39;us6000qibk&#39;, &#39;us6000qib4&#39;, &#39;us6000qi9e&#39;, &#39;us6000qi4k&#39;, &#39;us6000qhwm&#39;, &#39;us6000qhwa&#39;, &#39;us6000qhub&#39;, &#39;us6000qhni&#39;, &#39;us6000qhlq&#39;, &#39;us6000qhe7&#39;, &#39;us6000qhci&#39;, &#39;us6000qh9v&#39;, &#39;us6000qh6d&#39;, &#39;us6000qh48&#39;, &#39;us6000qh3d&#39;, &#39;us6000qh3a&#39;, &#39;us6000qh2b&#39;, &#39;us6000qh0w&#39;, &#39;us6000qgu5&#39;, &#39;us6000qk3j&#39;, &#39;us6000qgk0&#39;, &#39;us6000qgjv&#39;, &#39;us6000qgjc&#39;, &#39;us6000qgil&#39;, &#39;us6000qjuf&#39;, &#39;us7000q1rm&#39;, &#39;us7000q1qx&#39;, &#39;us7000q1qf&#39;, &#39;us7000q1ni&#39;, &#39;us6000qjkd&#39;, &#39;us7000q1h0&#39;, &#39;us7000q1eb&#39;, &#39;us7000q16m&#39;, &#39;us7000q16a&#39;, &#39;us6000qi7h&#39;, &#39;us6000qi77&#39;, &#39;us7000q0z6&#39;, &#39;us7000q0w7&#39;, &#39;us7000q0tc&#39;, &#39;us7000q0sf&#39;, &#39;us7000q0k5&#39;, &#39;us7000q0iv&#39;, &#39;us6000qi5m&#39;, &#39;us7000q0hr&#39;, &#39;us7000q08l&#39;, &#39;us7000q04f&#39;, &#39;us7000q044&#39;, &#39;us6000qhmq&#39;, &#39;us6000qhmn&#39;, &#39;us7000q035&#39;, &#39;us7000pzyt&#39;, &#39;us7000pzyd&#39;, &#39;us7000pzwb&#39;, &#39;us6000qgwj&#39;, &#39;us7000pzjw&#39;, &#39;us7000pzg2&#39;, &#39;us6000qgpq&#39;, &#39;us7000pzcu&#39;, &#39;us6000qgnx&#39;, &#39;us7000pz57&#39;, &#39;us6000qglt&#39;, &#39;us7000pz3s&#39;, &#39;us6000qgfr&#39;, &#39;us7000pyy2&#39;, &#39;us7000pyvj&#39;, &#39;us7000pyul&#39;, &#39;us7000pyrf&#39;, &#39;us7000pymn&#39;, &#39;us7000pyjn&#39;, &#39;us7000pyf9&#39;, &#39;us7000pyea&#39;, &#39;us7000py8f&#39;, &#39;us7000py5d&#39;, &#39;us7000pxzh&#39;, &#39;us7000pxyj&#39;, &#39;us7000pxwm&#39;, &#39;us7000pxru&#39;, &#39;us7000pxq4&#39;, &#39;us7000pxne&#39;, &#39;us7000pxmz&#39;, &#39;us7000q0ua&#39;, &#39;us7000q0u9&#39;, ...], &#39;Iran&#39;: [&#39;us6000qhcb&#39;, &#39;us6000qgs4&#39;, &#39;us6000qgic&#39;, &#39;us6000qjnl&#39;, &#39;us7000q1nh&#39;, &#39;us7000q19d&#39;, &#39;us7000pzbp&#39;, &#39;us7000pxwi&#39;, &#39;us7000pxvp&#39;, &#39;us7000pwa3&#39;, &#39;us6000q7j8&#39;, &#39;us6000q4cy&#39;, &#39;us6000q4c8&#39;, &#39;us6000q495&#39;, &#39;us6000q3va&#39;, &#39;us6000q3p0&#39;, &#39;us6000q3yu&#39;, &#39;us7000pm7v&#39;, &#39;us7000plxt&#39;, &#39;us7000plje&#39;, &#39;us7000plip&#39;, &#39;us7000plg2&#39;, &#39;us6000pxxc&#39;, &#39;us6000pzdb&#39;, &#39;us6000pxnm&#39;, &#39;us6000pyvm&#39;, &#39;us6000pwpl&#39;, &#39;us6000pwk7&#39;, &#39;us6000pwbm&#39;, &#39;us6000pwal&#39;, &#39;us6000pvkv&#39;, &#39;us7000pe4x&#39;, &#39;us6000pv6k&#39;, &#39;us7000pckx&#39;, &#39;us7000pbn6&#39;, &#39;us7000pbg8&#39;, &#39;us7000pb8a&#39;, &#39;us7000pc5c&#39;, &#39;us7000pahk&#39;, &#39;us7000pa8l&#39;, &#39;us7000pa15&#39;, &#39;us7000pa1j&#39;, &#39;us7000pa0b&#39;, &#39;us6000pmhp&#39;, &#39;us6000pmgf&#39;, &#39;us6000pm3b&#39;, &#39;us6000plru&#39;, &#39;us6000plhv&#39;, &#39;us7000p9ux&#39;, &#39;us6000pl0x&#39;, &#39;us7000p9mv&#39;, &#39;us6000pmkl&#39;, &#39;us6000pm58&#39;, &#39;us6000pkiv&#39;, &#39;us6000pki5&#39;, &#39;us6000pm2s&#39;, &#39;us6000pjsj&#39;, &#39;us6000plun&#39;, &#39;us6000plmy&#39;, &#39;us6000pj9l&#39;, &#39;us6000pj3g&#39;], &#39;Italy&#39;: [&#39;us6000q6cn&#39;, &#39;us6000pzjc&#39;, &#39;us6000pywp&#39;, &#39;us6000pyh6&#39;, &#39;us6000pvns&#39;, &#39;us7000pehc&#39;, &#39;us7000pc4p&#39;, &#39;us7000pbtb&#39;, &#39;us7000pbac&#39;], &#39;Japan&#39;: [&#39;us6000qkqx&#39;, &#39;us6000qk9r&#39;, &#39;us6000qk1a&#39;, &#39;us6000qjy5&#39;, &#39;us6000qjwg&#39;, &#39;us6000qjqx&#39;, &#39;us6000qjiw&#39;, &#39;us6000qjen&#39;, &#39;us6000qiqh&#39;, &#39;us6000qip1&#39;, &#39;us6000qimm&#39;, &#39;us6000qijq&#39;, &#39;us6000qi4w&#39;, &#39;us6000qhze&#39;, &#39;us6000qhyp&#39;, &#39;us6000qhxv&#39;, &#39;us6000qhpn&#39;, &#39;us6000qhnr&#39;, &#39;us6000qhm7&#39;, &#39;us6000qhdi&#39;, &#39;us6000qhc1&#39;, &#39;us6000qhag&#39;, &#39;us6000qhaf&#39;, &#39;us6000qh96&#39;, &#39;us6000qh38&#39;, &#39;us6000qh2r&#39;, &#39;us6000qh2g&#39;, &#39;us6000qh1w&#39;, &#39;us6000qh1r&#39;, &#39;us6000qgyt&#39;, &#39;us6000qgyd&#39;, &#39;us6000qgxz&#39;, &#39;us6000qgx4&#39;, &#39;us6000qgss&#39;, &#39;us6000qjvi&#39;, &#39;us7000q1rx&#39;, &#39;us6000qjnx&#39;, &#39;us7000q1l0&#39;, &#39;us7000q1kp&#39;, &#39;us7000q1ib&#39;, &#39;us7000q1gp&#39;, &#39;us7000q12t&#39;, &#39;us7000q0yk&#39;, &#39;us6000qi67&#39;, &#39;us7000q0he&#39;, &#39;us6000qhq6&#39;, &#39;us6000qhpq&#39;, &#39;us7000q03j&#39;, &#39;us7000q03c&#39;, &#39;us7000pzxj&#39;, &#39;us7000pzk2&#39;, &#39;us7000pzcn&#39;, &#39;us7000pzae&#39;, &#39;us7000pz7x&#39;, &#39;us6000qgfz&#39;, &#39;us6000qgfs&#39;, &#39;us7000pyxl&#39;, &#39;us6000qg8d&#39;, &#39;us7000pywr&#39;, &#39;us7000pytm&#39;, &#39;us7000pyq9&#39;, &#39;us7000pyev&#39;, &#39;us7000py5i&#39;, &#39;us7000q13r&#39;, &#39;us7000py5c&#39;, &#39;us7000q13q&#39;, &#39;us7000q0v1&#39;, &#39;us7000pxpc&#39;, &#39;us7000pxmb&#39;, &#39;us7000pxgj&#39;, &#39;us7000px58&#39;, &#39;us7000px43&#39;, &#39;us7000q0ct&#39;, &#39;us7000q0cq&#39;, &#39;us7000px0j&#39;, &#39;us7000pwhs&#39;, &#39;us7000pzdw&#39;, &#39;us7000pzdr&#39;, &#39;us7000pvi0&#39;, &#39;us7000pz02&#39;, &#39;us7000pz04&#39;, &#39;us7000pv6a&#39;, &#39;us7000pv57&#39;, &#39;us7000pumd&#39;, &#39;us7000pudy&#39;, &#39;us7000pudb&#39;, &#39;us7000pucw&#39;, &#39;us7000pu4p&#39;, &#39;us7000pu1w&#39;, &#39;us7000pu18&#39;, &#39;us6000q7jk&#39;, &#39;us6000q7ck&#39;, &#39;us6000q73j&#39;, &#39;us6000q714&#39;, &#39;us6000q706&#39;, &#39;us6000q6xf&#39;, &#39;us6000q6vp&#39;, &#39;us6000q6mb&#39;, &#39;us7000pw5z&#39;, &#39;us6000q624&#39;, ...], &#39;Japan region&#39;: [&#39;us6000qk7w&#39;, &#39;us6000qk04&#39;, &#39;us6000qjp0&#39;, &#39;us6000qi9k&#39;, &#39;us6000qhu1&#39;, &#39;us6000qh2e&#39;, &#39;us6000qi7u&#39;, &#39;us7000q0in&#39;, &#39;us7000q01y&#39;, &#39;us6000qgvu&#39;, &#39;us7000pzig&#39;, &#39;us7000pyzs&#39;, &#39;us6000qgff&#39;, &#39;us6000qg80&#39;, &#39;us7000q0v6&#39;, &#39;us7000q0v5&#39;, &#39;us7000q0dd&#39;, &#39;us7000px20&#39;, &#39;us7000px0q&#39;, &#39;us7000q06p&#39;, &#39;us7000pwms&#39;, &#39;us7000pwkh&#39;, &#39;us7000pzel&#39;, &#39;us7000pz05&#39;, &#39;us7000pv9v&#39;, &#39;us7000py00&#39;, &#39;us7000py03&#39;, &#39;us7000pwm0&#39;, &#39;us7000pvks&#39;, &#39;us7000pvjv&#39;, &#39;us6000q4vq&#39;, &#39;us7000ppcw&#39;, &#39;us6000q5ei&#39;, &#39;us6000q566&#39;, &#39;us6000q3rd&#39;, &#39;us6000pzpt&#39;, &#39;us6000pzf8&#39;, &#39;us6000pxti&#39;, &#39;us6000pxgk&#39;, &#39;us6000pxfb&#39;, &#39;us6000pvli&#39;, &#39;us6000px7m&#39;, &#39;us7000pfm6&#39;, &#39;us6000pw3l&#39;, &#39;us7000pf4t&#39;, &#39;us7000pecw&#39;, &#39;us7000pfa3&#39;, &#39;us7000pdpi&#39;, &#39;us7000pd1l&#39;, &#39;us7000pcgk&#39;, &#39;us7000pdrh&#39;, &#39;us7000pc3f&#39;, &#39;us7000pbvh&#39;, &#39;us7000pa0x&#39;, &#39;us7000pbve&#39;, &#39;us7000pb1x&#39;, &#39;us6000pm8m&#39;, &#39;us7000paem&#39;, &#39;us7000pacp&#39;, &#39;us6000pljb&#39;, &#39;us7000pa4y&#39;, &#39;us7000p9v3&#39;, &#39;us6000pkfw&#39;, &#39;us6000plvk&#39;, &#39;us6000pjn8&#39;, &#39;us6000pjlb&#39;, &#39;us6000pjkq&#39;], &#39;Kazakhstan&#39;: [&#39;us7000q11r&#39;, &#39;us7000pyiv&#39;, &#39;us7000pu3y&#39;, &#39;us6000q7b7&#39;, &#39;us7000pnbm&#39;, &#39;us7000pn6j&#39;, &#39;us6000py8e&#39;, &#39;us6000py14&#39;, &#39;us6000pxku&#39;, &#39;us7000pasf&#39;], &#39;Kermadec Islands region&#39;: [&#39;us6000qj38&#39;, &#39;us6000qhjw&#39;, &#39;us6000qhgx&#39;, &#39;us6000qhba&#39;, &#39;us6000qh8y&#39;, &#39;us6000qh5j&#39;, &#39;us6000qh59&#39;, &#39;us6000qh4z&#39;, &#39;us6000qh40&#39;, &#39;us6000qh3i&#39;, &#39;us6000qh35&#39;, &#39;us6000qjkp&#39;, &#39;us7000q08z&#39;, &#39;us7000pzq5&#39;, &#39;us7000q1lt&#39;, &#39;us7000q14f&#39;, &#39;us7000q0ur&#39;, &#39;us7000pxdh&#39;, &#39;us7000px8w&#39;, &#39;us7000px8u&#39;, &#39;us7000pwzg&#39;, &#39;us7000pwvi&#39;, &#39;us7000q06b&#39;, &#39;us7000pzl2&#39;, &#39;us7000pzkj&#39;, &#39;us7000pze5&#39;, &#39;us7000pzdq&#39;, &#39;us7000pzdp&#39;, &#39;us7000pvw9&#39;, &#39;us7000pvtd&#39;, &#39;us7000pvta&#39;, &#39;us7000pz0e&#39;, &#39;us7000pvax&#39;, &#39;us7000pxrc&#39;, &#39;us6000q7gy&#39;, &#39;us6000q73u&#39;, &#39;us6000q70e&#39;, &#39;us7000pw4i&#39;, &#39;us7000pvwg&#39;, &#39;us6000q5sv&#39;, &#39;us7000pv2c&#39;, &#39;us7000pu9k&#39;, &#39;us6000q6jj&#39;, &#39;us6000q3ti&#39;, &#39;us6000q5fu&#39;, &#39;us6000q5f7&#39;, &#39;us6000q4y0&#39;, &#39;us7000pnqc&#39;, &#39;us6000q3zc&#39;, &#39;us7000pm0h&#39;, &#39;us7000plww&#39;, &#39;us7000pnep&#39;, &#39;us7000pmsy&#39;, &#39;us7000pma7&#39;, &#39;us7000pln2&#39;, &#39;us6000pymf&#39;, &#39;us6000pyll&#39;, &#39;us6000pwsi&#39;, &#39;us6000pws0&#39;, &#39;us6000pxfs&#39;, &#39;us6000pvrl&#39;, &#39;us7000pej4&#39;, &#39;us7000pdr6&#39;, &#39;us7000pdqm&#39;, &#39;us7000pdmf&#39;, &#39;us7000pc3l&#39;, &#39;us7000p9zh&#39;, &#39;us7000pbv6&#39;, &#39;us6000pmqw&#39;, &#39;us6000pmm9&#39;, &#39;us7000pacm&#39;, &#39;us6000plh8&#39;, &#39;us6000pm3r&#39;], &#39;Kuril Islands&#39;: [&#39;us6000qk4v&#39;, &#39;us6000qidu&#39;, &#39;us6000qgsq&#39;, &#39;us7000pwrm&#39;, &#39;us7000pvwb&#39;, &#39;us7000pvvt&#39;, &#39;us6000q5xd&#39;, &#39;us7000pllr&#39;, &#39;us6000pvl5&#39;, &#39;us6000pvur&#39;, &#39;us7000pdzm&#39;, &#39;us7000pbxx&#39;, &#39;us7000pdm9&#39;, &#39;us7000pbcy&#39;, &#39;us7000pcpl&#39;, &#39;us6000pk2c&#39;, &#39;us6000plly&#39;], &#39;Kuwait&#39;: [&#39;us6000pz09&#39;], &#39;Kyrgyzstan&#39;: [&#39;us6000qim1&#39;, &#39;us7000pysa&#39;, &#39;us7000pyr4&#39;, &#39;us7000pxg8&#39;, &#39;us6000q603&#39;, &#39;us6000pzr7&#39;, &#39;us6000py8n&#39;], &#39;Libya&#39;: [&#39;us7000pyg2&#39;, &#39;us6000pj3b&#39;], &#39;MX&#39;: [&#39;ci41034376&#39;], &#39;Macquarie Island region&#39;: [&#39;us7000py39&#39;, &#39;us7000pvxu&#39;, &#39;us7000pzdm&#39;, &#39;us7000pvtr&#39;, &#39;us6000pl09&#39;, &#39;us6000pj49&#39;], &#39;Madagascar&#39;: [&#39;us6000pxu4&#39;, &#39;us7000pa2a&#39;], &#39;Malawi&#39;: [&#39;us7000plnl&#39;, &#39;us7000plnr&#39;, &#39;us7000pa0q&#39;], &#39;Mariana Islands region&#39;: [&#39;us6000qj0b&#39;, &#39;us6000qicf&#39;, &#39;us6000q717&#39;, &#39;us6000q6id&#39;, &#39;us6000q6ic&#39;, &#39;us6000q6ie&#39;, &#39;us6000q48f&#39;, &#39;us6000q48i&#39;, &#39;us7000pnig&#39;, &#39;us7000pn2v&#39;, &#39;us6000pz66&#39;, &#39;us6000pylv&#39;, &#39;us6000px7x&#39;, &#39;us7000pf9m&#39;, &#39;us7000pdm4&#39;, &#39;us7000p9nd&#39;, &#39;us6000plmu&#39;], &#39;Martinique&#39;: [&#39;us6000qidh&#39;, &#39;us7000pmfx&#39;, &#39;us6000pwis&#39;], &#39;Mauritius&#39;: [&#39;us6000qihn&#39;, &#39;us7000py4w&#39;], &#39;Mauritius - Reunion region&#39;: [&#39;us7000q0e7&#39;, &#39;us6000pyld&#39;, &#39;us7000pa6w&#39;], &#39;Mexico&#39;: [&#39;us6000qkq2&#39;, &#39;us6000qji4&#39;, &#39;us6000qi1q&#39;, &#39;us6000qhye&#39;, &#39;us6000qhix&#39;, &#39;us6000qhez&#39;, &#39;us6000qhbf&#39;, &#39;us7000q0r0&#39;, &#39;us7000q0ah&#39;, &#39;us7000pztr&#39;, &#39;us7000pzkc&#39;, &#39;us7000pzhs&#39;, &#39;us7000pz23&#39;, &#39;us7000pyr1&#39;, &#39;us7000px7i&#39;, &#39;us7000pwdx&#39;, &#39;us7000pxhq&#39;, &#39;us6000q72t&#39;, &#39;us6000q6zg&#39;, &#39;us6000q6du&#39;, &#39;us6000q5ds&#39;, &#39;us6000q516&#39;, &#39;us6000q43s&#39;, &#39;us7000pn6k&#39;, &#39;us6000q43p&#39;, &#39;us6000pyyq&#39;, &#39;us6000q438&#39;, &#39;us6000pxi9&#39;, &#39;us6000px0a&#39;, &#39;us6000pwe1&#39;, &#39;us6000pw5b&#39;, &#39;us6000pwmc&#39;, &#39;us7000pfcg&#39;, &#39;us7000pe75&#39;, &#39;us7000pdpc&#39;, &#39;us7000pdnl&#39;, &#39;us7000pb7b&#39;, &#39;us7000pak3&#39;, &#39;us7000pbwp&#39;, &#39;us6000pmr8&#39;, &#39;us7000pbwi&#39;, &#39;us7000pa4p&#39;, &#39;us6000plfb&#39;, &#39;us7000p9uv&#39;, &#39;us7000p9n1&#39;, &#39;us6000plu2&#39;, &#39;us6000pjjf&#39;, &#39;us6000pjiy&#39;, &#39;us6000pjig&#39;, &#39;us6000pjhp&#39;, &#39;us6000pje4&#39;, &#39;us6000pjd4&#39;], &#39;Micronesia&#39;: [&#39;us7000py1c&#39;, &#39;us7000pxa7&#39;, &#39;us6000q6kv&#39;, &#39;us7000ppgr&#39;, &#39;us6000pzk6&#39;, &#39;us7000pm9r&#39;, &#39;us6000pzs6&#39;, &#39;us6000pxf1&#39;, &#39;us7000pcq8&#39;, &#39;us7000pbld&#39;, &#39;us7000pb9l&#39;], &#39;Mid-Indian Ridge&#39;: [&#39;us6000qkjl&#39;, &#39;us6000qinr&#39;, &#39;us6000qime&#39;, &#39;us6000qil2&#39;, &#39;us6000qi6v&#39;, &#39;us7000pz5p&#39;, &#39;us7000pxul&#39;, &#39;us7000pxvz&#39;, &#39;us7000q0uy&#39;, &#39;us7000pxpf&#39;, &#39;us7000pya8&#39;, &#39;us6000q6by&#39;, &#39;us7000pw4c&#39;, &#39;us7000pvkj&#39;, &#39;us6000q4zx&#39;, &#39;us7000pu9p&#39;, &#39;us7000pu9y&#39;, &#39;us7000pu9n&#39;, &#39;us6000q6sj&#39;, &#39;us6000q6gm&#39;, &#39;us6000q56j&#39;, &#39;us7000pnm9&#39;, &#39;us7000pph1&#39;, &#39;us7000plg5&#39;, &#39;us7000plf7&#39;, &#39;us7000pmsr&#39;, &#39;us6000py5x&#39;, &#39;us6000pwg6&#39;, &#39;us6000px1l&#39;, &#39;us7000pf2m&#39;, &#39;us6000pw2m&#39;, &#39;us6000pw2k&#39;, &#39;us6000pw28&#39;, &#39;us7000pevy&#39;, &#39;us7000pfah&#39;, &#39;us7000pez5&#39;, &#39;us7000pctm&#39;, &#39;us6000pj5g&#39;], &#39;Mongolia&#39;: [&#39;us6000q60e&#39;, &#39;us7000pljf&#39;, &#39;us7000pf0f&#39;], &#39;Montenegro&#39;: [&#39;us6000pm1c&#39;], &#39;Morocco&#39;: [&#39;us7000pcsb&#39;], &#39;Nepal&#39;: [&#39;us6000qj9m&#39;, &#39;us7000q10f&#39;, &#39;us7000q0xq&#39;, &#39;us7000q057&#39;, &#39;us7000pvip&#39;, &#39;us6000q7gc&#39;, &#39;us6000q6bv&#39;, &#39;us6000q5cj&#39;, &#39;us6000q522&#39;, &#39;us6000q6rl&#39;, &#39;us6000q66t&#39;, &#39;us6000q3xs&#39;, &#39;us7000ppd4&#39;, &#39;us7000pmrh&#39;, &#39;us7000pmqt&#39;, &#39;us6000py3e&#39;, &#39;us6000pzsi&#39;, &#39;us6000pzcx&#39;, &#39;us6000pxlv&#39;, &#39;us6000pwry&#39;, &#39;us6000pvwf&#39;, &#39;us7000pf75&#39;, &#39;us7000pe20&#39;, &#39;us7000pchl&#39;, &#39;us7000parm&#39;, &#39;us6000pmj5&#39;, &#39;us7000p9v7&#39;, &#39;us6000plux&#39;, &#39;us6000pltw&#39;, &#39;us6000plmc&#39;], &#39;New Caledonia&#39;: [&#39;us6000qj6p&#39;, &#39;us6000qg81&#39;, &#39;us7000q1ld&#39;, &#39;us7000pyv8&#39;, &#39;us7000pv5c&#39;, &#39;us7000pljl&#39;, &#39;us7000plcf&#39;, &#39;us6000pzsf&#39;, &#39;us6000pw2l&#39;, &#39;us6000plk7&#39;, &#39;us6000pluk&#39;], &#39;New Mexico&#39;: [&#39;tx2025iqwk&#39;, &#39;tx2025ehit&#39;, &#39;tx2025dkql&#39;], &#39;New Zealand&#39;: [&#39;us6000qjry&#39;, &#39;us6000qiq5&#39;, &#39;us6000qi8c&#39;, &#39;us6000qhrt&#39;, &#39;us6000qhmj&#39;, &#39;us6000qgth&#39;, &#39;us6000qgju&#39;, &#39;us6000qgi9&#39;, &#39;us7000q1f3&#39;, &#39;us6000qi6l&#39;, &#39;us7000q0p6&#39;, &#39;us7000q0i2&#39;, &#39;us7000q040&#39;, &#39;us6000qhfv&#39;, &#39;us6000qhfl&#39;, &#39;us7000pzit&#39;, &#39;us6000qgg1&#39;, &#39;us6000qgfv&#39;, &#39;us7000px72&#39;, &#39;us7000q0dl&#39;, &#39;us7000q0db&#39;, &#39;us7000pwze&#39;, &#39;us7000q06x&#39;, &#39;us7000q06q&#39;, &#39;us7000pzl4&#39;, &#39;us7000pvxr&#39;, &#39;us7000pvt7&#39;, &#39;us7000pvcg&#39;, &#39;us7000pugf&#39;, &#39;us6000q754&#39;, &#39;us6000q73f&#39;, &#39;us6000q5wi&#39;, &#39;us6000q4fl&#39;, &#39;us6000q4e1&#39;, &#39;us6000q4dj&#39;, &#39;us6000q66r&#39;, &#39;us7000pp8y&#39;, &#39;us7000pnfe&#39;, &#39;us7000pmyk&#39;, &#39;us7000pmwp&#39;, &#39;us7000pml0&#39;, &#39;us7000pmgv&#39;, &#39;us7000pmfn&#39;, &#39;us7000pmfb&#39;, &#39;us7000pmey&#39;, &#39;us7000pmem&#39;, &#39;us7000plea&#39;, &#39;us7000pnd4&#39;, &#39;us7000pn3u&#39;, &#39;us6000pz95&#39;, &#39;us7000pmji&#39;, &#39;us7000pma0&#39;, &#39;us6000pyxi&#39;, &#39;us6000pxhf&#39;, &#39;us6000pxez&#39;, &#39;us6000px70&#39;, &#39;us6000px2v&#39;, &#39;us6000px2t&#39;, &#39;us6000px2i&#39;, &#39;us6000pwzl&#39;, &#39;us6000pwfl&#39;, &#39;us6000pwce&#39;, &#39;us6000pxzl&#39;, &#39;us6000pwca&#39;, &#39;us6000pw31&#39;, &#39;us6000pxg5&#39;, &#39;us6000pvqi&#39;, &#39;us6000pveh&#39;, &#39;us7000pdpt&#39;, &#39;us7000pek4&#39;, &#39;us7000pea4&#39;, &#39;us7000pdq4&#39;, &#39;us7000pbk9&#39;, &#39;us7000pdex&#39;, &#39;us7000pbdm&#39;, &#39;us7000palm&#39;, &#39;us7000pabn&#39;, &#39;us6000pmru&#39;, &#39;us6000pmrw&#39;, &#39;us7000pb9x&#39;, &#39;us6000pmc8&#39;, &#39;us7000pacl&#39;, &#39;us6000pl6i&#39;, &#39;us6000pl33&#39;, &#39;us6000pk2k&#39;], &#39;Nicaragua&#39;: [&#39;us6000qkef&#39;, &#39;us6000qgdh&#39;, &#39;us6000qgbp&#39;, &#39;us7000q016&#39;, &#39;us7000pygc&#39;, &#39;us6000q4jd&#39;, &#39;us6000q4ia&#39;, &#39;us6000q4dq&#39;, &#39;us6000q5yx&#39;, &#39;us6000q3l6&#39;, &#39;us6000pzn9&#39;, &#39;us6000pz8x&#39;, &#39;us6000pyjd&#39;, &#39;us6000py8v&#39;, &#39;us6000pxb4&#39;, &#39;us6000pxb7&#39;, &#39;us6000pwmg&#39;, &#39;us6000pwl7&#39;, &#39;us6000pw1b&#39;, &#39;us6000pw0c&#39;, &#39;us6000px81&#39;, &#39;us7000pdyg&#39;, &#39;us7000pcjt&#39;, &#39;us7000pafh&#39;, &#39;us7000pac0&#39;, &#39;us6000pjep&#39;], &#39;North Atlantic Ocean&#39;: [&#39;us7000q1cl&#39;, &#39;us6000q3k0&#39;], &#39;North Korea&#39;: [&#39;us7000pm6q&#39;], &#39;Northern Mariana Islands&#39;: [&#39;us6000qik3&#39;, &#39;us6000qhdj&#39;, &#39;us6000qh97&#39;, &#39;us6000qk44&#39;, &#39;us6000qj6g&#39;, &#39;us7000q0m6&#39;, &#39;us6000qhg7&#39;, &#39;us6000qhfx&#39;, &#39;us6000qgfu&#39;, &#39;us7000py9w&#39;, &#39;us7000q138&#39;, &#39;us7000px0x&#39;, &#39;us7000pwil&#39;, &#39;us7000pzkk&#39;, &#39;us7000pves&#39;, &#39;us7000pyv4&#39;, &#39;us7000py09&#39;, &#39;us7000pxzy&#39;, &#39;us7000pwmb&#39;, &#39;us7000putm&#39;, &#39;us6000q5aq&#39;, &#39;us6000q6tp&#39;, &#39;us6000q4hk&#39;, &#39;us6000q66a&#39;, &#39;us6000q3sh&#39;, &#39;us6000q5ft&#39;, &#39;us6000q4y4&#39;, &#39;us7000pncf&#39;, &#39;us6000q3zp&#39;, &#39;us6000q3ym&#39;, &#39;us6000pyzx&#39;, &#39;us6000pyd6&#39;, &#39;us6000pzlh&#39;, &#39;us6000pzl9&#39;, &#39;us6000pyvi&#39;, &#39;us6000pxd8&#39;, &#39;us6000pylm&#39;, &#39;us6000pyl9&#39;, &#39;us6000pwaz&#39;, &#39;us6000px9m&#39;, &#39;us6000pvnf&#39;, &#39;us6000pvea&#39;, &#39;us7000pf95&#39;, &#39;us7000peax&#39;, &#39;us7000pdsd&#39;, &#39;us7000pdn5&#39;, &#39;us7000pdet&#39;, &#39;us7000pa3j&#39;, &#39;us7000pbi8&#39;, &#39;us6000pmjt&#39;, &#39;us7000pbhb&#39;, &#39;us7000pbh5&#39;, &#39;us6000pmft&#39;, &#39;us6000plcp&#39;, &#39;us6000plc2&#39;, &#39;us7000pa2d&#39;, &#39;us6000pmkq&#39;, &#39;us6000pllw&#39;, &#39;us6000plla&#39;], &#39;Norway&#39;: [&#39;us6000pjkz&#39;], &#39;Norwegian Sea&#39;: [&#39;us7000p9vc&#39;], &#39;Oman&#39;: [&#39;us6000qkkj&#39;, &#39;us6000qkk0&#39;, &#39;us7000pzet&#39;, &#39;us7000pvdy&#39;, &#39;us7000pcri&#39;], &#39;Oregon&#39;: [&#39;us6000pm9b&#39;], &#39;Owen Fracture Zone region&#39;: [&#39;us6000qj7h&#39;, &#39;us6000pwtw&#39;, &#39;us7000pdsp&#39;, &#39;us6000pmc4&#39;], ...}
+</pre></div>
+</div>
+</div>
+</div>
 <p>All of the groups are available as a dictionary via the <code class="docutils literal notranslate"><span class="pre">.groups</span></code> attribute:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -773,6 +1039,18 @@ The point of this lesson is to make you feel confident in using <code class="doc
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>194
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">groups</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_keys([&#39;2025 Drake Passage Earthquake&#39;, &#39;Afghanistan&#39;, &#39;Alaska&#39;, &#39;Algeria&#39;, &#39;Anguilla&#39;, &#39;Antigua and Barbuda&#39;, &#39;Arctic Ocean&#39;, &#39;Argentina&#39;, &#39;Armenia&#39;, &#39;Ascension Island region&#39;, &#39;Australia&#39;, &#39;Azerbaijan&#39;, &#39;Azores Islands region&#39;, &#39;Bahamas&#39;, &#39;Balleny Islands region&#39;, &#39;Banda Sea&#39;, &#39;Barbados&#39;, &#39;Bolivia&#39;, &#39;Bosnia and Herzegovina&#39;, &#39;Brazil&#39;, &#39;Burma&#39;, &#39;Burma (Myanmar)&#39;, &#39;Burma (Myanmar) Earthquake&#39;, &#39;CA&#39;, &#39;Canada&#39;, &#39;Carlsberg Ridge&#39;, &#39;Cayman Islands&#39;, &#39;Chad&#39;, &#39;Chagos Archipelago region&#39;, &#39;Chile&#39;, &#39;China&#39;, &#39;Colombia&#39;, &#39;Costa Rica&#39;, &#39;Croatia&#39;, &#39;Democratic Republic of the Congo&#39;, &#39;Dominica&#39;, &#39;Dominican Republic&#39;, &#39;Drake Passage&#39;, &#39;Easter Island region&#39;, &#39;Ecuador&#39;, &#39;Ecuador region&#39;, &#39;El Salvador&#39;, &#39;Eritrea&#39;, &#39;Ethiopia&#39;, &#39;Federated States of Micronesia&#39;, &#39;Federated States of Micronesia region&#39;, &#39;Fiji&#39;, &#39;Fiji region&#39;, &#39;Georgia&#39;, &#39;Greece&#39;, &#39;Greenland Sea&#39;, &#39;Guadeloupe&#39;, &#39;Guam&#39;, &#39;Guatemala&#39;, &#39;Hawaii&#39;, &#39;Honduras&#39;, &#39;Iceland&#39;, &#39;Iceland region&#39;, &#39;Idaho&#39;, &#39;India&#39;, &#39;India region&#39;, &#39;Indian Ocean Triple Junction&#39;, &#39;Indonesia&#39;, &#39;Iran&#39;, &#39;Italy&#39;, &#39;Japan&#39;, &#39;Japan region&#39;, &#39;Kazakhstan&#39;, &#39;Kermadec Islands region&#39;, &#39;Kuril Islands&#39;, &#39;Kuwait&#39;, &#39;Kyrgyzstan&#39;, &#39;Libya&#39;, &#39;MX&#39;, &#39;Macquarie Island region&#39;, &#39;Madagascar&#39;, &#39;Malawi&#39;, &#39;Mariana Islands region&#39;, &#39;Martinique&#39;, &#39;Mauritius&#39;, &#39;Mauritius - Reunion region&#39;, &#39;Mexico&#39;, &#39;Micronesia&#39;, &#39;Mid-Indian Ridge&#39;, &#39;Mongolia&#39;, &#39;Montenegro&#39;, &#39;Morocco&#39;, &#39;Nepal&#39;, &#39;New Caledonia&#39;, &#39;New Mexico&#39;, &#39;New Zealand&#39;, &#39;Nicaragua&#39;, &#39;North Atlantic Ocean&#39;, &#39;North Korea&#39;, &#39;Northern Mariana Islands&#39;, &#39;Norway&#39;, &#39;Norwegian Sea&#39;, &#39;Oman&#39;, &#39;Oregon&#39;, &#39;Owen Fracture Zone region&#39;, &#39;Pacific-Antarctic Ridge&#39;, &#39;Pakistan&#39;, &#39;Palau&#39;, &#39;Panama&#39;, &#39;Papua New Guinea&#39;, &#39;Peru&#39;, &#39;Philippines&#39;, &#39;Poland&#39;, &#39;Portugal&#39;, &#39;Prince Edward Islands region&#39;, &#39;Puerto Rico&#39;, &#39;Qatar&#39;, &#39;Revilla Gigedo Islands region&#39;, &#39;Reykjanes Ridge&#39;, &#39;Romania&#39;, &#39;Russia&#39;, &#39;Rwanda&#39;, &#39;Saint Helena&#39;, &#39;Saint Kitts and Nevis&#39;, &#39;Samoa&#39;, &#39;Saudi Arabia&#39;, &#39;Scotia Sea&#39;, &#39;Solomon Islands&#39;, &#39;Somalia&#39;, &#39;South Africa&#39;, &#39;South Atlantic Ocean&#39;, &#39;South Georgia Island region&#39;, &#39;South Indian Ocean&#39;, &#39;South Sandwich Islands region&#39;, &#39;South Shetland Islands&#39;, &#39;Southern Tibetan Plateau&#39;, &#39;Southwest Indian Ridge&#39;, &#39;Svalbard and Jan Mayen&#39;, &#39;Taiwan&#39;, &#39;Tajikistan&#39;, &#39;Tanzania&#39;, &#39;Tennessee&#39;, &#39;Texas&#39;, &#39;Thailand&#39;, &#39;Timor Leste&#39;, &#39;Tonga&#39;, &#39;Tristan da Cunha region&#39;, &#39;Tunisia&#39;, &#39;Turkey&#39;, &#39;U.S. Virgin Islands&#39;, &#39;Uganda&#39;, &#39;Ukraine&#39;, &#39;Uzbekistan&#39;, &#39;Vanuatu&#39;, &#39;Vanuatu region&#39;, &#39;Venezuela&#39;, &#39;Vietnam&#39;, &#39;Wallis and Futuna&#39;, &#39;Washington&#39;, &#39;West Chile Rise&#39;, &#39;Western Caribbean Sea&#39;, &#39;Xizang-Qinghai border region&#39;, &#39;Yemen&#39;, &#39;Zimbabwe&#39;, &#39;central East Pacific Rise&#39;, &#39;central Mid-Atlantic Ridge&#39;, &#39;east central Pacific Ocean&#39;, &#39;east of Severnaya Zemlya&#39;, &#39;east of the Kuril Islands&#39;, &#39;east of the South Sandwich Islands&#39;, &#39;north of Ascension Island&#39;, &#39;north of Franz Josef Land&#39;, &#39;north of Severnaya Zemlya&#39;, &#39;north of Svalbard&#39;, &#39;northern East Pacific Rise&#39;, &#39;northern Mid-Atlantic Ridge&#39;, &#39;northwest of New Zealand&#39;, &#39;northwest of the Kuril Islands&#39;, &#39;off the coast of Central America&#39;, &#39;off the coast of Ecuador&#39;, &#39;off the coast of Oregon&#39;, &#39;south of Africa&#39;, &#39;south of Panama&#39;, &#39;south of Tonga&#39;, &#39;south of the Fiji Islands&#39;, &#39;south of the Kermadec Islands&#39;, &#39;southeast Indian Ridge&#39;, &#39;southeast central Pacific Ocean&#39;, &#39;southeast of Easter Island&#39;, &#39;southeast of the Loyalty Islands&#39;, &#39;southern East Pacific Rise&#39;, &#39;southern Mid-Atlantic Ridge&#39;, &#39;southern Pacific Ocean&#39;, &#39;southwest of Africa&#39;, &#39;west of Macquarie Island&#39;, &#39;west of Vancouver Island&#39;, &#39;west of the Galapagos Islands&#39;, &#39;western Indian-Antarctic Ridge&#39;, &#39;western Xizang&#39;])
 </pre></div>
 </div>
 </div>
@@ -988,6 +1266,104 @@ The point of this lesson is to make you feel confident in using <code class="doc
 <p>You can loop through the groups if you want.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1, 2, 3]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;key1&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;key2&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;key3&#39;</span><span class="p">:</span><span class="mi">4</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;key1&#39;: 1, &#39;key2&#39;: 2, &#39;key3&#39;: 4}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="p">[</span><span class="s1">&#39;key1&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">groups</span><span class="p">[</span><span class="s1">&#39;south of Africa&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;us6000qjkh&#39;, &#39;us7000pp10&#39;, &#39;us6000pzrv&#39;, &#39;us6000pzl1&#39;, &#39;us6000pvw6&#39;], dtype=&#39;object&#39;, name=&#39;id&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">groups</span><span class="p">[</span><span class="s1">&#39;Afghanistan&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;us6000qkkm&#39;, &#39;us6000qjhm&#39;, &#39;us6000qiif&#39;, &#39;us6000qhyi&#39;, &#39;us6000qh0s&#39;,
+       &#39;us7000q1by&#39;, &#39;us7000q0z5&#39;, &#39;us7000q0aw&#39;, &#39;us7000q05h&#39;, &#39;us7000pzz5&#39;,
+       &#39;us7000pyne&#39;, &#39;us7000pydu&#39;, &#39;us7000px78&#39;, &#39;us7000pwle&#39;, &#39;us7000pve9&#39;,
+       &#39;us7000pvcr&#39;, &#39;us7000pv82&#39;, &#39;us7000pv7x&#39;, &#39;us7000pv02&#39;, &#39;us6000q76g&#39;,
+       &#39;us6000q6fr&#39;, &#39;us7000pw58&#39;, &#39;us6000q6c3&#39;, &#39;us7000ppcq&#39;, &#39;us7000pni6&#39;,
+       &#39;us7000pni0&#39;, &#39;us7000pne1&#39;, &#39;us7000pn0e&#39;, &#39;us7000pmym&#39;, &#39;us7000plhv&#39;,
+       &#39;us7000plec&#39;, &#39;us6000pzkp&#39;, &#39;us6000pxul&#39;, &#39;us6000pwru&#39;, &#39;us6000pxge&#39;,
+       &#39;us6000pvsk&#39;, &#39;us7000pflg&#39;, &#39;us7000pfcc&#39;, &#39;us7000pfc9&#39;, &#39;us7000pefx&#39;,
+       &#39;us7000pd3k&#39;, &#39;us7000pchv&#39;, &#39;us7000pb68&#39;, &#39;us7000pb30&#39;, &#39;us6000pmd7&#39;,
+       &#39;us6000plpp&#39;, &#39;us6000pk88&#39;, &#39;us6000pk23&#39;, &#39;us6000pjtx&#39;, &#39;us6000pjpy&#39;,
+       &#39;us6000pjlp&#39;],
+      dtype=&#39;object&#39;, name=&#39;id&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">gb</span><span class="p">:</span>
     <span class="n">display</span><span class="p">(</span><span class="n">group</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The key is &quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
@@ -1090,6 +1466,501 @@ The point of this lesson is to make you feel confident in using <code class="doc
 </table>
 <p>1 rows × 22 columns</p>
 </div></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The key is &quot;2025 Drake Passage Earthquake&quot;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">gb</span><span class="p">:</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">group</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The key is &quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+    <span class="n">n</span><span class="o">=</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span>
+    <span class="k">if</span> <span class="n">n</span><span class="o">&gt;</span><span class="mi">2</span><span class="p">:</span>
+        <span class="k">break</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>time</th>
+      <th>latitude</th>
+      <th>longitude</th>
+      <th>depth</th>
+      <th>mag</th>
+      <th>magType</th>
+      <th>nst</th>
+      <th>gap</th>
+      <th>dmin</th>
+      <th>rms</th>
+      <th>...</th>
+      <th>place</th>
+      <th>type</th>
+      <th>horizontalError</th>
+      <th>depthError</th>
+      <th>magError</th>
+      <th>magNst</th>
+      <th>status</th>
+      <th>locationSource</th>
+      <th>magSource</th>
+      <th>country</th>
+    </tr>
+    <tr>
+      <th>id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>us7000pwkn</th>
+      <td>2025-05-02 12:58:26.014000+00:00</td>
+      <td>-56.8094</td>
+      <td>-68.1019</td>
+      <td>10.0</td>
+      <td>7.4</td>
+      <td>mww</td>
+      <td>284.0</td>
+      <td>20.0</td>
+      <td>1.9</td>
+      <td>0.75</td>
+      <td>...</td>
+      <td>2025 Drake Passage Earthquake</td>
+      <td>earthquake</td>
+      <td>7.58</td>
+      <td>1.441</td>
+      <td>0.038</td>
+      <td>68.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+      <td>2025 Drake Passage Earthquake</td>
+    </tr>
+  </tbody>
+</table>
+<p>1 rows × 22 columns</p>
+</div></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The key is &quot;2025 Drake Passage Earthquake&quot;
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>time</th>
+      <th>latitude</th>
+      <th>longitude</th>
+      <th>depth</th>
+      <th>mag</th>
+      <th>magType</th>
+      <th>nst</th>
+      <th>gap</th>
+      <th>dmin</th>
+      <th>rms</th>
+      <th>...</th>
+      <th>place</th>
+      <th>type</th>
+      <th>horizontalError</th>
+      <th>depthError</th>
+      <th>magError</th>
+      <th>magNst</th>
+      <th>status</th>
+      <th>locationSource</th>
+      <th>magSource</th>
+      <th>country</th>
+    </tr>
+    <tr>
+      <th>id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>us6000qkkm</th>
+      <td>2025-06-16 10:34:13.071000+00:00</td>
+      <td>36.5269</td>
+      <td>70.2915</td>
+      <td>197.467</td>
+      <td>4.4</td>
+      <td>mb</td>
+      <td>38.0</td>
+      <td>89.0</td>
+      <td>2.218</td>
+      <td>0.85</td>
+      <td>...</td>
+      <td>39 km E of Farkhār, Afghanistan</td>
+      <td>earthquake</td>
+      <td>7.68</td>
+      <td>9.861</td>
+      <td>0.130</td>
+      <td>17.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+      <td>Afghanistan</td>
+    </tr>
+    <tr>
+      <th>us6000qjhm</th>
+      <td>2025-06-11 04:45:23.745000+00:00</td>
+      <td>36.5328</td>
+      <td>70.6591</td>
+      <td>215.471</td>
+      <td>4.4</td>
+      <td>mb</td>
+      <td>72.0</td>
+      <td>139.0</td>
+      <td>2.295</td>
+      <td>0.88</td>
+      <td>...</td>
+      <td>40 km SSW of Jurm, Afghanistan</td>
+      <td>earthquake</td>
+      <td>9.25</td>
+      <td>7.628</td>
+      <td>0.058</td>
+      <td>85.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+      <td>Afghanistan</td>
+    </tr>
+    <tr>
+      <th>us6000qiif</th>
+      <td>2025-06-06 19:26:58.547000+00:00</td>
+      <td>36.6295</td>
+      <td>68.0963</td>
+      <td>37.077</td>
+      <td>4.3</td>
+      <td>mb</td>
+      <td>69.0</td>
+      <td>124.0</td>
+      <td>2.192</td>
+      <td>0.57</td>
+      <td>...</td>
+      <td>36 km ESE of Khulm, Afghanistan</td>
+      <td>earthquake</td>
+      <td>8.13</td>
+      <td>9.473</td>
+      <td>0.068</td>
+      <td>61.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+      <td>Afghanistan</td>
+    </tr>
+    <tr>
+      <th>us6000qhyi</th>
+      <td>2025-06-04 19:29:30.379000+00:00</td>
+      <td>36.5033</td>
+      <td>71.1492</td>
+      <td>229.220</td>
+      <td>4.2</td>
+      <td>mb</td>
+      <td>69.0</td>
+      <td>79.0</td>
+      <td>2.096</td>
+      <td>0.80</td>
+      <td>...</td>
+      <td>39 km WSW of Ashkāsham, Afghanistan</td>
+      <td>earthquake</td>
+      <td>7.97</td>
+      <td>7.099</td>
+      <td>0.083</td>
+      <td>41.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+      <td>Afghanistan</td>
+    </tr>
+    <tr>
+      <th>us6000qh0s</th>
+      <td>2025-05-31 02:45:35.975000+00:00</td>
+      <td>35.8044</td>
+      <td>71.1038</td>
+      <td>83.711</td>
+      <td>4.3</td>
+      <td>mb</td>
+      <td>31.0</td>
+      <td>98.0</td>
+      <td>2.063</td>
+      <td>1.28</td>
+      <td>...</td>
+      <td>45 km NNE of Pārūn, Afghanistan</td>
+      <td>earthquake</td>
+      <td>8.31</td>
+      <td>7.823</td>
+      <td>0.154</td>
+      <td>12.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+      <td>Afghanistan</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 22 columns</p>
+</div></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The key is &quot;Afghanistan&quot;
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>time</th>
+      <th>latitude</th>
+      <th>longitude</th>
+      <th>depth</th>
+      <th>mag</th>
+      <th>magType</th>
+      <th>nst</th>
+      <th>gap</th>
+      <th>dmin</th>
+      <th>rms</th>
+      <th>...</th>
+      <th>place</th>
+      <th>type</th>
+      <th>horizontalError</th>
+      <th>depthError</th>
+      <th>magError</th>
+      <th>magNst</th>
+      <th>status</th>
+      <th>locationSource</th>
+      <th>magSource</th>
+      <th>country</th>
+    </tr>
+    <tr>
+      <th>id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>ak0257l477bi</th>
+      <td>2025-06-14 14:32:06.018000+00:00</td>
+      <td>65.7762</td>
+      <td>-145.7213</td>
+      <td>10.800</td>
+      <td>4.7</td>
+      <td>ml</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.80</td>
+      <td>...</td>
+      <td>47 km WNW of Central, Alaska</td>
+      <td>earthquake</td>
+      <td>NaN</td>
+      <td>0.200</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>reviewed</td>
+      <td>ak</td>
+      <td>ak</td>
+      <td>Alaska</td>
+    </tr>
+    <tr>
+      <th>ak0257jjjt29</th>
+      <td>2025-06-13 19:17:06.365000+00:00</td>
+      <td>60.1166</td>
+      <td>-153.4203</td>
+      <td>159.700</td>
+      <td>4.2</td>
+      <td>ml</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.67</td>
+      <td>...</td>
+      <td>50 km E of Port Alsworth, Alaska</td>
+      <td>earthquake</td>
+      <td>NaN</td>
+      <td>0.300</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>reviewed</td>
+      <td>ak</td>
+      <td>ak</td>
+      <td>Alaska</td>
+    </tr>
+    <tr>
+      <th>us6000qjn2</th>
+      <td>2025-06-11 20:36:16.744000+00:00</td>
+      <td>51.3129</td>
+      <td>-176.2917</td>
+      <td>27.118</td>
+      <td>4.7</td>
+      <td>mb</td>
+      <td>61.0</td>
+      <td>177.0</td>
+      <td>0.761</td>
+      <td>1.07</td>
+      <td>...</td>
+      <td>66 km SSE of Adak, Alaska</td>
+      <td>earthquake</td>
+      <td>6.3</td>
+      <td>6.568</td>
+      <td>0.039</td>
+      <td>206.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+      <td>Alaska</td>
+    </tr>
+    <tr>
+      <th>ak0257egu4bq</th>
+      <td>2025-06-10 12:28:19.795000+00:00</td>
+      <td>61.9075</td>
+      <td>-150.9539</td>
+      <td>15.200</td>
+      <td>4.1</td>
+      <td>ml</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.93</td>
+      <td>...</td>
+      <td>25 km ESE of Skwentna, Alaska</td>
+      <td>earthquake</td>
+      <td>NaN</td>
+      <td>0.100</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>reviewed</td>
+      <td>ak</td>
+      <td>ak</td>
+      <td>Alaska</td>
+    </tr>
+    <tr>
+      <th>us6000qim5</th>
+      <td>2025-06-07 04:00:30.558000+00:00</td>
+      <td>51.6019</td>
+      <td>-171.8916</td>
+      <td>35.000</td>
+      <td>4.3</td>
+      <td>mb</td>
+      <td>52.0</td>
+      <td>180.0</td>
+      <td>1.550</td>
+      <td>0.95</td>
+      <td>...</td>
+      <td>172 km ESE of Atka, Alaska</td>
+      <td>earthquake</td>
+      <td>8.9</td>
+      <td>1.974</td>
+      <td>0.047</td>
+      <td>127.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+      <td>Alaska</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 22 columns</p>
+</div></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The key is &quot;Alaska&quot;
 </pre></div>
 </div>
 </div>
@@ -1293,6 +2164,204 @@ The point of this lesson is to make you feel confident in using <code class="doc
 <p>5 rows × 22 columns</p>
 </div></div></div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gb</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s1">&#39;Afghanistan&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>time</th>
+      <th>latitude</th>
+      <th>longitude</th>
+      <th>depth</th>
+      <th>mag</th>
+      <th>magType</th>
+      <th>nst</th>
+      <th>gap</th>
+      <th>dmin</th>
+      <th>rms</th>
+      <th>...</th>
+      <th>place</th>
+      <th>type</th>
+      <th>horizontalError</th>
+      <th>depthError</th>
+      <th>magError</th>
+      <th>magNst</th>
+      <th>status</th>
+      <th>locationSource</th>
+      <th>magSource</th>
+      <th>country</th>
+    </tr>
+    <tr>
+      <th>id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>us6000qkkm</th>
+      <td>2025-06-16 10:34:13.071000+00:00</td>
+      <td>36.5269</td>
+      <td>70.2915</td>
+      <td>197.467</td>
+      <td>4.4</td>
+      <td>mb</td>
+      <td>38.0</td>
+      <td>89.0</td>
+      <td>2.218</td>
+      <td>0.85</td>
+      <td>...</td>
+      <td>39 km E of Farkhār, Afghanistan</td>
+      <td>earthquake</td>
+      <td>7.68</td>
+      <td>9.861</td>
+      <td>0.130</td>
+      <td>17.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+      <td>Afghanistan</td>
+    </tr>
+    <tr>
+      <th>us6000qjhm</th>
+      <td>2025-06-11 04:45:23.745000+00:00</td>
+      <td>36.5328</td>
+      <td>70.6591</td>
+      <td>215.471</td>
+      <td>4.4</td>
+      <td>mb</td>
+      <td>72.0</td>
+      <td>139.0</td>
+      <td>2.295</td>
+      <td>0.88</td>
+      <td>...</td>
+      <td>40 km SSW of Jurm, Afghanistan</td>
+      <td>earthquake</td>
+      <td>9.25</td>
+      <td>7.628</td>
+      <td>0.058</td>
+      <td>85.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+      <td>Afghanistan</td>
+    </tr>
+    <tr>
+      <th>us6000qiif</th>
+      <td>2025-06-06 19:26:58.547000+00:00</td>
+      <td>36.6295</td>
+      <td>68.0963</td>
+      <td>37.077</td>
+      <td>4.3</td>
+      <td>mb</td>
+      <td>69.0</td>
+      <td>124.0</td>
+      <td>2.192</td>
+      <td>0.57</td>
+      <td>...</td>
+      <td>36 km ESE of Khulm, Afghanistan</td>
+      <td>earthquake</td>
+      <td>8.13</td>
+      <td>9.473</td>
+      <td>0.068</td>
+      <td>61.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+      <td>Afghanistan</td>
+    </tr>
+    <tr>
+      <th>us6000qhyi</th>
+      <td>2025-06-04 19:29:30.379000+00:00</td>
+      <td>36.5033</td>
+      <td>71.1492</td>
+      <td>229.220</td>
+      <td>4.2</td>
+      <td>mb</td>
+      <td>69.0</td>
+      <td>79.0</td>
+      <td>2.096</td>
+      <td>0.80</td>
+      <td>...</td>
+      <td>39 km WSW of Ashkāsham, Afghanistan</td>
+      <td>earthquake</td>
+      <td>7.97</td>
+      <td>7.099</td>
+      <td>0.083</td>
+      <td>41.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+      <td>Afghanistan</td>
+    </tr>
+    <tr>
+      <th>us6000qh0s</th>
+      <td>2025-05-31 02:45:35.975000+00:00</td>
+      <td>35.8044</td>
+      <td>71.1038</td>
+      <td>83.711</td>
+      <td>4.3</td>
+      <td>mb</td>
+      <td>31.0</td>
+      <td>98.0</td>
+      <td>2.063</td>
+      <td>1.28</td>
+      <td>...</td>
+      <td>45 km NNE of Pārūn, Afghanistan</td>
+      <td>earthquake</td>
+      <td>8.31</td>
+      <td>7.823</td>
+      <td>0.154</td>
+      <td>12.0</td>
+      <td>reviewed</td>
+      <td>us</td>
+      <td>us</td>
+      <td>Afghanistan</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 22 columns</p>
+</div></div></div>
+</div>
 </section>
 </section>
 <section id="aggregation">
@@ -1306,7 +2375,7 @@ The point of this lesson is to make you feel confident in using <code class="doc
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2757/2808193076.py:1: FutureWarning: The provided callable &lt;function max at 0x79f6602a3100&gt; is currently using DataFrameGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_7419/2808193076.py:1: FutureWarning: The provided callable &lt;function max at 0x7bc470787100&gt; is currently using DataFrameGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
   gb.aggregate(np.max).head()
 </pre></div>
 </div>
@@ -1504,12 +2573,120 @@ The point of this lesson is to make you feel confident in using <code class="doc
 <p>By default, the operation is applied to every column. That’s usually not what we want. We can use both <code class="docutils literal notranslate"><span class="pre">.</span></code> or <code class="docutils literal notranslate"><span class="pre">[]</span></code> syntax to select a specific column to operate on. Then we get back a series.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gb</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x7bc3d0eb09b0&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gb</span><span class="o">.</span><span class="n">mag</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.SeriesGroupBy object at 0x7bc3d0952e70&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gb</span><span class="o">.</span><span class="n">mag</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_7419/2229133186.py:1: FutureWarning: The provided callable &lt;function max at 0x7bc470787100&gt; is currently using SeriesGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
+  gb.mag.aggregate(np.max)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>country
+2025 Drake Passage Earthquake     7.4
+Afghanistan                       5.7
+Alaska                            6.2
+Algeria                           4.8
+Anguilla                          4.5
+                                 ... 
+west of Macquarie Island          6.1
+west of Vancouver Island          4.2
+west of the Galapagos Islands     5.3
+western Indian-Antarctic Ridge    6.2
+western Xizang                    5.3
+Name: mag, Length: 194, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gb</span><span class="o">.</span><span class="n">mag</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_7419/2970731060.py:1: FutureWarning: The provided callable &lt;function sum at 0x7bc470786700&gt; is currently using SeriesGroupBy.sum. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;sum&quot; instead.
+  gb.mag.aggregate(np.sum)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>country
+2025 Drake Passage Earthquake       7.4
+Afghanistan                       221.7
+Alaska                            583.3
+Algeria                             4.8
+Anguilla                           13.1
+                                  ...  
+west of Macquarie Island           75.3
+west of Vancouver Island            4.2
+west of the Galapagos Islands      46.1
+western Indian-Antarctic Ridge    137.5
+western Xizang                     40.5
+Name: mag, Length: 194, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gb</span><span class="o">.</span><span class="n">mag</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_7419/480462825.py:1: FutureWarning: The provided callable &lt;function mean at 0x7bc470787b00&gt; is currently using SeriesGroupBy.mean. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;mean&quot; instead.
+  gb.mag.aggregate(np.mean)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>country
+2025 Drake Passage Earthquake     7.400000
+Afghanistan                       4.347059
+Alaska                            4.557031
+Algeria                           4.800000
+Anguilla                          4.366667
+                                    ...   
+west of Macquarie Island          4.706250
+west of Vancouver Island          4.200000
+west of the Galapagos Islands     4.610000
+western Indian-Antarctic Ridge    4.741379
+western Xizang                    4.500000
+Name: mag, Length: 194, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gb</span><span class="o">.</span><span class="n">mag</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2757/2287653877.py:1: FutureWarning: The provided callable &lt;function max at 0x79f6602a3100&gt; is currently using SeriesGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_7419/2287653877.py:1: FutureWarning: The provided callable &lt;function max at 0x7bc470787100&gt; is currently using SeriesGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
   gb.mag.aggregate(np.max).head()
 </pre></div>
 </div>
@@ -1531,7 +2708,7 @@ Name: mag, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2757/2071493650.py:1: FutureWarning: The provided callable &lt;function max at 0x79f6602a3100&gt; is currently using SeriesGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_7419/2071493650.py:1: FutureWarning: The provided callable &lt;function max at 0x7bc470787100&gt; is currently using SeriesGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
   gb.mag.aggregate(np.max).nlargest(10)
 </pre></div>
 </div>
@@ -1652,11 +2829,11 @@ Name: mag, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2757/1381609224.py:1: FutureWarning: The provided callable &lt;function min at 0x79f6602a3240&gt; is currently using SeriesGroupBy.min. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;min&quot; instead.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_7419/1381609224.py:1: FutureWarning: The provided callable &lt;function min at 0x7bc470787240&gt; is currently using SeriesGroupBy.min. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;min&quot; instead.
   gb.mag.aggregate([np.min, np.max, np.mean]).head()
-/tmp/ipykernel_2757/1381609224.py:1: FutureWarning: The provided callable &lt;function max at 0x79f6602a3100&gt; is currently using SeriesGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
+/tmp/ipykernel_7419/1381609224.py:1: FutureWarning: The provided callable &lt;function max at 0x7bc470787100&gt; is currently using SeriesGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
   gb.mag.aggregate([np.min, np.max, np.mean]).head()
-/tmp/ipykernel_2757/1381609224.py:1: FutureWarning: The provided callable &lt;function mean at 0x79f6602a3b00&gt; is currently using SeriesGroupBy.mean. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;mean&quot; instead.
+/tmp/ipykernel_7419/1381609224.py:1: FutureWarning: The provided callable &lt;function mean at 0x7bc470787b00&gt; is currently using SeriesGroupBy.mean. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;mean&quot; instead.
   gb.mag.aggregate([np.min, np.max, np.mean]).head()
 </pre></div>
 </div>
@@ -1731,11 +2908,11 @@ Name: mag, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2757/3179219123.py:1: FutureWarning: The provided callable &lt;function min at 0x79f6602a3240&gt; is currently using SeriesGroupBy.min. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;min&quot; instead.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_7419/3179219123.py:1: FutureWarning: The provided callable &lt;function min at 0x7bc470787240&gt; is currently using SeriesGroupBy.min. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;min&quot; instead.
   gb.mag.aggregate([np.min, np.max, np.mean]).nlargest(10, &#39;mean&#39;).plot(kind=&#39;bar&#39;)
-/tmp/ipykernel_2757/3179219123.py:1: FutureWarning: The provided callable &lt;function max at 0x79f6602a3100&gt; is currently using SeriesGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
+/tmp/ipykernel_7419/3179219123.py:1: FutureWarning: The provided callable &lt;function max at 0x7bc470787100&gt; is currently using SeriesGroupBy.max. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;max&quot; instead.
   gb.mag.aggregate([np.min, np.max, np.mean]).nlargest(10, &#39;mean&#39;).plot(kind=&#39;bar&#39;)
-/tmp/ipykernel_2757/3179219123.py:1: FutureWarning: The provided callable &lt;function mean at 0x79f6602a3b00&gt; is currently using SeriesGroupBy.mean. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;mean&quot; instead.
+/tmp/ipykernel_7419/3179219123.py:1: FutureWarning: The provided callable &lt;function mean at 0x7bc470787b00&gt; is currently using SeriesGroupBy.mean. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;mean&quot; instead.
   gb.mag.aggregate([np.min, np.max, np.mean]).nlargest(10, &#39;mean&#39;).plot(kind=&#39;bar&#39;)
 </pre></div>
 </div>
@@ -1806,155 +2983,8 @@ Name: mag, dtype: float64
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;&gt;:15: SyntaxWarning: invalid escape sequence &#39;\s&#39;
 &lt;&gt;:15: SyntaxWarning: invalid escape sequence &#39;\s&#39;
-/tmp/ipykernel_2757/2092298281.py:15: SyntaxWarning: invalid escape sequence &#39;\s&#39;
+/tmp/ipykernel_7419/2092298281.py:15: SyntaxWarning: invalid escape sequence &#39;\s&#39;
   names=headers, header=None, sep=&#39;\s+&#39;,
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2757/2092298281.py:15: SyntaxWarning: invalid escape sequence &#39;\s&#39;
-  names=headers, header=None, sep=&#39;\s+&#39;,
-</pre></div>
-</div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">24</span><span class="p">],</span> <span class="n">line</span> <span class="mi">14</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">2019</span><span class="p">):</span>
-<span class="g g-Whitespace">     </span><span class="mi">13</span>     <span class="n">data_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">/CRND0103-</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">-NY_Millbrook_3_W.txt&#39;</span>               
-<span class="ne">---&gt; </span><span class="mi">14</span>     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">ftp_base</span> <span class="o">+</span> <span class="n">data_url</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-<span class="g g-Whitespace">     </span><span class="mi">15</span>                      <span class="n">names</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;\s+&#39;</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span>                      <span class="n">na_values</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">9999.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">99.0</span><span class="p">])</span>
-<span class="g g-Whitespace">     </span><span class="mi">17</span>     <span class="n">dframes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span> <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">dframes</span><span class="p">)</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/io/parsers/readers.py:1026,</span> in <span class="ni">read_csv</span><span class="nt">(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, date_format, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, encoding_errors, dialect, on_bad_lines, delim_whitespace, low_memory, memory_map, float_precision, storage_options, dtype_backend)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1013</span> <span class="n">kwds_defaults</span> <span class="o">=</span> <span class="n">_refine_defaults_read</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1014</span>     <span class="n">dialect</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1015</span>     <span class="n">delimiter</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1022</span>     <span class="n">dtype_backend</span><span class="o">=</span><span class="n">dtype_backend</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1023</span> <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1024</span> <span class="n">kwds</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwds_defaults</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1026</span> <span class="k">return</span> <span class="n">_read</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="n">kwds</span><span class="p">)</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/io/parsers/readers.py:620,</span> in <span class="ni">_read</span><span class="nt">(filepath_or_buffer, kwds)</span>
-<span class="g g-Whitespace">    </span><span class="mi">617</span> <span class="n">_validate_names</span><span class="p">(</span><span class="n">kwds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;names&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
-<span class="g g-Whitespace">    </span><span class="mi">619</span> <span class="c1"># Create the parser.</span>
-<span class="ne">--&gt; </span><span class="mi">620</span> <span class="n">parser</span> <span class="o">=</span> <span class="n">TextFileReader</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">622</span> <span class="k">if</span> <span class="n">chunksize</span> <span class="ow">or</span> <span class="n">iterator</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">623</span>     <span class="k">return</span> <span class="n">parser</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/io/parsers/readers.py:1620,</span> in <span class="ni">TextFileReader.__init__</span><span class="nt">(self, f, engine, **kwds)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1617</span>     <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s2">&quot;has_index_names&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwds</span><span class="p">[</span><span class="s2">&quot;has_index_names&quot;</span><span class="p">]</span>
-<span class="g g-Whitespace">   </span><span class="mi">1619</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span><span class="p">:</span> <span class="n">IOHandles</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="ne">-&gt; </span><span class="mi">1620</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_engine</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/io/parsers/readers.py:1880,</span> in <span class="ni">TextFileReader._make_engine</span><span class="nt">(self, f, engine)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1878</span>     <span class="k">if</span> <span class="s2">&quot;b&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">mode</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1879</span>         <span class="n">mode</span> <span class="o">+=</span> <span class="s2">&quot;b&quot;</span>
-<span class="ne">-&gt; </span><span class="mi">1880</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span> <span class="o">=</span> <span class="n">get_handle</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1881</span>     <span class="n">f</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1882</span>     <span class="n">mode</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1883</span>     <span class="n">encoding</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;encoding&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
-<span class="g g-Whitespace">   </span><span class="mi">1884</span>     <span class="n">compression</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;compression&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
-<span class="g g-Whitespace">   </span><span class="mi">1885</span>     <span class="n">memory_map</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;memory_map&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
-<span class="g g-Whitespace">   </span><span class="mi">1886</span>     <span class="n">is_text</span><span class="o">=</span><span class="n">is_text</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1887</span>     <span class="n">errors</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;encoding_errors&quot;</span><span class="p">,</span> <span class="s2">&quot;strict&quot;</span><span class="p">),</span>
-<span class="g g-Whitespace">   </span><span class="mi">1888</span>     <span class="n">storage_options</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;storage_options&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
-<span class="g g-Whitespace">   </span><span class="mi">1889</span> <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1890</span> <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-<span class="g g-Whitespace">   </span><span class="mi">1891</span> <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span><span class="o">.</span><span class="n">handle</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/io/common.py:728,</span> in <span class="ni">get_handle</span><span class="nt">(path_or_buf, mode, encoding, compression, memory_map, is_text, errors, storage_options)</span>
-<span class="g g-Whitespace">    </span><span class="mi">725</span>     <span class="n">codecs</span><span class="o">.</span><span class="n">lookup_error</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">727</span> <span class="c1"># open URLs</span>
-<span class="ne">--&gt; </span><span class="mi">728</span> <span class="n">ioargs</span> <span class="o">=</span> <span class="n">_get_filepath_or_buffer</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">729</span>     <span class="n">path_or_buf</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">730</span>     <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">731</span>     <span class="n">compression</span><span class="o">=</span><span class="n">compression</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">732</span>     <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">733</span>     <span class="n">storage_options</span><span class="o">=</span><span class="n">storage_options</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">734</span> <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">736</span> <span class="n">handle</span> <span class="o">=</span> <span class="n">ioargs</span><span class="o">.</span><span class="n">filepath_or_buffer</span>
-<span class="g g-Whitespace">    </span><span class="mi">737</span> <span class="n">handles</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">BaseBuffer</span><span class="p">]</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/site-packages/pandas/io/common.py:384,</span> in <span class="ni">_get_filepath_or_buffer</span><span class="nt">(filepath_or_buffer, encoding, compression, mode, storage_options)</span>
-<span class="g g-Whitespace">    </span><span class="mi">382</span> <span class="c1"># assuming storage_options is to be interpreted as headers</span>
-<span class="g g-Whitespace">    </span><span class="mi">383</span> <span class="n">req_info</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">storage_options</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">384</span> <span class="k">with</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">req_info</span><span class="p">)</span> <span class="k">as</span> <span class="n">req</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">385</span>     <span class="n">content_encoding</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Content-Encoding&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">386</span>     <span class="k">if</span> <span class="n">content_encoding</span> <span class="o">==</span> <span class="s2">&quot;gzip&quot;</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">387</span>         <span class="c1"># Override compression based on Content-Encoding header</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/urllib/response.py:34,</span> in <span class="ni">addbase.__exit__</span><span class="nt">(self, type, value, traceback)</span>
-<span class="g g-Whitespace">     </span><span class="mi">33</span> <span class="k">def</span><span class="w"> </span><span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">34</span>     <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/tempfile.py:525,</span> in <span class="ni">_TemporaryFileWrapper.close</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">521</span> <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">522</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">523</span><span class="sd">     Close the temporary file, possibly deleting it.</span>
-<span class="g g-Whitespace">    </span><span class="mi">524</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">525</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_closer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/tempfile.py:466,</span> in <span class="ni">_TemporaryFileCloser.close</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">464</span> <span class="bp">self</span><span class="o">.</span><span class="n">close_called</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="g g-Whitespace">    </span><span class="mi">465</span> <span class="k">try</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">466</span>     <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">467</span> <span class="k">finally</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">468</span>     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">delete</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">delete_on_close</span><span class="p">:</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/urllib/response.py:52,</span> in <span class="ni">addclosehook.close</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">     </span><span class="mi">50</span>         <span class="bp">self</span><span class="o">.</span><span class="n">closehook</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="g g-Whitespace">     </span><span class="mi">51</span>         <span class="bp">self</span><span class="o">.</span><span class="n">hookargs</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="ne">---&gt; </span><span class="mi">52</span>         <span class="n">closehook</span><span class="p">(</span><span class="o">*</span><span class="n">hookargs</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">53</span> <span class="k">finally</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">54</span>     <span class="nb">super</span><span class="p">(</span><span class="n">addclosehook</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/urllib/request.py:2507,</span> in <span class="ni">ftpwrapper.file_close</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2506</span> <span class="k">def</span><span class="w"> </span><span class="nf">file_close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">2507</span>     <span class="bp">self</span><span class="o">.</span><span class="n">endtransfer</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">2508</span>     <span class="bp">self</span><span class="o">.</span><span class="n">refcount</span> <span class="o">-=</span> <span class="mi">1</span>
-<span class="g g-Whitespace">   </span><span class="mi">2509</span>     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">refcount</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">keepalive</span><span class="p">:</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/urllib/request.py:2497,</span> in <span class="ni">ftpwrapper.endtransfer</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2495</span> <span class="bp">self</span><span class="o">.</span><span class="n">busy</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="g g-Whitespace">   </span><span class="mi">2496</span> <span class="k">try</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">2497</span>     <span class="bp">self</span><span class="o">.</span><span class="n">ftp</span><span class="o">.</span><span class="n">voidresp</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">2498</span> <span class="k">except</span> <span class="n">ftperrors</span><span class="p">():</span>
-<span class="g g-Whitespace">   </span><span class="mi">2499</span>     <span class="k">pass</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/ftplib.py:259,</span> in <span class="ni">FTP.voidresp</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">257</span> <span class="k">def</span><span class="w"> </span><span class="nf">voidresp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">258</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Expect a response beginning with &#39;2&#39;.&quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">259</span>     <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getresp</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">260</span>     <span class="k">if</span> <span class="n">resp</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;2&#39;</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">261</span>         <span class="k">raise</span> <span class="n">error_reply</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/ftplib.py:244,</span> in <span class="ni">FTP.getresp</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">243</span> <span class="k">def</span><span class="w"> </span><span class="nf">getresp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">244</span>     <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getmultiline</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">245</span>     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debugging</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">246</span>         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;*resp*&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sanitize</span><span class="p">(</span><span class="n">resp</span><span class="p">))</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/ftplib.py:230,</span> in <span class="ni">FTP.getmultiline</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">229</span> <span class="k">def</span><span class="w"> </span><span class="nf">getmultiline</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">230</span>     <span class="n">line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getline</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">231</span>     <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;-&#39;</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">232</span>         <span class="n">code</span> <span class="o">=</span> <span class="n">line</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/ftplib.py:212,</span> in <span class="ni">FTP.getline</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">211</span> <span class="k">def</span><span class="w"> </span><span class="nf">getline</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">212</span>     <span class="n">line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">readline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maxline</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">213</span>     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxline</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">214</span>         <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s2">&quot;got more than </span><span class="si">%d</span><span class="s2"> bytes&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxline</span><span class="p">)</span>
-
-<span class="nn">File /srv/conda/envs/notebook/lib/python3.12/socket.py:720,</span> in <span class="ni">SocketIO.readinto</span><span class="nt">(self, b)</span>
-<span class="g g-Whitespace">    </span><span class="mi">718</span> <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">719</span>     <span class="k">try</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">720</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sock</span><span class="o">.</span><span class="n">recv_into</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">721</span>     <span class="k">except</span> <span class="n">timeout</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">722</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_occurred</span> <span class="o">=</span> <span class="kc">True</span>
-
-<span class="ne">KeyboardInterrupt</span>: 
 </pre></div>
 </div>
 </div>
@@ -2172,6 +3202,40 @@ Name: mag, dtype: float64
 </div>
 </div>
 <p>A common way to analyze such data in climate science is to create a “climatology,” which contains the average values in each month or day of the year. We can do this easily with groupby. Recall that <code class="docutils literal notranslate"><span class="pre">df.index</span></code> is a pandas <code class="docutils literal notranslate"><span class="pre">DateTimeIndex</span></code> object.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">index</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DatetimeIndex([&#39;2016-01-01&#39;, &#39;2016-01-02&#39;, &#39;2016-01-03&#39;, &#39;2016-01-04&#39;,
+               &#39;2016-01-05&#39;, &#39;2016-01-06&#39;, &#39;2016-01-07&#39;, &#39;2016-01-08&#39;,
+               &#39;2016-01-09&#39;, &#39;2016-01-10&#39;,
+               ...
+               &#39;2018-12-22&#39;, &#39;2018-12-23&#39;, &#39;2018-12-24&#39;, &#39;2018-12-25&#39;,
+               &#39;2018-12-26&#39;, &#39;2018-12-27&#39;, &#39;2018-12-28&#39;, &#39;2018-12-29&#39;,
+               &#39;2018-12-30&#39;, &#39;2018-12-31&#39;],
+              dtype=&#39;datetime64[ns]&#39;, name=&#39;LST_DATE&#39;, length=1096, freq=None)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([ 1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+       ...
+       12, 12, 12, 12, 12, 12, 12, 12, 12, 12],
+      dtype=&#39;int32&#39;, name=&#39;LST_DATE&#39;, length=1096)
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">monthly_climatology</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s1">&#39;number&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
@@ -2539,6 +3603,19 @@ Name: mag, dtype: float64
 <p>12 rows × 27 columns</p>
 </div></div></div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">monthly_climatology</span><span class="o">.</span><span class="n">T_DAILY_MAX</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;LST_DATE&#39;&gt;
+</pre></div>
+</div>
+<img alt="../../_images/04bb90fec3cbcc4f8f702a38bd4eaa674261cb3e96f005c40d6041cd3c0fae3a.png" src="../../_images/04bb90fec3cbcc4f8f702a38bd4eaa674261cb3e96f005c40d6041cd3c0fae3a.png" />
+</div>
+</div>
 <p>Each row in this new dataframe respresents the average values for the months (1=January, 2=February, etc.)</p>
 <p>We can apply more customized aggregations, as with any groupby operation. Below we keep the mean of the mean, max of the max, and min of the min for the temperature measurements.</p>
 <div class="cell docutils container">
@@ -2546,7 +3623,7 @@ Name: mag, dtype: float64
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">monthly_T_climatology</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span><span class="p">)</span><span class="o">.</span><span class="n">aggregate</span><span class="p">({</span><span class="s1">&#39;T_DAILY_MEAN&#39;</span><span class="p">:</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span>
                                                               <span class="s1">&#39;T_DAILY_MAX&#39;</span><span class="p">:</span> <span class="s1">&#39;max&#39;</span><span class="p">,</span>
                                                               <span class="s1">&#39;T_DAILY_MIN&#39;</span><span class="p">:</span> <span class="s1">&#39;min&#39;</span><span class="p">})</span>
-<span class="n">monthly_T_climatology</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">monthly_T_climatology</span>
 </pre></div>
 </div>
 </div>
@@ -2611,6 +3688,48 @@ Name: mag, dtype: float64
       <td>33.4</td>
       <td>-1.6</td>
     </tr>
+    <tr>
+      <th>6</th>
+      <td>18.733333</td>
+      <td>33.8</td>
+      <td>3.4</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>22.054839</td>
+      <td>35.7</td>
+      <td>8.2</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>21.410753</td>
+      <td>34.5</td>
+      <td>6.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>18.057778</td>
+      <td>32.7</td>
+      <td>0.3</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>11.938462</td>
+      <td>29.4</td>
+      <td>-4.1</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>4.097778</td>
+      <td>22.2</td>
+      <td>-15.9</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>-1.069892</td>
+      <td>16.9</td>
+      <td>-21.8</td>
+    </tr>
   </tbody>
 </table>
 </div></div></div>
@@ -2650,6 +3769,512 @@ Name: mag, dtype: float64
 <p>A common mode of analysis in climate science is to remove the climatology from a signal to focus only on the “anomaly” values. This can be accomplished with transformation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>WBANNO</th>
+      <th>CRX_VN</th>
+      <th>LONGITUDE</th>
+      <th>LATITUDE</th>
+      <th>T_DAILY_MAX</th>
+      <th>T_DAILY_MIN</th>
+      <th>T_DAILY_MEAN</th>
+      <th>T_DAILY_AVG</th>
+      <th>P_DAILY_CALC</th>
+      <th>SOLARAD_DAILY</th>
+      <th>...</th>
+      <th>SOIL_MOISTURE_10_DAILY</th>
+      <th>SOIL_MOISTURE_20_DAILY</th>
+      <th>SOIL_MOISTURE_50_DAILY</th>
+      <th>SOIL_MOISTURE_100_DAILY</th>
+      <th>SOIL_TEMP_5_DAILY</th>
+      <th>SOIL_TEMP_10_DAILY</th>
+      <th>SOIL_TEMP_20_DAILY</th>
+      <th>SOIL_TEMP_50_DAILY</th>
+      <th>SOIL_TEMP_100_DAILY</th>
+      <th></th>
+    </tr>
+    <tr>
+      <th>LST_DATE</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2016-01-01</th>
+      <td>64756</td>
+      <td>2.422</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>3.4</td>
+      <td>-0.5</td>
+      <td>1.5</td>
+      <td>1.3</td>
+      <td>0.0</td>
+      <td>1.69</td>
+      <td>...</td>
+      <td>0.233</td>
+      <td>0.204</td>
+      <td>0.155</td>
+      <td>0.147</td>
+      <td>4.2</td>
+      <td>4.4</td>
+      <td>5.1</td>
+      <td>6.0</td>
+      <td>7.6</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2016-01-02</th>
+      <td>64756</td>
+      <td>2.422</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>2.9</td>
+      <td>-3.6</td>
+      <td>-0.4</td>
+      <td>-0.3</td>
+      <td>0.0</td>
+      <td>6.25</td>
+      <td>...</td>
+      <td>0.227</td>
+      <td>0.199</td>
+      <td>0.152</td>
+      <td>0.144</td>
+      <td>2.8</td>
+      <td>3.1</td>
+      <td>4.2</td>
+      <td>5.7</td>
+      <td>7.4</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2016-01-03</th>
+      <td>64756</td>
+      <td>2.422</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>5.1</td>
+      <td>-1.8</td>
+      <td>1.6</td>
+      <td>1.1</td>
+      <td>0.0</td>
+      <td>5.69</td>
+      <td>...</td>
+      <td>0.223</td>
+      <td>0.196</td>
+      <td>0.151</td>
+      <td>0.141</td>
+      <td>2.6</td>
+      <td>2.8</td>
+      <td>3.8</td>
+      <td>5.2</td>
+      <td>7.2</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2016-01-04</th>
+      <td>64756</td>
+      <td>2.422</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>0.5</td>
+      <td>-14.4</td>
+      <td>-6.9</td>
+      <td>-7.5</td>
+      <td>0.0</td>
+      <td>9.17</td>
+      <td>...</td>
+      <td>0.220</td>
+      <td>0.194</td>
+      <td>0.148</td>
+      <td>0.139</td>
+      <td>1.7</td>
+      <td>2.1</td>
+      <td>3.4</td>
+      <td>4.9</td>
+      <td>6.9</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2016-01-05</th>
+      <td>64756</td>
+      <td>2.422</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>-5.2</td>
+      <td>-15.5</td>
+      <td>-10.3</td>
+      <td>-11.7</td>
+      <td>0.0</td>
+      <td>9.34</td>
+      <td>...</td>
+      <td>0.213</td>
+      <td>0.191</td>
+      <td>0.148</td>
+      <td>0.138</td>
+      <td>0.4</td>
+      <td>0.9</td>
+      <td>2.4</td>
+      <td>4.3</td>
+      <td>6.6</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2018-12-27</th>
+      <td>64756</td>
+      <td>2.622</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>2.5</td>
+      <td>-2.1</td>
+      <td>0.2</td>
+      <td>0.3</td>
+      <td>0.0</td>
+      <td>7.50</td>
+      <td>...</td>
+      <td>0.275</td>
+      <td>0.248</td>
+      <td>0.191</td>
+      <td>0.192</td>
+      <td>1.3</td>
+      <td>1.4</td>
+      <td>1.9</td>
+      <td>3.2</td>
+      <td>4.7</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2018-12-28</th>
+      <td>64756</td>
+      <td>2.622</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>11.6</td>
+      <td>1.9</td>
+      <td>6.8</td>
+      <td>7.6</td>
+      <td>11.5</td>
+      <td>0.45</td>
+      <td>...</td>
+      <td>0.295</td>
+      <td>0.261</td>
+      <td>0.193</td>
+      <td>0.191</td>
+      <td>2.9</td>
+      <td>2.7</td>
+      <td>2.5</td>
+      <td>3.1</td>
+      <td>4.5</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2018-12-29</th>
+      <td>64756</td>
+      <td>2.622</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>11.3</td>
+      <td>-2.1</td>
+      <td>4.6</td>
+      <td>6.3</td>
+      <td>0.0</td>
+      <td>4.89</td>
+      <td>...</td>
+      <td>0.295</td>
+      <td>0.270</td>
+      <td>0.208</td>
+      <td>0.191</td>
+      <td>4.5</td>
+      <td>4.4</td>
+      <td>4.0</td>
+      <td>3.8</td>
+      <td>4.5</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2018-12-30</th>
+      <td>64756</td>
+      <td>2.622</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>0.4</td>
+      <td>-4.1</td>
+      <td>-1.9</td>
+      <td>-1.5</td>
+      <td>0.2</td>
+      <td>3.32</td>
+      <td>...</td>
+      <td>0.286</td>
+      <td>0.261</td>
+      <td>0.204</td>
+      <td>0.194</td>
+      <td>2.6</td>
+      <td>2.8</td>
+      <td>3.3</td>
+      <td>4.0</td>
+      <td>4.7</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2018-12-31</th>
+      <td>64756</td>
+      <td>2.622</td>
+      <td>-73.74</td>
+      <td>41.79</td>
+      <td>5.0</td>
+      <td>-2.8</td>
+      <td>1.1</td>
+      <td>2.0</td>
+      <td>17.4</td>
+      <td>2.13</td>
+      <td>...</td>
+      <td>0.291</td>
+      <td>0.261</td>
+      <td>0.200</td>
+      <td>0.193</td>
+      <td>2.6</td>
+      <td>2.6</td>
+      <td>2.9</td>
+      <td>3.8</td>
+      <td>4.8</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>1096 rows × 28 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">monthly_T_climatology</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>T_DAILY_MEAN</th>
+      <th>T_DAILY_MAX</th>
+      <th>T_DAILY_MIN</th>
+    </tr>
+    <tr>
+      <th>LST_DATE</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>-2.100000</td>
+      <td>16.9</td>
+      <td>-26.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.712941</td>
+      <td>24.9</td>
+      <td>-24.7</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2.455914</td>
+      <td>26.8</td>
+      <td>-16.5</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>8.302222</td>
+      <td>30.6</td>
+      <td>-11.3</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>14.850538</td>
+      <td>33.4</td>
+      <td>-1.6</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>18.733333</td>
+      <td>33.8</td>
+      <td>3.4</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>22.054839</td>
+      <td>35.7</td>
+      <td>8.2</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>21.410753</td>
+      <td>34.5</td>
+      <td>6.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>18.057778</td>
+      <td>32.7</td>
+      <td>0.3</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>11.938462</td>
+      <td>29.4</td>
+      <td>-4.1</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>4.097778</td>
+      <td>22.2</td>
+      <td>-15.9</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>-1.069892</td>
+      <td>16.9</td>
+      <td>-21.8</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">anomaly</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">57</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">anomaly</span>
+
+<span class="ne">NameError</span>: name &#39;anomaly&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">standardize</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="c1">#(x - x.mean())#/x.std()</span>
+
+<span class="n">anomaly</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s1">&#39;number&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">standardize</span><span class="p">)</span>
+<span class="n">anomaly</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;T_DAILY_MEAN&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;LST_DATE&#39;&gt;
+</pre></div>
+</div>
+<img alt="../../_images/d2114725ebeaa2fb6e3917752448a7a720ced1b94f680bed5313540a70d30fc2.png" src="../../_images/d2114725ebeaa2fb6e3917752448a7a720ced1b94f680bed5313540a70d30fc2.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">standardize</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="c1">#/x.std()</span>
+
+<span class="n">anomaly</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s1">&#39;number&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">standardize</span><span class="p">)</span>
+<span class="n">anomaly</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;T_DAILY_MEAN&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;LST_DATE&#39;&gt;
+</pre></div>
+</div>
+<img alt="../../_images/d71262382ff4f4a28f4cdac3875947d989f5ab4a0f39b808686a7a9930a6e98e.png" src="../../_images/d71262382ff4f4a28f4cdac3875947d989f5ab4a0f39b808686a7a9930a6e98e.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">standardize</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">/</span><span class="n">x</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
 
@@ -2677,7 +4302,7 @@ Name: mag, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_1754/1287015095.py:1: FutureWarning: &#39;M&#39; is deprecated and will be removed in a future version, please use &#39;ME&#39; instead.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_7419/1287015095.py:1: FutureWarning: &#39;M&#39; is deprecated and will be removed in a future version, please use &#39;ME&#39; instead.
   df.select_dtypes(include=&#39;number&#39;).resample(&#39;M&#39;).mean().plot(y=&#39;T_DAILY_MEAN&#39;, marker=&#39;o&#39;)
 </pre></div>
 </div>
@@ -2685,6 +4310,23 @@ Name: mag, dtype: float64
 </pre></div>
 </div>
 <img alt="../../_images/e3ee18c6c9824a2869abac804b39eeeb95309efd8d8e4ad101385f55f34da453.png" src="../../_images/e3ee18c6c9824a2869abac804b39eeeb95309efd8d8e4ad101385f55f34da453.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s1">&#39;number&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;T_DAILY_MEAN&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_7419/2569503248.py:1: FutureWarning: &#39;M&#39; is deprecated and will be removed in a future version, please use &#39;ME&#39; instead.
+  df.select_dtypes(include=&#39;number&#39;).resample(&#39;M&#39;).std().plot(y=&#39;T_DAILY_MEAN&#39;, marker=&#39;o&#39;)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;LST_DATE&#39;&gt;
+</pre></div>
+</div>
+<img alt="../../_images/b63e1a104784dcc44d533ef07a62459e0c7e476e6ca3dbd0697c2f58498b8eaf.png" src="../../_images/b63e1a104784dcc44d533ef07a62459e0c7e476e6ca3dbd0697c2f58498b8eaf.png" />
 </div>
 </div>
 <p>Just like with <code class="docutils literal notranslate"><span class="pre">groupby</span></code>, we can apply any aggregation function to our <code class="docutils literal notranslate"><span class="pre">resample</span></code> operation.</p>
@@ -2695,7 +4337,7 @@ Name: mag, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_1754/1412777515.py:1: FutureWarning: &#39;M&#39; is deprecated and will be removed in a future version, please use &#39;ME&#39; instead.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_7419/1412777515.py:1: FutureWarning: &#39;M&#39; is deprecated and will be removed in a future version, please use &#39;ME&#39; instead.
   df.select_dtypes(include=&#39;number&#39;).resample(&#39;M&#39;).max().plot(y=&#39;T_DAILY_MAX&#39;, marker=&#39;o&#39;)
 </pre></div>
 </div>
@@ -2721,6 +4363,19 @@ Name: mag, dtype: float64
 </pre></div>
 </div>
 <img alt="../../_images/3fa6ffc28dda225a7a88e49eab4a028a9be9565e0e390c415775c24d2bd50d99.png" src="../../_images/3fa6ffc28dda225a7a88e49eab4a028a9be9565e0e390c415775c24d2bd50d99.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">T_DAILY_MEAN</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;LST_DATE&#39;&gt;
+</pre></div>
+</div>
+<img alt="../../_images/be42366b586d7eaf300c9fd7756bd2a1437b7f4aa9b3876a7f54f29ccccc90f8.png" src="../../_images/be42366b586d7eaf300c9fd7756bd2a1437b7f4aa9b3876a7f54f29ccccc90f8.png" />
 </div>
 </div>
 </section>
@@ -2765,6 +4420,15 @@ Name: mag, dtype: float64
         <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title">Pandas Fundamentals</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="../xarray/xarray_intro.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Xarray for multidimensional gridded data</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>

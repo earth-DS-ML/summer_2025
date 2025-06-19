@@ -210,6 +210,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../pandas/basic_pandas.html">Pandas Fundamentals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../pandas/pandas_groupby.html">Pandas: Groupby</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Xarray</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../xarray/xarray_intro.html">Xarray for multidimensional gridded data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xarray/xarray_fundamentals.html">Xarray Fundamentals</a></li>
+</ul>
 
     </div>
 </nav></div>
@@ -579,13 +584,31 @@ There are several <a class="reference external" href="https://pypi.python.org/py
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span><span class="w"> </span><span class="nn">gcdistance</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">help</span><span class="p">(</span><span class="n">gcdistance</span><span class="p">)</span> 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on module gcdistance:
 
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;gcdistance&#39;
+NAME
+    gcdistance - A python module for computing great circle distance
+
+FUNCTIONS
+    great_circle_distance(point1, point2)
+        Calculate great-circle distance between two points.
+
+        PARAMETERS
+        ----------
+        point1 : tuple
+            A (lat, lon) pair of coordinates in degrees
+        point2 : tuple
+            A (lat, lon) pair of coordinates in degrees
+
+        RETURNS
+        -------
+        distance : float
+
+DATA
+    R = 6371000.0
+
+FILE
+    /home/jovyan/summer_2025/lectures_DS/core_python/gcdistance.py
 </pre></div>
 </div>
 </div>
@@ -598,7 +621,7 @@ There are several <a class="reference external" href="https://pypi.python.org/py
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1460007.1890493981
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(1460007.189049398)
 </pre></div>
 </div>
 </div>
@@ -626,7 +649,7 @@ There are several <a class="reference external" href="https://pypi.python.org/py
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;module &#39;gcdistance&#39; from &#39;/Users/rpa/Teaching/research_computing/content/lectures/python/gcdistance.py&#39;&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;module &#39;gcdistance&#39; from &#39;/home/jovyan/summer_2025/lectures_DS/core_python/gcdistance.py&#39;&gt;
 </pre></div>
 </div>
 </div>
