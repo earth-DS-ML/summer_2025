@@ -217,6 +217,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../xarray/xarray_intro.html">Xarray for multidimensional gridded data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../xarray/xarray_fundamentals.html">Xarray Fundamentals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../xarray/xarray_advanced.html">Xarray Advanced</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../assignments/xarray_lab.html">Lab: Xarray with Sea Surface Temperature (SST) data</a></li>
 </ul>
 
     </div>
@@ -1344,7 +1345,7 @@ We will now bring in Matplotib to start visualizating these arrays.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f2856d3cda0&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7cd8af7e0cb0&gt;]
 </pre></div>
 </div>
 <img alt="../../_images/603f1bf3f1ae45fc73f091eed1d8fd5379d18a2c2049271fdba4407abf436374.png" src="../../_images/603f1bf3f1ae45fc73f091eed1d8fd5379d18a2c2049271fdba4407abf436374.png" />
@@ -1359,7 +1360,7 @@ He we use <code class="docutils literal notranslate"><span class="pre">pcolormes
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7f2856f566c0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7cd8af7e08f0&gt;
 </pre></div>
 </div>
 <img alt="../../_images/aee5e6ad0abf6c8531d407defa42e9534904af34d1b17628e4d4db5fbfdeeff6.png" src="../../_images/aee5e6ad0abf6c8531d407defa42e9534904af34d1b17628e4d4db5fbfdeeff6.png" />
@@ -1372,7 +1373,7 @@ He we use <code class="docutils literal notranslate"><span class="pre">pcolormes
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7f2856c1cd70&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7cd8af64dc70&gt;
 </pre></div>
 </div>
 <img alt="../../_images/687758ce4d9b814fbb3ee73767310e7d25a1314f8215395e457ac3ef919fa15b.png" src="../../_images/687758ce4d9b814fbb3ee73767310e7d25a1314f8215395e457ac3ef919fa15b.png" />
@@ -1399,7 +1400,7 @@ He we use <code class="docutils literal notranslate"><span class="pre">pcolormes
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f2856c3ac00&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7cd8af6ecfb0&gt;]
 </pre></div>
 </div>
 <img alt="../../_images/e231bdee97fec8d0a3261b94696c016c9598ffcf0ecb321bb5c9b73296c90dc7.png" src="../../_images/e231bdee97fec8d0a3261b94696c016c9598ffcf0ecb321bb5c9b73296c90dc7.png" />
@@ -1422,7 +1423,7 @@ He we use <code class="docutils literal notranslate"><span class="pre">pcolormes
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7f2856d1a630&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7cd8af7e0830&gt;
 </pre></div>
 </div>
 <img alt="../../_images/a59eab6f899beced9be60114504ebca682eedc05ebbf6afa7d2b6448e3e8d7bc.png" src="../../_images/a59eab6f899beced9be60114504ebca682eedc05ebbf6afa7d2b6448e3e8d7bc.png" />
@@ -1441,7 +1442,7 @@ He we use <code class="docutils literal notranslate"><span class="pre">pcolormes
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7f2856c57080&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7cd8af630410&gt;
 </pre></div>
 </div>
 <img alt="../../_images/fb2430822223cb60c72d454db888532dd7fc888396cbff89113e017fbc8c13ff.png" src="../../_images/fb2430822223cb60c72d454db888532dd7fc888396cbff89113e017fbc8c13ff.png" />
@@ -1455,8 +1456,8 @@ He we use <code class="docutils literal notranslate"><span class="pre">pcolormes
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">----------------------------------------------------------------</span>
+<span class="ne">ValueError</span><span class="g g-Whitespace">                     </span>Traceback (most recent call last)
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">31</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
 
@@ -1492,7 +1493,7 @@ You can accidentally lose the structure of the data.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7f284eb9d460&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7cd8a72f8c80&gt;
 </pre></div>
 </div>
 <img alt="../../_images/48b818563042a3bb9177ebab898f7fb78c95a6121f5e41e37d6d968d44158839.png" src="../../_images/48b818563042a3bb9177ebab898f7fb78c95a6121f5e41e37d6d968d44158839.png" />
@@ -1507,7 +1508,7 @@ You can accidentally lose the structure of the data.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7f284eb8c3e0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7cd8a732b440&gt;
 </pre></div>
 </div>
 <img alt="../../_images/e3be160088a48aacb62b62f6f59cc09e2fab6e45ac2813df7f0785b69cc81d3f.png" src="../../_images/e3be160088a48aacb62b62f6f59cc09e2fab6e45ac2813df7f0785b69cc81d3f.png" />
@@ -1600,7 +1601,7 @@ When performing operations on two arrays, NumPy compares their shapes element-wi
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7f284e94fb30&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7cd8a736cdd0&gt;
 </pre></div>
 </div>
 <img alt="../../_images/398feb5c8be4b594acce40d17421ac3535a7842f2e7923f47debb595e46e4103.png" src="../../_images/398feb5c8be4b594acce40d17421ac3535a7842f2e7923f47debb595e46e4103.png" />
@@ -1613,7 +1614,7 @@ When performing operations on two arrays, NumPy compares their shapes element-wi
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7f284e9db650&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7cd8af835850&gt;
 </pre></div>
 </div>
 <img alt="../../_images/1c8644f869a8f096c95db31624dfcb5ca39d50db1ca99e7a5bc5035ddb3d26bc.png" src="../../_images/1c8644f869a8f096c95db31624dfcb5ca39d50db1ca99e7a5bc5035ddb3d26bc.png" />
@@ -1632,8 +1633,8 @@ When performing operations on two arrays, NumPy compares their shapes element-wi
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(50, 100) (50,)
 </pre></div>
 </div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">----------------------------------------------------------------</span>
+<span class="ne">ValueError</span><span class="g g-Whitespace">                     </span>Traceback (most recent call last)
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">41</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># multiply f by y</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
@@ -1668,7 +1669,7 @@ Then the length-50 dimensions will line up.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7f2856cde6f0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7cd8a7227680&gt;
 </pre></div>
 </div>
 <img alt="../../_images/da9a8c4510b2bc3c6f24efa42f9e72b39bbe028cf60e5f0561b5fbe088c9d944.png" src="../../_images/da9a8c4510b2bc3c6f24efa42f9e72b39bbe028cf60e5f0561b5fbe088c9d944.png" />
@@ -1739,7 +1740,7 @@ Then the length-50 dimensions will line up.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7f284e946780&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7cd8a737bad0&gt;
 </pre></div>
 </div>
 <img alt="../../_images/398feb5c8be4b594acce40d17421ac3535a7842f2e7923f47debb595e46e4103.png" src="../../_images/398feb5c8be4b594acce40d17421ac3535a7842f2e7923f47debb595e46e4103.png" />
@@ -1800,7 +1801,7 @@ There are many different reduction operations. Here we will look at some of the 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.colorbar.Colorbar at 0x7f284e7fc320&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.colorbar.Colorbar at 0x7cd8a7225e50&gt;
 </pre></div>
 </div>
 <img alt="../../_images/a8ab64f21d321d3a4a83fe76e2a86e8586a87e4d31d2453a92004e459d9dcaa6.png" src="../../_images/a8ab64f21d321d3a4a83fe76e2a86e8586a87e4d31d2453a92004e459d9dcaa6.png" />
@@ -1903,7 +1904,7 @@ There are many different reduction operations. Here we will look at some of the 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f284e0a9af0&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7cd8a6a9b740&gt;]
 </pre></div>
 </div>
 <img alt="../../_images/fc5e394be84d42de0e3510d4d71901c19add75fd8d4f9ff46c303cdcb982c8e5.png" src="../../_images/fc5e394be84d42de0e3510d4d71901c19add75fd8d4f9ff46c303cdcb982c8e5.png" />
@@ -1916,7 +1917,7 @@ There are many different reduction operations. Here we will look at some of the 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f284df0b4a0&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7cd8a693ee40&gt;]
 </pre></div>
 </div>
 <img alt="../../_images/892396ac0d3953a4c21c8a9aa5c7272f999931c33a4f495499276c325d41b398.png" src="../../_images/892396ac0d3953a4c21c8a9aa5c7272f999931c33a4f495499276c325d41b398.png" />
@@ -2014,8 +2015,8 @@ Later we will learn about NetCDF, the recommended way to store earth and environ
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">AssertionError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">----------------------------------------------------------------</span>
+<span class="ne">AssertionError</span><span class="g g-Whitespace">                 </span>Traceback (most recent call last)
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">70</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_equal</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">g_loaded</span><span class="o">*</span><span class="mf">0.5</span><span class="p">)</span>
 

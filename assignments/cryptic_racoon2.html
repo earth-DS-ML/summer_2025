@@ -217,6 +217,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../lectures_DS/xarray/xarray_intro.html">Xarray for multidimensional gridded data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lectures_DS/xarray/xarray_fundamentals.html">Xarray Fundamentals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lectures_DS/xarray/xarray_advanced.html">Xarray Advanced</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xarray_lab.html">Lab: Xarray with Sea Surface Temperature (SST) data</a></li>
 </ul>
 
     </div>
@@ -455,6 +456,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r00/access/csv/ibtracs.ALL.list.v04r00.csv&#39;</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r01/access/csv/ibtracs.ALL.list.v04r01.csv&#39;</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ISO_TIME&#39;</span><span class="p">],</span> <span class="n">usecols</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">),</span>
                  <span class="n">skiprows</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">na_values</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;NOT_NAMED&#39;</span><span class="p">],</span>
                  <span class="n">keep_default_na</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;NAME&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">})</span>
@@ -503,11 +505,11 @@ document.write(`
       <td>1</td>
       <td>NI</td>
       <td>BB</td>
-      <td>NaN</td>
+      <td>UNNAMED</td>
       <td>1842-10-25 03:00:00</td>
       <td>NR</td>
-      <td>10.9000</td>
-      <td>80.3000</td>
+      <td>10.9</td>
+      <td>80.3</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
@@ -518,11 +520,11 @@ document.write(`
       <td>1</td>
       <td>NI</td>
       <td>BB</td>
-      <td>NaN</td>
+      <td>UNNAMED</td>
       <td>1842-10-25 06:00:00</td>
       <td>NR</td>
-      <td>10.8709</td>
-      <td>79.8265</td>
+      <td>10.9</td>
+      <td>79.8</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
@@ -533,11 +535,11 @@ document.write(`
       <td>1</td>
       <td>NI</td>
       <td>BB</td>
-      <td>NaN</td>
+      <td>UNNAMED</td>
       <td>1842-10-25 09:00:00</td>
       <td>NR</td>
-      <td>10.8431</td>
-      <td>79.3524</td>
+      <td>10.8</td>
+      <td>79.4</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
@@ -548,11 +550,11 @@ document.write(`
       <td>1</td>
       <td>NI</td>
       <td>BB</td>
-      <td>NaN</td>
+      <td>UNNAMED</td>
       <td>1842-10-25 12:00:00</td>
       <td>NR</td>
-      <td>10.8188</td>
-      <td>78.8772</td>
+      <td>10.8</td>
+      <td>78.9</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
@@ -563,11 +565,11 @@ document.write(`
       <td>1</td>
       <td>NI</td>
       <td>BB</td>
-      <td>NaN</td>
+      <td>UNNAMED</td>
       <td>1842-10-25 15:00:00</td>
       <td>NR</td>
-      <td>10.8000</td>
-      <td>78.4000</td>
+      <td>10.8</td>
+      <td>78.4</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
@@ -584,7 +586,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>716165
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>718380
 </pre></div>
 </div>
 </div>
@@ -598,7 +600,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>126392
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>126236
 </pre></div>
 </div>
 </div>
@@ -636,7 +638,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;NR&#39;, &#39;TS&#39;, &#39;ET&#39;, &#39;SS&#39;, &#39;MX&#39;, &#39;DS&#39;], dtype=object)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;NR&#39;, &#39;TS&#39;, &#39;ET&#39;, &#39;MX&#39;, &#39;SS&#39;, &#39;DS&#39;], dtype=object)
 </pre></div>
 </div>
 </div>
@@ -698,11 +700,11 @@ document.write(`
       <td>1</td>
       <td>NI</td>
       <td>BB</td>
-      <td>NaN</td>
+      <td>UNNAMED</td>
       <td>1842-10-25 03:00:00</td>
       <td>NR</td>
-      <td>10.9000</td>
-      <td>80.3000</td>
+      <td>10.9</td>
+      <td>80.3</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
@@ -713,11 +715,11 @@ document.write(`
       <td>1</td>
       <td>NI</td>
       <td>BB</td>
-      <td>NaN</td>
+      <td>UNNAMED</td>
       <td>1842-10-25 06:00:00</td>
       <td>NR</td>
-      <td>10.8709</td>
-      <td>79.8265</td>
+      <td>10.9</td>
+      <td>79.8</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
@@ -728,11 +730,11 @@ document.write(`
       <td>1</td>
       <td>NI</td>
       <td>BB</td>
-      <td>NaN</td>
+      <td>UNNAMED</td>
       <td>1842-10-25 09:00:00</td>
       <td>NR</td>
-      <td>10.8431</td>
-      <td>79.3524</td>
+      <td>10.8</td>
+      <td>79.4</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
@@ -743,11 +745,11 @@ document.write(`
       <td>1</td>
       <td>NI</td>
       <td>BB</td>
-      <td>NaN</td>
+      <td>UNNAMED</td>
       <td>1842-10-25 12:00:00</td>
       <td>NR</td>
-      <td>10.8188</td>
-      <td>78.8772</td>
+      <td>10.8</td>
+      <td>78.9</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
@@ -758,11 +760,11 @@ document.write(`
       <td>1</td>
       <td>NI</td>
       <td>BB</td>
-      <td>NaN</td>
+      <td>UNNAMED</td>
       <td>1842-10-25 15:00:00</td>
       <td>NR</td>
-      <td>10.8000</td>
-      <td>78.4000</td>
+      <td>10.8</td>
+      <td>78.4</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
@@ -814,7 +816,7 @@ document.write(`
   </thead>
   <tbody>
     <tr>
-      <th>666142</th>
+      <th>658946</th>
       <td>2015293N13266</td>
       <td>2015</td>
       <td>96</td>
@@ -829,7 +831,7 @@ document.write(`
       <td>872.0</td>
     </tr>
     <tr>
-      <th>666140</th>
+      <th>658944</th>
       <td>2015293N13266</td>
       <td>2015</td>
       <td>96</td>
@@ -844,7 +846,7 @@ document.write(`
       <td>886.0</td>
     </tr>
     <tr>
-      <th>666144</th>
+      <th>658948</th>
       <td>2015293N13266</td>
       <td>2015</td>
       <td>96</td>
@@ -859,10 +861,10 @@ document.write(`
       <td>878.0</td>
     </tr>
     <tr>
-      <th>427655</th>
+      <th>421320</th>
       <td>1980214N11330</td>
       <td>1980</td>
-      <td>57</td>
+      <td>55</td>
       <td>NA</td>
       <td>GM</td>
       <td>ALLEN</td>
@@ -874,13 +876,13 @@ document.write(`
       <td>899.0</td>
     </tr>
     <tr>
-      <th>178210</th>
+      <th>175293</th>
       <td>1935241N23291</td>
       <td>1935</td>
-      <td>46</td>
+      <td>45</td>
       <td>NA</td>
       <td>NA</td>
-      <td>NaN</td>
+      <td>UNNAMED</td>
       <td>1935-09-03 00:00:00</td>
       <td>TS</td>
       <td>24.6</td>
@@ -889,13 +891,13 @@ document.write(`
       <td>892.0</td>
     </tr>
     <tr>
-      <th>178211</th>
+      <th>175294</th>
       <td>1935241N23291</td>
       <td>1935</td>
-      <td>46</td>
+      <td>45</td>
       <td>NA</td>
       <td>NA</td>
-      <td>NaN</td>
+      <td>UNNAMED</td>
       <td>1935-09-03 02:00:00</td>
       <td>TS</td>
       <td>24.8</td>
@@ -904,13 +906,13 @@ document.write(`
       <td>892.0</td>
     </tr>
     <tr>
-      <th>178213</th>
+      <th>175296</th>
       <td>1935241N23291</td>
       <td>1935</td>
-      <td>46</td>
+      <td>45</td>
       <td>NA</td>
       <td>GM</td>
-      <td>NaN</td>
+      <td>UNNAMED</td>
       <td>1935-09-03 06:00:00</td>
       <td>TS</td>
       <td>25.1</td>
@@ -919,10 +921,10 @@ document.write(`
       <td>NaN</td>
     </tr>
     <tr>
-      <th>482093</th>
+      <th>475882</th>
       <td>1988253N12306</td>
       <td>1988</td>
-      <td>74</td>
+      <td>73</td>
       <td>NA</td>
       <td>CS</td>
       <td>GILBERT</td>
@@ -934,10 +936,10 @@ document.write(`
       <td>888.0</td>
     </tr>
     <tr>
-      <th>552477</th>
+      <th>545774</th>
       <td>1997253N12255</td>
       <td>1997</td>
-      <td>81</td>
+      <td>75</td>
       <td>EP</td>
       <td>MM</td>
       <td>LINDA</td>
@@ -949,7 +951,7 @@ document.write(`
       <td>902.0</td>
     </tr>
     <tr>
-      <th>605764</th>
+      <th>599042</th>
       <td>2005289N18282</td>
       <td>2005</td>
       <td>97</td>
@@ -1034,63 +1036,63 @@ document.write(`
       <td>2015-10-24 12:00:00</td>
       <td>TS</td>
       <td>23.2</td>
-      <td>-94.0000</td>
+      <td>-94.0</td>
       <td>185.0</td>
       <td>1007.0</td>
     </tr>
     <tr>
       <th>1980214N11330</th>
       <td>1980</td>
-      <td>57</td>
+      <td>55</td>
       <td>NA</td>
       <td>NA</td>
       <td>ALLEN</td>
       <td>1980-08-11 18:00:00</td>
       <td>TS</td>
       <td>28.9</td>
-      <td>-30.0000</td>
+      <td>-30.0</td>
       <td>165.0</td>
       <td>1010.0</td>
     </tr>
     <tr>
       <th>1935241N23291</th>
       <td>1935</td>
-      <td>46</td>
+      <td>45</td>
       <td>NA</td>
       <td>NA</td>
-      <td>NaN</td>
+      <td>UNNAMED</td>
       <td>1935-09-10 12:00:00</td>
       <td>TS</td>
       <td>57.0</td>
-      <td>-31.1196</td>
+      <td>-31.1</td>
       <td>160.0</td>
       <td>996.0</td>
     </tr>
     <tr>
       <th>1988253N12306</th>
       <td>1988</td>
-      <td>74</td>
+      <td>73</td>
       <td>NA</td>
       <td>NA</td>
       <td>GILBERT</td>
       <td>1988-09-20 00:00:00</td>
       <td>TS</td>
       <td>43.4</td>
-      <td>-54.0000</td>
+      <td>-54.0</td>
       <td>160.0</td>
       <td>1008.0</td>
     </tr>
     <tr>
       <th>1997253N12255</th>
       <td>1997</td>
-      <td>81</td>
+      <td>75</td>
       <td>EP</td>
       <td>MM</td>
       <td>LINDA</td>
       <td>1997-09-17 18:00:00</td>
       <td>TS</td>
       <td>23.5</td>
-      <td>-104.7000</td>
+      <td>-104.7</td>
       <td>160.0</td>
       <td>1007.0</td>
     </tr>
@@ -1104,35 +1106,35 @@ document.write(`
       <td>2005-10-26 18:00:00</td>
       <td>TS</td>
       <td>45.5</td>
-      <td>-52.0000</td>
+      <td>-52.0</td>
       <td>160.0</td>
       <td>1004.0</td>
     </tr>
     <tr>
       <th>2019236N10314</th>
       <td>2019</td>
-      <td>52</td>
+      <td>53</td>
       <td>NA</td>
       <td>NA</td>
       <td>DORIAN</td>
       <td>2019-09-09 00:00:00</td>
       <td>TS</td>
       <td>51.6</td>
-      <td>-46.4000</td>
+      <td>-46.4</td>
       <td>160.0</td>
       <td>1011.0</td>
     </tr>
     <tr>
       <th>1998295N12284</th>
       <td>1998</td>
-      <td>89</td>
+      <td>88</td>
       <td>NA</td>
       <td>NA</td>
       <td>MITCH</td>
       <td>1998-11-09 18:00:00</td>
       <td>TS</td>
       <td>63.5</td>
-      <td>-5.0000</td>
+      <td>-5.0</td>
       <td>155.0</td>
       <td>1005.0</td>
     </tr>
@@ -1146,7 +1148,7 @@ document.write(`
       <td>2005-09-26 06:00:00</td>
       <td>TS</td>
       <td>39.5</td>
-      <td>-69.9000</td>
+      <td>-69.9</td>
       <td>155.0</td>
       <td>1009.0</td>
     </tr>
@@ -1160,7 +1162,7 @@ document.write(`
       <td>2009-10-21 20:00:00</td>
       <td>TS</td>
       <td>24.3</td>
-      <td>-92.8000</td>
+      <td>-92.8</td>
       <td>155.0</td>
       <td>1005.0</td>
     </tr>
@@ -1189,7 +1191,7 @@ document.write(`
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;NAME&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/da3f1263f22ceb417d7f5868d7d5ec950b726a4d1fdc9c8538c151370b83c66d.png" src="../_images/da3f1263f22ceb417d7f5868d7d5ec950b726a4d1fdc9c8538c151370b83c66d.png" />
+<img alt="../_images/03b4e7ec2d9aa92be9f36b296b762a29e569d6fbe233ac5feebce060fa3038aa.png" src="../_images/03b4e7ec2d9aa92be9f36b296b762a29e569d6fbe233ac5feebce060fa3038aa.png" />
 </div>
 </div>
 </section>
@@ -1206,7 +1208,7 @@ document.write(`
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;BASIN&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/dbdd4ce44b02c2dd38faa78d6a971ff2f08fc236fc24f18961b9e6f9b7708caa.png" src="../_images/dbdd4ce44b02c2dd38faa78d6a971ff2f08fc236fc24f18961b9e6f9b7708caa.png" />
+<img alt="../_images/1ab055b6aa98891460b96dcb840d5bdf1af7916d00afee86ca9987e264da4e69.png" src="../_images/1ab055b6aa98891460b96dcb840d5bdf1af7916d00afee86ca9987e264da4e69.png" />
 </div>
 </div>
 </section>
@@ -1223,7 +1225,7 @@ document.write(`
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;BASIN&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/a8b5302c3551562145e1e4d53ddf124d5c2864b1b584b3153fc4c463b2d262cc.png" src="../_images/a8b5302c3551562145e1e4d53ddf124d5c2864b1b584b3153fc4c463b2d262cc.png" />
+<img alt="../_images/d39c14c8c900e954904f265abdc75b416c08c2ea470b412d86f6af449570d33d.png" src="../_images/d39c14c8c900e954904f265abdc75b416c08c2ea470b412d86f6af449570d33d.png" />
 </div>
 </div>
 </section>
@@ -1239,7 +1241,7 @@ document.write(`
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;LON&#39;, ylabel=&#39;LAT&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/de98770fcff9e65a36c403a804178f8b4f7e76f0174b7febf1c5871d00065407.png" src="../_images/de98770fcff9e65a36c403a804178f8b4f7e76f0174b7febf1c5871d00065407.png" />
+<img alt="../_images/b9a12e7366eaaa487971baf7db54716e538d960c137985161f6da931e342799d.png" src="../_images/b9a12e7366eaaa487971baf7db54716e538d960c137985161f6da931e342799d.png" />
 </div>
 </div>
 </section>
@@ -1329,11 +1331,11 @@ document.write(`
       <td>1</td>
       <td>NI</td>
       <td>BB</td>
-      <td>NaN</td>
+      <td>UNNAMED</td>
       <td>1842-10-25 03:00:00</td>
       <td>NR</td>
-      <td>10.9000</td>
-      <td>80.3000</td>
+      <td>10.9</td>
+      <td>80.3</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
@@ -1344,11 +1346,11 @@ document.write(`
       <td>1</td>
       <td>NI</td>
       <td>BB</td>
-      <td>NaN</td>
+      <td>UNNAMED</td>
       <td>1842-10-25 06:00:00</td>
       <td>NR</td>
-      <td>10.8709</td>
-      <td>79.8265</td>
+      <td>10.9</td>
+      <td>79.8</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
@@ -1359,11 +1361,11 @@ document.write(`
       <td>1</td>
       <td>NI</td>
       <td>BB</td>
-      <td>NaN</td>
+      <td>UNNAMED</td>
       <td>1842-10-25 09:00:00</td>
       <td>NR</td>
-      <td>10.8431</td>
-      <td>79.3524</td>
+      <td>10.8</td>
+      <td>79.4</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
@@ -1374,11 +1376,11 @@ document.write(`
       <td>1</td>
       <td>NI</td>
       <td>BB</td>
-      <td>NaN</td>
+      <td>UNNAMED</td>
       <td>1842-10-25 12:00:00</td>
       <td>NR</td>
-      <td>10.8188</td>
-      <td>78.8772</td>
+      <td>10.8</td>
+      <td>78.9</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
@@ -1389,11 +1391,11 @@ document.write(`
       <td>1</td>
       <td>NI</td>
       <td>BB</td>
-      <td>NaN</td>
+      <td>UNNAMED</td>
       <td>1842-10-25 15:00:00</td>
       <td>NR</td>
-      <td>10.8000</td>
-      <td>78.4000</td>
+      <td>10.8</td>
+      <td>78.4</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
@@ -1413,83 +1415,83 @@ document.write(`
       <td>...</td>
     </tr>
     <tr>
-      <th>716160</th>
-      <td>2024147N19089</td>
-      <td>2024</td>
-      <td>27</td>
-      <td>NI</td>
-      <td>BB</td>
-      <td>REMAL</td>
-      <td>2024-05-27 06:00:00</td>
+      <th>718375</th>
+      <td>2025174N23146</td>
+      <td>2025</td>
+      <td>33</td>
+      <td>WP</td>
+      <td>MM</td>
+      <td>SEPAT</td>
+      <td>2025-06-23 12:00:00</td>
       <td>NR</td>
-      <td>23.0325</td>
-      <td>89.3509</td>
+      <td>27.0</td>
+      <td>143.0</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
     <tr>
-      <th>716161</th>
-      <td>2024147N19089</td>
-      <td>2024</td>
-      <td>27</td>
-      <td>NI</td>
-      <td>BB</td>
-      <td>REMAL</td>
-      <td>2024-05-27 09:00:00</td>
+      <th>718376</th>
+      <td>2025174N23146</td>
+      <td>2025</td>
+      <td>33</td>
+      <td>WP</td>
+      <td>MM</td>
+      <td>SEPAT</td>
+      <td>2025-06-23 15:00:00</td>
       <td>NR</td>
-      <td>23.3337</td>
-      <td>89.6178</td>
+      <td>27.7</td>
+      <td>142.5</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
     <tr>
-      <th>716162</th>
-      <td>2024147N19089</td>
-      <td>2024</td>
-      <td>27</td>
-      <td>NI</td>
-      <td>BB</td>
-      <td>REMAL</td>
-      <td>2024-05-27 12:00:00</td>
+      <th>718377</th>
+      <td>2025174N23146</td>
+      <td>2025</td>
+      <td>33</td>
+      <td>WP</td>
+      <td>MM</td>
+      <td>SEPAT</td>
+      <td>2025-06-23 18:00:00</td>
       <td>NR</td>
-      <td>23.6263</td>
-      <td>89.8799</td>
+      <td>28.4</td>
+      <td>141.9</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
     <tr>
-      <th>716163</th>
-      <td>2024147N19089</td>
-      <td>2024</td>
-      <td>27</td>
-      <td>NI</td>
-      <td>BB</td>
-      <td>REMAL</td>
-      <td>2024-05-27 15:00:00</td>
+      <th>718378</th>
+      <td>2025174N23146</td>
+      <td>2025</td>
+      <td>33</td>
+      <td>WP</td>
+      <td>MM</td>
+      <td>SEPAT</td>
+      <td>2025-06-23 21:00:00</td>
       <td>NR</td>
-      <td>23.9143</td>
-      <td>90.1400</td>
+      <td>28.9</td>
+      <td>141.4</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
     <tr>
-      <th>716164</th>
-      <td>2024147N19089</td>
-      <td>2024</td>
-      <td>27</td>
-      <td>NI</td>
-      <td>BB</td>
-      <td>REMAL</td>
-      <td>2024-05-27 18:00:00</td>
+      <th>718379</th>
+      <td>2025174N23146</td>
+      <td>2025</td>
+      <td>33</td>
+      <td>WP</td>
+      <td>MM</td>
+      <td>SEPAT</td>
+      <td>2025-06-24 00:00:00</td>
       <td>NR</td>
-      <td>24.2000</td>
-      <td>90.4000</td>
+      <td>29.3</td>
+      <td>141.0</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
   </tbody>
 </table>
-<p>716165 rows × 12 columns</p>
+<p>718380 rows × 12 columns</p>
 </div></div></div>
 </div>
 <div class="cell docutils container">
@@ -1513,7 +1515,7 @@ document.write(`
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;ISO_TIME&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/51b87d581c8e53c8a4fd368a61c8a979bc8199769950e006ba4b3387fb191498.png" src="../_images/51b87d581c8e53c8a4fd368a61c8a979bc8199769950e006ba4b3387fb191498.png" />
+<img alt="../_images/be70609ab5fc022056fd9d61c2fefa6759550a8f4de94f64959042ca74153fe9.png" src="../_images/be70609ab5fc022056fd9d61c2fefa6759550a8f4de94f64959042ca74153fe9.png" />
 </div>
 </div>
 </section>
@@ -1531,10 +1533,10 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7e5837030320&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x78ae4369d070&gt;
 </pre></div>
 </div>
-<img alt="../_images/05fd9b09add26e3450f745a72513a1599c31dd26abb644c8da30f738c49091aa.png" src="../_images/05fd9b09add26e3450f745a72513a1599c31dd26abb644c8da30f738c49091aa.png" />
+<img alt="../_images/a847ac1da35793c9a5ea9da9e6940539e47e7278d1700ee770fa958d4c4b3d3d.png" src="../_images/a847ac1da35793c9a5ea9da9e6940539e47e7278d1700ee770fa958d4c4b3d3d.png" />
 </div>
 </div>
 <p>Hopefully at this point students have gotten an idea of what is going on and can do the rest on their own.</p>

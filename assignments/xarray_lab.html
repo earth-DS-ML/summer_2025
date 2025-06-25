@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Lab 1: Pandas Fundamentals with Earthquake Data &#8212; Earth Data Science and Machine Learning</title>
+    <title>Lab: Xarray with Sea Surface Temperature (SST) data &#8212; Earth Data Science and Machine Learning</title>
   
   
   
@@ -57,11 +57,12 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'assignments/Pandas1';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'assignments/xarray_lab';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Lab 2: Pandas Groupby with Hurricane Data" href="Pandas2.html" />
-    <link rel="prev" title="Pandas: Groupby" href="../lectures_DS/pandas/pandas_groupby.html" />
+    <link rel="prev" title="Xarray Advanced" href="../lectures_DS/xarray/xarray_advanced.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -205,19 +206,19 @@
 <li class="toctree-l1"><a class="reference internal" href="more_matplotlib.html">Assignment 3b: More Matplotlib</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Pandas</span></p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../lectures_DS/pandas/pandas_intro.html">Pandas</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lectures_DS/pandas/basic_pandas.html">Pandas Fundamentals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lectures_DS/pandas/pandas_groupby.html">Pandas: Groupby</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lab 1: Pandas Fundamentals with Earthquake Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pandas1.html">Lab 1: Pandas Fundamentals with Earthquake Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Pandas2.html">Lab 2: Pandas Groupby with Hurricane Data</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Xarray</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../lectures_DS/xarray/xarray_intro.html">Xarray for multidimensional gridded data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lectures_DS/xarray/xarray_fundamentals.html">Xarray Fundamentals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lectures_DS/xarray/xarray_advanced.html">Xarray Advanced</a></li>
-<li class="toctree-l1"><a class="reference internal" href="xarray_lab.html">Lab: Xarray with Sea Surface Temperature (SST) data</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lab: Xarray with Sea Surface Temperature (SST) data</a></li>
 </ul>
 
     </div>
@@ -289,7 +290,7 @@
       
       
       
-      <li><a href="https://github.com/earth-DS-ML/summer_2025/issues/new?title=Issue%20on%20page%20%2Fassignments/Pandas1.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/earth-DS-ML/summer_2025/issues/new?title=Issue%20on%20page%20%2Fassignments/xarray_lab.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -319,7 +320,7 @@
       
       
       
-      <li><a href="../_sources/assignments/Pandas1.ipynb" target="_blank"
+      <li><a href="../_sources/assignments/xarray_lab.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -403,7 +404,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Lab 1: Pandas Fundamentals with Earthquake Data</h1>
+    <h1>Lab: Xarray with Sea Surface Temperature (SST) data</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -413,16 +414,26 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-pandas-read-csv-function-directly-on-this-url-to-open-it-as-a-dataframe">1) Use Pandas’ read_csv function directly on this URL to open it as a DataFrame</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#re-read-the-data-in-such-a-way-that-all-date-columns-are-identified-as-dates-and-the-earthquake-id-is-used-as-the-index">2) Re-read the data in such a way that all date columns are identified as dates and the earthquake ID is used as the index</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-describe-to-get-the-basic-statistics-of-all-the-columns">3) Use <code class="docutils literal notranslate"><span class="pre">describe</span></code> to get the basic statistics of all the columns</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-nlargest-to-get-the-top-20-earthquakes-by-magnitude">4) Use <code class="docutils literal notranslate"><span class="pre">nlargest</span></code> to get the top 20 earthquakes by magnitude</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extract-the-state-or-country-using-pandas-text-data-functions">5) Extract the state or country using Pandas text data functions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#display-each-unique-value-from-the-new-column">6) Display each unique value from the new column</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-filtered-dataset-that-only-has-earthquakes-of-magnitude-4-or-larger-and">7) Create a filtered dataset that only has earthquakes of magnitude 4 or larger and</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-filtered-dataset-magnitude-4-count-the-number-of-earthquakes-in-each-country-state-make-a-bar-chart-of-this-number-for-the-top-5-locations-with-the-most-earthquakes">8) Using the filtered dataset (magnitude &gt; 4), count the number of earthquakes in each country/state. Make a bar chart of this number for the top 5 locations with the most earthquakes</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-a-histogram-the-distribution-of-the-earthquake-magnitudes">9) Make a histogram the distribution of the Earthquake magnitudes</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-the-locations-of-earthquakes-by-making-a-scatterplot-of-their-latitude-and-longitude">11) Visualize the locations of earthquakes by making a scatterplot of their latitude and longitude</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opening-data-and-examining-the-metadata">1) Opening data and examining the metadata</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#open-the-dataset-and-display-its-contents">1.1) Open the dataset and display its contents</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#print-out-the-long-name-attribute-of-each-variable-and-coordinate">1.2) Print out the <code class="docutils literal notranslate"><span class="pre">long_name</span></code> attribute of each variable and coordinate</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-reductions-arithmetic-means-and-plotting">2) Basic reductions, arithmetic, means, and plotting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-the-time-mean-of-the-entire-dataset">2.1) Calculate the time-mean of the entire dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-a-map-of-the-time-mean-that-was-generated-in-the-above-part">2.2) Plot a map of the time-mean that was generated in the above part</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-a-spatial-mean-for-each-time-and-plot-this-as-a-timeseries">2.3) Calculate a spatial mean for each time, and plot this as a timeseries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-weight-array-proportional-to-cos-lambda">2.4) Create a <code class="docutils literal notranslate"><span class="pre">weight</span></code> array proportional to <span class="math notranslate nohighlight">\(\cos(\lambda)\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#redo-the-calculation-of-the-spatial-mean-for-each-time-and-plot-this-as-a-timeseries">2.5) Redo the calculation of the spatial mean for each time, and plot this as a timeseries</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-and-merging-data">3) Selecting and Merging Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-dataset-for-each-point-from-the-global-dataset">3.1) Create a dataset for each point from the global dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combine-these-four-datasets-into-a-new-dataset-with-the-new-dimension-location">3.2) Combine these four datasets into a new dataset with the new dimension <code class="docutils literal notranslate"><span class="pre">location</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-sst-at-each-location-as-a-timeseries-over-the-last-3-years">3.3) Plot the SST at each location as a timeseries over the last 3 years</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#group-by-and-enso-reproduce-the-sst-curve-from-the-figure-below">4) Group by and ENSO: Reproduce the SST curve from the figure below</a></li>
 </ul>
             </nav>
         </div>
@@ -434,71 +445,96 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="lab-1-pandas-fundamentals-with-earthquake-data">
-<h1>Lab 1: Pandas Fundamentals with Earthquake Data<a class="headerlink" href="#lab-1-pandas-fundamentals-with-earthquake-data" title="Link to this heading">#</a></h1>
-<p>In this assignment, we will review pandas fundamentals, such as how to</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-xarray-with-sea-surface-temperature-sst-data">
+<h1>Lab: Xarray with Sea Surface Temperature (SST) data<a class="headerlink" href="#lab-xarray-with-sea-surface-temperature-sst-data" title="Link to this heading">#</a></h1>
+<p>Here we will work with NOAA’s SST dataset, which can be accessed via:</p>
+<blockquote>
+<div><p><a class="reference external" href="http://www.esrl.noaa.gov/psd/thredds/dodsC/Datasets/noaa.ersst.v5/sst.mnmean.nc">http://www.esrl.noaa.gov/psd/thredds/dodsC/Datasets/noaa.ersst.v5/sst.mnmean.nc</a></p>
+</div></blockquote>
+<p>Start by importing Numpy, Matplotlib, and Xarray. Set the default figure size to (12, 6).</p>
+<section id="opening-data-and-examining-the-metadata">
+<h2>1) Opening data and examining the metadata<a class="headerlink" href="#opening-data-and-examining-the-metadata" title="Link to this heading">#</a></h2>
+<section id="open-the-dataset-and-display-its-contents">
+<h3>1.1) Open the dataset and display its contents<a class="headerlink" href="#open-the-dataset-and-display-its-contents" title="Link to this heading">#</a></h3>
+</section>
+<section id="print-out-the-long-name-attribute-of-each-variable-and-coordinate">
+<h3>1.2) Print out the <code class="docutils literal notranslate"><span class="pre">long_name</span></code> attribute of each variable and coordinate<a class="headerlink" href="#print-out-the-long-name-attribute-of-each-variable-and-coordinate" title="Link to this heading">#</a></h3>
+</section>
+</section>
+<section id="basic-reductions-arithmetic-means-and-plotting">
+<h2>2) Basic reductions, arithmetic, means, and plotting<a class="headerlink" href="#basic-reductions-arithmetic-means-and-plotting" title="Link to this heading">#</a></h2>
+<section id="calculate-the-time-mean-of-the-entire-dataset">
+<h3>2.1) Calculate the time-mean of the entire dataset<a class="headerlink" href="#calculate-the-time-mean-of-the-entire-dataset" title="Link to this heading">#</a></h3>
+</section>
+<section id="plot-a-map-of-the-time-mean-that-was-generated-in-the-above-part">
+<h3>2.2) Plot a map of the time-mean that was generated in the above part<a class="headerlink" href="#plot-a-map-of-the-time-mean-that-was-generated-in-the-above-part" title="Link to this heading">#</a></h3>
+</section>
+<section id="calculate-a-spatial-mean-for-each-time-and-plot-this-as-a-timeseries">
+<h3>2.3) Calculate a spatial mean for each time, and plot this as a timeseries<a class="headerlink" href="#calculate-a-spatial-mean-for-each-time-and-plot-this-as-a-timeseries" title="Link to this heading">#</a></h3>
+</section>
+<section id="create-a-weight-array-proportional-to-cos-lambda">
+<h3>2.4) Create a <code class="docutils literal notranslate"><span class="pre">weight</span></code> array proportional to <span class="math notranslate nohighlight">\(\cos(\lambda)\)</span><a class="headerlink" href="#create-a-weight-array-proportional-to-cos-lambda" title="Link to this heading">#</a></h3>
+<p>Think carefully a about radians vs. degrees</p>
+<p>The goal here is to realize that the dataset is provided on a <span class="math notranslate nohighlight">\(2^o\)</span>X<span class="math notranslate nohighlight">\(2^o\)</span> lat-lon grid. But we know that the distance between longitude lines shrinks as we approach the poles.</p>
+<p>This means that if we take a naive mean (as done in the above part), we are overemphasizing the influence of the regions away from the equator (since their area is smaller but they contribute the same to the mean). So here we plan to appropriately weight our data.</p>
+</section>
+<section id="redo-the-calculation-of-the-spatial-mean-for-each-time-and-plot-this-as-a-timeseries">
+<h3>2.5) Redo the calculation of the spatial mean for each time, and plot this as a timeseries<a class="headerlink" href="#redo-the-calculation-of-the-spatial-mean-for-each-time-and-plot-this-as-a-timeseries" title="Link to this heading">#</a></h3>
+</section>
+</section>
+<section id="selecting-and-merging-data">
+<h2>3) Selecting and Merging Data<a class="headerlink" href="#selecting-and-merging-data" title="Link to this heading">#</a></h2>
+<p>For the next problem, use the following approximate locations of four different locations in the ocean.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>city</p></th>
+<th class="head"><p>lon</p></th>
+<th class="head"><p>lat</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Equatorial Pacific (EP)</p></td>
+<td><p>250 E</p></td>
+<td><p>0 N</p></td>
+</tr>
+<tr class="row-odd"><td><p>Southern Ocean (SO)</p></td>
+<td><p>50 E</p></td>
+<td><p>60 S</p></td>
+</tr>
+<tr class="row-even"><td><p>North Atlantic (NAtl)</p></td>
+<td><p>300 E</p></td>
+<td><p>30 N</p></td>
+</tr>
+<tr class="row-odd"><td><p>Arabian Sea (AS)</p></td>
+<td><p>60 E</p></td>
+<td><p>20 N</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="create-a-dataset-for-each-point-from-the-global-dataset">
+<h3>3.1) Create a dataset for each point from the global dataset<a class="headerlink" href="#create-a-dataset-for-each-point-from-the-global-dataset" title="Link to this heading">#</a></h3>
+</section>
+<section id="combine-these-four-datasets-into-a-new-dataset-with-the-new-dimension-location">
+<h3>3.2) Combine these four datasets into a new dataset with the new dimension <code class="docutils literal notranslate"><span class="pre">location</span></code><a class="headerlink" href="#combine-these-four-datasets-into-a-new-dataset-with-the-new-dimension-location" title="Link to this heading">#</a></h3>
+<p>Create a new dimension coordinate to hold the location name.
+Display the combined dataset.</p>
+</section>
+<section id="plot-the-sst-at-each-location-as-a-timeseries-over-the-last-3-years">
+<h3>3.3) Plot the SST at each location as a timeseries over the last 3 years<a class="headerlink" href="#plot-the-sst-at-each-location-as-a-timeseries-over-the-last-3-years" title="Link to this heading">#</a></h3>
+</section>
+</section>
+<section id="group-by-and-enso-reproduce-the-sst-curve-from-the-figure-below">
+<h2>4) Group by and ENSO: Reproduce the SST curve from the figure below<a class="headerlink" href="#group-by-and-enso-reproduce-the-sst-curve-from-the-figure-below" title="Link to this heading">#</a></h2>
+<p><img alt="enso" src="https://www.ncdc.noaa.gov/monitoring-content/teleconnections/eln-f-pg.gif" /></p>
+<p>You don’t have to match the stylistic details, or use different colors above and below zero, just the “3mth running mean” curve.</p>
+<p>Here will will calculate the NINO 3.4 index of El Nino variabillity (which is the quantity shown in the above plot) and use it to analyze datasets.</p>
 <ul class="simple">
-<li><p>Open csv files</p></li>
-<li><p>Manipulate dataframe indexes</p></li>
-<li><p>Parse date columns</p></li>
-<li><p>Examine basic dataframe statistics</p></li>
-<li><p>Manipulate text columns and extract values</p></li>
-<li><p>Plot dataframe contents using</p>
-<ul>
-<li><p>Bar charts</p></li>
-<li><p>Histograms</p></li>
-<li><p>Scatter plots</p></li>
+<li><p>The Niño 3.4 region is defined as the region between +/- 5 deg. lat, 170 W - 120 W lon.</p></li>
+<li><p>Warm or cold phases of the Oceanic Niño Index are defined by a five consecutive 3-month running mean of sea surface temperature (SST) anomalies in the Niño 3.4 region that is above the threshold of +0.5°C (warm), or below the threshold of -0.5°C (cold). This is known as the Oceanic Niño Index (ONI).</p></li>
 </ul>
-</li>
-</ul>
-<p>First, import Numpy, Pandas and Matplotlib and set the display options.</p>
-<p>Data for this assignment in .csv format downloaded from the <a class="reference external" href="https://earthquake.usgs.gov/earthquakes/search/">USGS Earthquakes Database</a> is available at:</p>
-<p><a class="reference external" href="https://raw.githubusercontent.com/earth-DS-ML/summer_2025/refs/heads/main/lectures_DS/data/usgs_earthquakes_2025.csv">https://raw.githubusercontent.com/earth-DS-ML/summer_2025/refs/heads/main/lectures_DS/data/usgs_earthquakes_2025.csv</a></p>
-<p>You don’t need to download this file. You can open it directly with Pandas.</p>
-<section id="use-pandas-read-csv-function-directly-on-this-url-to-open-it-as-a-dataframe">
-<h2>1) Use Pandas’ read_csv function directly on this URL to open it as a DataFrame<a class="headerlink" href="#use-pandas-read-csv-function-directly-on-this-url-to-open-it-as-a-dataframe" title="Link to this heading">#</a></h2>
-<p>(Don’t use any special options). Display the first few rows and the DataFrame info.</p>
-<p>You should have seen that the dates were not automatically parsed into datetime types.</p>
-</section>
-<section id="re-read-the-data-in-such-a-way-that-all-date-columns-are-identified-as-dates-and-the-earthquake-id-is-used-as-the-index">
-<h2>2) Re-read the data in such a way that all date columns are identified as dates and the earthquake ID is used as the index<a class="headerlink" href="#re-read-the-data-in-such-a-way-that-all-date-columns-are-identified-as-dates-and-the-earthquake-id-is-used-as-the-index" title="Link to this heading">#</a></h2>
-<p>Verify that this worked using the <code class="docutils literal notranslate"><span class="pre">head</span></code> and <code class="docutils literal notranslate"><span class="pre">info</span></code> functions.</p>
-</section>
-<section id="use-describe-to-get-the-basic-statistics-of-all-the-columns">
-<h2>3) Use <code class="docutils literal notranslate"><span class="pre">describe</span></code> to get the basic statistics of all the columns<a class="headerlink" href="#use-describe-to-get-the-basic-statistics-of-all-the-columns" title="Link to this heading">#</a></h2>
-<p>Note the highest and lowest magnitude of earthquakes in the databse.</p>
-</section>
-<section id="use-nlargest-to-get-the-top-20-earthquakes-by-magnitude">
-<h2>4) Use <code class="docutils literal notranslate"><span class="pre">nlargest</span></code> to get the top 20 earthquakes by magnitude<a class="headerlink" href="#use-nlargest-to-get-the-top-20-earthquakes-by-magnitude" title="Link to this heading">#</a></h2>
-<p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.Series.nlargest.html">https://pandas.pydata.org/pandas-docs/stable/generated/pandas.Series.nlargest.html</a></p>
-<p>Examine the structure of the <code class="docutils literal notranslate"><span class="pre">place</span></code> column. The state / country information seems to be in there. How would you get it out?</p>
-</section>
-<section id="extract-the-state-or-country-using-pandas-text-data-functions">
-<h2>5) Extract the state or country using Pandas <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/text.html">text data functions</a><a class="headerlink" href="#extract-the-state-or-country-using-pandas-text-data-functions" title="Link to this heading">#</a></h2>
-<p>Add it as a new column to the dataframe called <code class="docutils literal notranslate"><span class="pre">country</span></code>. Note that some of the “countries” are actually U.S. states.</p>
-</section>
-<section id="display-each-unique-value-from-the-new-column">
-<h2>6) Display each unique value from the new column<a class="headerlink" href="#display-each-unique-value-from-the-new-column" title="Link to this heading">#</a></h2>
-<p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.Series.unique.html">https://pandas.pydata.org/pandas-docs/stable/generated/pandas.Series.unique.html</a></p>
-</section>
-<section id="create-a-filtered-dataset-that-only-has-earthquakes-of-magnitude-4-or-larger-and">
-<h2>7) Create a filtered dataset that only has earthquakes of magnitude 4 or larger and<a class="headerlink" href="#create-a-filtered-dataset-that-only-has-earthquakes-of-magnitude-4-or-larger-and" title="Link to this heading">#</a></h2>
-</section>
-<section id="using-the-filtered-dataset-magnitude-4-count-the-number-of-earthquakes-in-each-country-state-make-a-bar-chart-of-this-number-for-the-top-5-locations-with-the-most-earthquakes">
-<h2>8) Using the filtered dataset (magnitude &gt; 4), count the number of earthquakes in each country/state. Make a bar chart of this number for the top 5 locations with the most earthquakes<a class="headerlink" href="#using-the-filtered-dataset-magnitude-4-count-the-number-of-earthquakes-in-each-country-state-make-a-bar-chart-of-this-number-for-the-top-5-locations-with-the-most-earthquakes" title="Link to this heading">#</a></h2>
-<p>Location name on the x axis, Earthquake count on the y axis</p>
-</section>
-<section id="make-a-histogram-the-distribution-of-the-earthquake-magnitudes">
-<h2>9) Make a histogram the distribution of the Earthquake magnitudes<a class="headerlink" href="#make-a-histogram-the-distribution-of-the-earthquake-magnitudes" title="Link to this heading">#</a></h2>
-<p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/version/0.23/generated/pandas.DataFrame.hist.html">https://pandas.pydata.org/pandas-docs/version/0.23/generated/pandas.DataFrame.hist.html</a>
-<a class="reference external" href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.hist.html">https://matplotlib.org/api/_as_gen/matplotlib.pyplot.hist.html</a></p>
-<p>Do one subplot for the filtered and one for the unfiltered dataset.
-Use a Logarithmic scale. What sort of relationship do you see?</p>
-</section>
-<section id="visualize-the-locations-of-earthquakes-by-making-a-scatterplot-of-their-latitude-and-longitude">
-<h2>11) Visualize the locations of earthquakes by making a scatterplot of their latitude and longitude<a class="headerlink" href="#visualize-the-locations-of-earthquakes-by-making-a-scatterplot-of-their-latitude-and-longitude" title="Link to this heading">#</a></h2>
-<p>Use a two-column subplot with both the filtered and unfiltered datasets. Color the points by magnitude. Make it pretty</p>
-<p>What difference do you note between the filtered and unfiltered datasets?</p>
+<p>(Note that “anomaly” means that the seasonal cycle, also called the “climatology” has been removed.)</p>
+<p>Also for this part: Drop the <code class="docutils literal notranslate"><span class="pre">time_bnds</span></code> variable as we did in class and trim the data to 1950 onward for this assignment.</p>
 </section>
 </section>
 
@@ -533,22 +569,13 @@ Use a Logarithmic scale. What sort of relationship do you see?</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../lectures_DS/pandas/pandas_groupby.html"
+       href="../lectures_DS/xarray/xarray_advanced.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Pandas: Groupby</p>
+        <p class="prev-next-title">Xarray Advanced</p>
       </div>
-    </a>
-    <a class="right-next"
-       href="Pandas2.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Lab 2: Pandas Groupby with Hurricane Data</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -566,16 +593,26 @@ Use a Logarithmic scale. What sort of relationship do you see?</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-pandas-read-csv-function-directly-on-this-url-to-open-it-as-a-dataframe">1) Use Pandas’ read_csv function directly on this URL to open it as a DataFrame</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#re-read-the-data-in-such-a-way-that-all-date-columns-are-identified-as-dates-and-the-earthquake-id-is-used-as-the-index">2) Re-read the data in such a way that all date columns are identified as dates and the earthquake ID is used as the index</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-describe-to-get-the-basic-statistics-of-all-the-columns">3) Use <code class="docutils literal notranslate"><span class="pre">describe</span></code> to get the basic statistics of all the columns</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-nlargest-to-get-the-top-20-earthquakes-by-magnitude">4) Use <code class="docutils literal notranslate"><span class="pre">nlargest</span></code> to get the top 20 earthquakes by magnitude</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extract-the-state-or-country-using-pandas-text-data-functions">5) Extract the state or country using Pandas text data functions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#display-each-unique-value-from-the-new-column">6) Display each unique value from the new column</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-filtered-dataset-that-only-has-earthquakes-of-magnitude-4-or-larger-and">7) Create a filtered dataset that only has earthquakes of magnitude 4 or larger and</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-filtered-dataset-magnitude-4-count-the-number-of-earthquakes-in-each-country-state-make-a-bar-chart-of-this-number-for-the-top-5-locations-with-the-most-earthquakes">8) Using the filtered dataset (magnitude &gt; 4), count the number of earthquakes in each country/state. Make a bar chart of this number for the top 5 locations with the most earthquakes</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-a-histogram-the-distribution-of-the-earthquake-magnitudes">9) Make a histogram the distribution of the Earthquake magnitudes</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-the-locations-of-earthquakes-by-making-a-scatterplot-of-their-latitude-and-longitude">11) Visualize the locations of earthquakes by making a scatterplot of their latitude and longitude</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opening-data-and-examining-the-metadata">1) Opening data and examining the metadata</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#open-the-dataset-and-display-its-contents">1.1) Open the dataset and display its contents</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#print-out-the-long-name-attribute-of-each-variable-and-coordinate">1.2) Print out the <code class="docutils literal notranslate"><span class="pre">long_name</span></code> attribute of each variable and coordinate</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-reductions-arithmetic-means-and-plotting">2) Basic reductions, arithmetic, means, and plotting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-the-time-mean-of-the-entire-dataset">2.1) Calculate the time-mean of the entire dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-a-map-of-the-time-mean-that-was-generated-in-the-above-part">2.2) Plot a map of the time-mean that was generated in the above part</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-a-spatial-mean-for-each-time-and-plot-this-as-a-timeseries">2.3) Calculate a spatial mean for each time, and plot this as a timeseries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-weight-array-proportional-to-cos-lambda">2.4) Create a <code class="docutils literal notranslate"><span class="pre">weight</span></code> array proportional to <span class="math notranslate nohighlight">\(\cos(\lambda)\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#redo-the-calculation-of-the-spatial-mean-for-each-time-and-plot-this-as-a-timeseries">2.5) Redo the calculation of the spatial mean for each time, and plot this as a timeseries</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-and-merging-data">3) Selecting and Merging Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-dataset-for-each-point-from-the-global-dataset">3.1) Create a dataset for each point from the global dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combine-these-four-datasets-into-a-new-dataset-with-the-new-dimension-location">3.2) Combine these four datasets into a new dataset with the new dimension <code class="docutils literal notranslate"><span class="pre">location</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-sst-at-each-location-as-a-timeseries-over-the-last-3-years">3.3) Plot the SST at each location as a timeseries over the last 3 years</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#group-by-and-enso-reproduce-the-sst-curve-from-the-figure-below">4) Group by and ENSO: Reproduce the SST curve from the figure below</a></li>
 </ul>
   </nav></div>
 
