@@ -1,0 +1,674 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Final Project Requirements &#8212; Earth Data Science and Machine Learning</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lectures_DS/project_require';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Lab: Xarray with Sea Surface Temperature (SST) data" href="../assignments/xarray_lab.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo_class.png" class="logo__image only-light" alt="Earth Data Science and Machine Learning - Home"/>
+    <script>document.write(`<img src="../_static/logo_class.png" class="logo__image only-dark" alt="Earth Data Science and Machine Learning - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome to Earth Data Science and Machine Learning Course Series
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">The Interactive Computing Environment</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="computing_env/jupyterlab.html">Intro to JupyterLab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="computing_env/intro_to_unix.html">Intro to Unix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="computing_env/intro_to_git.html">Intro to Git for Version Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="computing_env/assignment1.html">Assignment 1: Files, Git, and Github</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="data/data.html">All About Data</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">The Core Python Language</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="core_python/python_fundamentals.html">Python Fundamentals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core_python/functions_classes.html">Python Functions and Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core_python/organization_and_packaging.html">Organization and Packaging of Python Projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../assignments/assignment_2.html">Assignment 2: Basic Python</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Scientific Python Fundamentals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="sci_python/numpy_and_matplotlib.html">Numpy and Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sci_python/more_matplotlib.html">More Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../assignments/numpy_matplotlib.html">Assignment 3a: Numpy and Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../assignments/more_matplotlib.html">Assignment 3b: More Matplotlib</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="pandas/pandas_intro.html">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pandas/basic_pandas.html">Pandas Fundamentals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pandas/pandas_groupby.html">Pandas: Groupby</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../assignments/Pandas1.html">Lab 1: Pandas Fundamentals with Earthquake Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../assignments/Pandas2.html">Lab 2: Pandas Groupby with Hurricane Data</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Xarray</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="xarray/xarray_intro.html">Xarray for multidimensional gridded data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xarray/xarray_fundamentals.html">Xarray Fundamentals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xarray/xarray_advanced.html">Xarray Advanced</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../assignments/xarray_lab.html">Lab: Xarray with Sea Surface Temperature (SST) data</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Project</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Final Project Requirements</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/earth-DS-ML/summer_2025" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/earth-DS-ML/summer_2025/issues/new?title=Issue%20on%20page%20%2Flectures_DS/project_require.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/lectures_DS/project_require.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Final Project Requirements</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#team-size-requirements">Team size requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-goals">Learning Goals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-requirements">Dataset Requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-requirements">Analysis Requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#technical-requirements">Technical Requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-approval">Project Approval</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#in-class-presentations">In-Class Presentations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-submission-confirmation-and-1-1-in-person-discussion">Final submission confirmation and 1-1 in person discussion</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="final-project-requirements">
+<h1>Final Project Requirements<a class="headerlink" href="#final-project-requirements" title="Link to this heading">#</a></h1>
+<section id="team-size-requirements">
+<h2>Team size requirements<a class="headerlink" href="#team-size-requirements" title="Link to this heading">#</a></h2>
+<p>Work in groups of 2-4 people. However, each individual should be able to describe every single component of the project.</p>
+</section>
+<section id="learning-goals">
+<h2>Learning Goals<a class="headerlink" href="#learning-goals" title="Link to this heading">#</a></h2>
+<p>The goal of the final project is to assess your ability to combine and apply the skills you have learned in class in the context of a real-world research/data-analysis problem. Our class has mostly focused on tools for data analysis and visualization, so this must be the focus of your final project. Specifically, we seek to assess your ability to do the following tasks:</p>
+<ul class="simple">
+<li><p>Discover and download real datasets in standard formats (e.g. CSV, netCDF, zarr etc)</p></li>
+<li><p>Load the data into Pandas or Xarray, performing any necessary data cleanup (dealing with missing values, proper time encoding, etc.) along the way.</p></li>
+<li><p>Perform realistic scientific calculation involving, for example tasks such as grouping, aggregating, and applying mathematical formulas.</p></li>
+<li><p>Visualize your results in well-formatted plots.</p></li>
+</ul>
+</section>
+<section id="dataset-requirements">
+<h2>Dataset Requirements<a class="headerlink" href="#dataset-requirements" title="Link to this heading">#</a></h2>
+<p>Your datasets can involve data collected by yourself or your lab, or can come from a public data repository. Ideally, your choice of dataset should be driven by your own interests. It is acceptable (and encouraged) to have your final project for this class involve an ongoing research project. <em>However, it is not acceptable to have your final project overlap with the final project for another class.</em></p>
+<p>For your datasets, you can get them from a few sources:</p>
+<ul class="simple">
+<li><p>We have already played around with a few datasets in class, and there are more are coming (look ahead at the material posted on course website). Feel free to base your project around one or few of these if they interest you.</p></li>
+<li><p>The material in our <a class="reference external" href="https://earth-env-data-science.github.io/intro.html">original book</a> towards the end (section on Climate Model Data), which we won’t have time to cover in this shorter course, contains examples of other datasets that you may be able to leverage.</p></li>
+<li><p>There are <a class="reference external" href="https://earth-env-data-science.github.io/projects.html">previous projects</a>, which you can use as inspiration and even source of the datasets (if the links still work!)</p></li>
+<li><p>There are a number of interesting datasets on <a class="reference external" href="https://catalog.leap.columbia.edu/">https://catalog.leap.columbia.edu/</a></p></li>
+</ul>
+<p>Also here are a couple of other links that may also help:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://iridl.ldeo.columbia.edu/">IRI Data Library</a></p></li>
+<li><p><a class="reference external" href="https://data.usgs.gov/datacatalog/">USGS Data Catalog</a></p></li>
+<li><p><a class="reference external" href="https://www.ncdc.noaa.gov/">NOAA National Climate Data Center</a></p></li>
+<li><p><a class="reference external" href="https://earthdata.nasa.gov/">NASA Earth Science Data</a></p></li>
+</ul>
+<p>You may use just one dataset, or you may choose to combine multiple datasets, depending on your scientific question.</p>
+</section>
+<section id="analysis-requirements">
+<h2>Analysis Requirements<a class="headerlink" href="#analysis-requirements" title="Link to this heading">#</a></h2>
+<p>The goal here is the same as with any science/data analysis project: to use the data to investigate a question or hypothesis. In order to succeed on the project, you will have to draw on your experience <em>outside</em> our class, from your other classes or independent research, in order to define an interesting question. It is also acceptable to use this project to reproduce the results from a published study that you find interesting, provided you have access to the original data.</p>
+<p>Whatever you choose, you should <em>clearly define a hypothesis or scientific question that you aim to investigate with your analysis</em>. This will determine what you have to do.</p>
+<p>The results of this analysis will be figures. Beautiful figures which clearly provide answers to your question / hypothesis. Your notebook should contain at least 4 and no more than 8 figures. If you have closer to 4, they should be complex, multi-panel figures. All figures must have titles, clearly labeled axes, informative colormaps / colorbars, and legends, where appropriate.</p>
+</section>
+<section id="technical-requirements">
+<h2>Technical Requirements<a class="headerlink" href="#technical-requirements" title="Link to this heading">#</a></h2>
+<p>Your final project must meet the following technical requirements</p>
+<ul class="simple">
+<li><p>A <em>single jupyter notebook</em></p></li>
+<li><p>Stored in a standalone public github repo</p></li>
+<li><p>All data is either stored in the repo itself or downloaded / accessed from within the notebook (no manual download steps)</p></li>
+<li><p>Complete explanatory text / equations included in the notebook as markdown cells</p></li>
+<li><p>Notebook must execute in sequence with no errors</p></li>
+<li><p>The whole github repo must be configured to run on <a class="reference external" href="https://leap.2i2c.cloud/">Leap pangeo hub</a></p></li>
+</ul>
+<p>You <em>must</em> use either Pandas or Xarray (or both) in some part of your project. You <em>may</em> use other scientific python libraries as well, if you wish, to facilitate some analysis that is not possible with Xarray / Pandas alone.</p>
+<p>Some other libraries you may wish to consider (but not required to) are:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/">SciPy</a> for interpolation, signal processing, spectral analysis, linear algebra, and other general purpose scientific computing routines</p></li>
+<li><p><a class="reference external" href="https://github.com/statsmodels/statsmodels">Statsmodels</a> for advanced statistical analysis</p></li>
+<li><p><a class="reference external" href="https://scikit-image.org/">Scikit-image</a> for image processing</p></li>
+<li><p><a class="reference external" href="https://scikit-learn.org/stable/">Scikit-learn</a> for machine learning</p></li>
+<li><p><a class="reference external" href="https://xgcm.readthedocs.io/en/latest/">XGCM</a> for working with finite-volume data from general circulation models</p></li>
+<li><p><a class="reference external" href="https://xesmf.readthedocs.io/en/latest/">XESMF</a> for regridding of gridded data</p></li>
+<li><p><a class="reference external" href="https://pyresample.readthedocs.io/en/latest/">Pyresample</a> for resampling (reprojection) of satellite data</p></li>
+<li><p><a class="reference external" href="https://ajdawson.github.io/eofs/">EOFS</a> for empirical orthogonal function analysis</p></li>
+<li><p><a class="reference external" href="https://ajdawson.github.io/windspharm/latest/">windspharm</a> for spherical harmonic analysis of global atmospheric wind data</p></li>
+<li><p><a class="reference external" href="https://unidata.github.io/MetPy/latest/index.html">metpy</a> a collection of tools in Python for reading, visualizing, and performing calculations with weather data</p></li>
+</ul>
+</section>
+<section id="project-approval">
+<h2>Project Approval<a class="headerlink" href="#project-approval" title="Link to this heading">#</a></h2>
+<p>You must have your dataset(s) and general scope for your project approved by the instructor.</p>
+<p>The approval process has two parts.</p>
+<p>For part 1:</p>
+<ul class="simple">
+<li><p>List of your group members</p></li>
+<li><p>A rough title and a very short informal description of what you are planning to do</p></li>
+<li><p>The deadline for this task is <strong>26 June 2025</strong> (note that similar to homeworks, a delay would lead to the standard 10% penalty per 2 days)</p></li>
+</ul>
+<p>For part 2:</p>
+<ul class="simple">
+<li><p>Create a new public github repo for your project</p></li>
+<li><p>Add a <code class="docutils literal notranslate"><span class="pre">README.md</span></code> file which contains the question / hypothesis you plan to investigate, links to the relevant datasets, and a three sentence summary of the analysis you plan to do. (It is very important that you have identified the datasets and know where to get them at this stage).</p></li>
+<li><p>Submit a link to your project repo via email to the instructor.</p></li>
+<li><p>The deadline for doing this <strong>1 July 2025</strong> (note that similar to homeworks, a delay would lead to the standard 10% penalty per 2 days)</p></li>
+</ul>
+</section>
+<section id="in-class-presentations">
+<h2>In-Class Presentations<a class="headerlink" href="#in-class-presentations" title="Link to this heading">#</a></h2>
+<p>You are asked to give a 10-minute presentation about your project. This can be done by one team member or as a group where you take turns.
+Do not prepare any slides. Instead, make your presentation by opening your notebook from GitHub on the presentation computer and walking us through parts of it.</p>
+<p>The presentations would take place on <strong>3 July 2025</strong> during the class period.</p>
+<p>Your presentation should be concise and ideally cover the following topics:</p>
+<ul class="simple">
+<li><p>What data did you analyze and how did you load it?</p></li>
+<li><p>What is the most interesting figure you made? (Show us the figure.)</p></li>
+<li><p>What was the biggest challenge you faced in completing your project.</p></li>
+</ul>
+<p><em>Don’t forget to make your project repo <strong>public</strong>; otherwise we won’t be able to see it.</em></p>
+<blockquote>
+<div><p>Note: Try to finish your projects to the best of your abilities before the class presentation. However, it is ok if you have not completed your project all the way (or to your heart’s satisfaction) by 3 July 2025. Still prepare a presentation and walk us through what you have done so far, what challenges you are actively facing, and what you plan to do to wrap up the project. The deadline for the final submission of the code would be the following week (read next section).</p>
+</div></blockquote>
+</section>
+<section id="final-submission-confirmation-and-1-1-in-person-discussion">
+<h2>Final submission confirmation and 1-1 in person discussion<a class="headerlink" href="#final-submission-confirmation-and-1-1-in-person-discussion" title="Link to this heading">#</a></h2>
+<p>To wrap up your project and this class, you will need to take 2 more steps after the presentation. Both these steps would need to be completed before end of the working day (5pm) on <strong>10 July 2025</strong>.</p>
+<ol class="arabic simple">
+<li><p>Confirm with the instructor and TA that you are happy with your submission (in your Github project repo), and you don’t plan to do any more changes. This will let us know when to go in and grade.</p></li>
+<li><p>Setup a meeting time to have a 1-1 discussion between the instructor and each group member.</p></li>
+</ol>
+<p>Guidance for the 1-1 discussion:</p>
+<ul class="simple">
+<li><p>This is a critical part of your evaluation for the project</p></li>
+<li><p>Schedule a time to meet the instructor on one of the following days: 3 July (sometime after the class), 8 July or 10 July. If possible, please find this time to meet with the instructor (via email or ask in class) with the whole group at once, and plan for each member spending about ~5 mins in 1-1 discussions.</p></li>
+<li><p>Ideally, this should be scheduled after you are have completed step 1 (confirming your final submission).</p></li>
+<li><p>During these meetings expect to be asked 2-3 questions about any part of the code or analysis, and be prepared to explain it in depth. (Each group member is expected to understand the entirety of the code, even if you had contributed to different parts of the work).</p></li>
+</ul>
+<p><em>Try to not wait till the last day to complete all these steps, as we will have finite time to do these 1-1 meetings and people will be served on first come first serve basis. So if you are unable to find a time to schedule this because all slots were taken, it would count as an incomplete submission.</em></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./lectures_DS"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../assignments/xarray_lab.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lab: Xarray with Sea Surface Temperature (SST) data</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#team-size-requirements">Team size requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-goals">Learning Goals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-requirements">Dataset Requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-requirements">Analysis Requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#technical-requirements">Technical Requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-approval">Project Approval</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#in-class-presentations">In-Class Presentations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-submission-confirmation-and-1-1-in-person-discussion">Final submission confirmation and 1-1 in person discussion</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dhruv Balwada & Kara Lamb
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
