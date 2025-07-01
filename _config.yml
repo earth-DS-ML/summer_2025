@@ -6,12 +6,13 @@ author: Dhruv Balwada & Kara Lamb
 logo: logo_class.png
 
 # Force re-execution of notebooks on each build.
-# See https://jupyterbook.org/content/execute.html
-execute:
-  execute_notebooks: force
+# See https://jupyterbook.org/content/execute.html  
 
-execution:                # or "execute:" in very old (<0.13) releases
+execute:                # or "execute:" in very old (<0.13) releases
+  execute_notebooks: force
   allow_errors: true      # keep outputs even if a cell raises
+  timeout: 3000  # time in seconds (default is 30)
+
 
 # Define the name of the latex output file for PDF builds
 latex:

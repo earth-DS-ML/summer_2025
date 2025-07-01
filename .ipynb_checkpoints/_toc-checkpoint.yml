@@ -30,5 +30,16 @@ parts:
     - file: lectures_DS/pandas/pandas_intro
     - file: lectures_DS/pandas/basic_pandas
     - file: lectures_DS/pandas/pandas_groupby
+    - file: assignments/Pandas1
+    - file: assignments/Pandas2
+  - caption: Xarray
+    chapters:
+    - file: lectures_DS/xarray/xarray_intro
+    - file: lectures_DS/xarray/xarray_fundamentals
+    - file: lectures_DS/xarray/xarray_advanced
+    - file: assignments/xarray_lab
+  - caption: Project
+    chapters:
+    - file: lectures_DS/project_require
 
 
